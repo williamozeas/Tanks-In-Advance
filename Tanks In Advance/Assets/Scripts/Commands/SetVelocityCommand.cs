@@ -23,4 +23,9 @@ public class SetVelocityCommand : Command
     {
         _tank.SetVelocity(_velocity);
     }
+
+    public override string ToString()
+    {
+        return _tank.name + ": Set Velocity to " + _velocity;
+    }
 }

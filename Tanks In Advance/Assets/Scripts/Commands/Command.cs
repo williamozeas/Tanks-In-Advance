@@ -8,5 +8,11 @@ using UnityEngine;
 public abstract class Command
 {
     protected float timestamp = -1;
+    public float Timestamp => timestamp;
     public abstract void Execute();
+
+    public override string ToString()
+    {
+        return "Generic Command";
+    }
 }

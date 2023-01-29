@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,17 @@ public abstract class MovingObject : MonoBehaviour
 {
     protected Vector2 velocity;
     public Vector2 Velocity => velocity;
+    private Rigidbody _rb;
     
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        Debug.Log(transform.position);
     }
 
     // FixedUpdate called every certain amt of time
