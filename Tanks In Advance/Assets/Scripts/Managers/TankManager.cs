@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class TankManager : Singleton<TankManager>
 {
-    public GameObject TankPrefab;
+    public GameObject BlueTankPrefab;
+    public GameObject RedTankPrefab;
 
     private List<Tank> p1Tanks = new List<Tank>();
     private List<Tank> p2Tanks = new List<Tank>();
@@ -32,9 +33,17 @@ public class TankManager : Singleton<TankManager>
 
     public Tank SpawnNewTank(Vector3 position, Quaternion rotation, PlayerNum playerNum)
     {
-        //TODO: Spawn new tank
-        Tank newTank = Instantiate(TankPrefab, position, rotation, transform).GetComponent<Tank>();
-        newTank.owner = playerNum;
+        GameObject tankPrefab;
+        if (playerNum == PlayerNum.Player1)
+        {
+            tankPrefab = BlueTankPrefab;
+        }
+        else
+        {
+            tankPrefab = RedTankPrefab;
+        }
+        Tank newTank = Instantiate(tankPrefab, position, rotation, transform).GetComponent<Tank>();
+        newTank.AssignToTeam(playerNum);
         return newTank;
     }
 }

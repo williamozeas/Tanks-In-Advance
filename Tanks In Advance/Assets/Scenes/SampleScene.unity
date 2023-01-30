@@ -168,7 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 0
-  TankPrefab: {fileID: 3546165342195858486, guid: e4dc9b159aff746a0872b02363b3f14f,
+  BlueTankPrefab: {fileID: 2795345262792937369, guid: 3c0677c9d697f49efbab130ca602d34c,
+    type: 3}
+  RedTankPrefab: {fileID: 2795345262792937369, guid: d37dc6c93aa934f59b345bf8f60c3f77,
     type: 3}
 --- !u!1 &330585543
 GameObject:

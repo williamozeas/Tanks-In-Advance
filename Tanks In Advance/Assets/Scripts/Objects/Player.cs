@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
             case(GameStates.Playing): {

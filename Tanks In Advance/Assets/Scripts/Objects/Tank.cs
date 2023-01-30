@@ -58,6 +58,7 @@ public class Tank : MovingObject
         {
             transform.position = _startLocation;
         }
+        velocity = Vector2.zero;
     }
 
     public void AddCommand(Command newCommand)
@@ -86,5 +87,12 @@ public class Tank : MovingObject
             nextCommand.Execute();
             Debug.Log("Set Velocity to " + nextCommand.ToString());
         }
+    }
+
+    //aesthetic changes based on team
+    public void AssignToTeam(PlayerNum newOwner)
+    {
+        owner = newOwner;
+        
     }
 }
