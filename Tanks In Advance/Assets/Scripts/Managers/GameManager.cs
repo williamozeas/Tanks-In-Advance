@@ -87,11 +87,12 @@ public class GameManager : Singleton<GameManager>
             case(GameStates.Playing):
             {
                 _roundTime = 0;
-                if (OnRoundStart != null) OnRoundStart(new Round());
+                if (OnRoundStart != null) OnRoundStart(new Round() { number = _roundNumber });
                 break;
             }
             case(GameStates.BetweenRounds):
             {
+                _roundNumber++;
                 if (OnRoundEnd != null) OnRoundEnd();
                 break;
             }

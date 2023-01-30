@@ -22,11 +22,11 @@ public class TankManager : Singleton<TankManager>
 
     private void OnRoundStart(Round round)
     {
-        Tank p1Tank = SpawnNewTank(new Vector3(-2, (round.number - 1) * 2, 0.5f), Quaternion.Euler(0, 0, 0), PlayerNum.Player1);
+        Tank p1Tank = SpawnNewTank(new Vector3(-3, 0.5f, (round.number - 1) * 3), Quaternion.Euler(0, 0, 0), PlayerNum.Player1);
         p1Tanks.Add(p1Tank);
         GameManager.Instance.Players[0].SetCurrentTank(p1Tank);
         
-        Tank p2Tank = SpawnNewTank(new Vector3(2, (round.number - 1) * 2, 0.5f), Quaternion.Euler(0, 180, 0), PlayerNum.Player2);
+        Tank p2Tank = SpawnNewTank(new Vector3(3, 0.5f, (round.number - 1) * 3), Quaternion.Euler(0, 180, 0), PlayerNum.Player2);
         p2Tanks.Add(p2Tank);
         GameManager.Instance.Players[1].SetCurrentTank(p2Tank);
     }

@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Tanks
   - Water
   - UI
-  - 
-  - 
+  - Walls
+  - Bullets
   - 
   - 
   - 

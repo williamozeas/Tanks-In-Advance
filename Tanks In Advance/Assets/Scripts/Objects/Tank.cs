@@ -43,7 +43,7 @@ public class Tank : MovingObject
     {
         if (IsRecorded)
         {
-            transform.position = _startLocation;
+            rb.position = _startLocation;
             StartCoroutine(Replay());
         }
         else
@@ -56,7 +56,7 @@ public class Tank : MovingObject
     {
         if (IsRecorded)
         {
-            transform.position = _startLocation;
+            rb.position = _startLocation;
         }
         velocity = Vector2.zero;
     }
