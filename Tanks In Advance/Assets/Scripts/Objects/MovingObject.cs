@@ -10,12 +10,15 @@ public abstract class MovingObject : MonoBehaviour
 {
     protected Vector2 velocity;
     public Vector2 Velocity => velocity;
-    private Rigidbody _rb;
+    public Rigidbody rb;
     
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        if (!rb)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
     private void Update()
@@ -27,7 +30,7 @@ public abstract class MovingObject : MonoBehaviour
     // used here to ensure variable framerate won't mess up our replay
     protected virtual void FixedUpdate()
     {
-        transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.fixedDeltaTime;
+        rb.velocity = new Vector3(velocity.x, 0, velocity.y);
     }
     
     public void SetVelocity(Vector2 newVelocity)
