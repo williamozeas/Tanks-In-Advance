@@ -3,16 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TankType
+{
+    basic = 0,
+}
+
 /*
  * Tanks will recieve input from the player and store that input in a list of commands, which will then
  * be replayed on subsequent rounds.
  */
 public class Tank : MovingObject
 {
-    public PlayerNum owner;
-    
-    [Header("Stats")] 
+    [HideInInspector] public PlayerNum owner;
+    private TankType type => TankType.basic; //can be overridden in parent class bc it's a property
+    public TankType Type => type;
+    [Header("Stats")]
     public float speed = 1.0f;
+    public int health = 1;
 
     private Vector3 _startLocation = Vector3.zero;
 
@@ -24,6 +31,8 @@ public class Tank : MovingObject
     {
         base.Start();
         _startLocation = transform.position;
+        health *= GameManager.Instance.gameParams.tankHealthMultiplier;
+        speed *= GameManager.Instance.gameParams.tankSpeedMultiplier;
     }
     
     //Subscribe to events

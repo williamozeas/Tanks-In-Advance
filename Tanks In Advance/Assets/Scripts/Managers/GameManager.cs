@@ -23,9 +23,19 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
+    [Header("References")] [SerializeField]
+    private TankList _tankList;
+    public TankList TankList => _tankList;
+    [SerializeField]
+    private MapList _mapList;
+    public MapList MapList => _mapList;
+    
+    
     [HideInInspector]
     public Player[] Players = new Player[2];
-    // public List<Player> Players = new List<Player>(2);
+
+    [HideInInspector] public MapSpawner mapSpawner;
+    [HideInInspector] public GameParams gameParams;
 
     //Events
     //These events will be called when the game state is changed. When an event is called, all subscribed
@@ -36,7 +46,6 @@ public class GameManager : Singleton<GameManager>
     public static event Action OnGameEnd;
     public static event Action OnMainMenu;
 
-    
     private float _roundTime = 0.0f;
     public float RoundTime => _roundTime; //shorthand to make round time unmodifiable from outside class
     
