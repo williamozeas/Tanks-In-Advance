@@ -56,6 +56,8 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         Players = new Player[2];
+        _tankList.Init();
+        _mapList.Init();
     }
     
     // Start is called before the first frame update

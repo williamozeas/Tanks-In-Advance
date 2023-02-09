@@ -33,9 +33,9 @@ public class Map : MonoBehaviour
         Destroy(this);
     }
 
-    public SpawnPoint GetSpawnPoint(int team, int round)
+    public SpawnPoint GetSpawnPoint(PlayerNum team, int round)
     {
-        if (team == 1)
+        if (team == PlayerNum.Player1)
         {
             if (round > team1SpawnPoints.Count)
             {

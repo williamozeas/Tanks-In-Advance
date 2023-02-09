@@ -12,8 +12,10 @@ public class MapList : ScriptableObject
     private Dictionary<MapName, GameObject> maps = new Dictionary<MapName, GameObject>();
 
     //you can't serialize dictionaries so I'm populating this one from a list
-    public void Awake()
+    //must be called on game start
+    public void Init()
     {
+        maps.Clear();
         foreach (var mapObj in mapList)
         {
             Map map = mapObj.GetComponent<Map>();
