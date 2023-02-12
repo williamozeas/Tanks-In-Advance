@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BreakableWall : Wall
 {
+    public int health = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,15 @@ public class BreakableWall : Wall
     void Update()
     {
         
+    }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("collided");
+    }*/
+    
+    void OnColliderEnter(Collision collision)
+    {
+        Debug.Log("collided");
     }
 }
