@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum MapName
@@ -11,8 +12,9 @@ public enum MapName
 public class Map : MonoBehaviour
 {
     public MapName nameEnum = MapName.TestMap;
-
     public string name = "Test Map";
+    
+    public GameObject wallsHolder;
     
     private List<SpawnPoint> team1SpawnPoints;
     private List<SpawnPoint> team2SpawnPoints;
@@ -25,6 +27,31 @@ public class Map : MonoBehaviour
         team1SpawnPoints = spawnPointHolder.P1SpawnPoints;
         team2SpawnPoints = spawnPointHolder.P2SpawnPoints;
         //Set Lighting, Animation, etc
+        
+        //Animation
+        StartCoroutine(AddMapAnim());
+    }
+
+    public IEnumerator AddMapAnim()
+    {
+        List < Wall > walls = new List<Wall>(wallsHolder.GetComponentsInChildren<Wall>());
+        walls.Sort((wall1, wall2) =>
+        {
+            float wall1Heuristic = -wall1.transform.position.z + wall1.transform.position.x;
+            float wall2Heuristic = -wall2.transform.position.z + wall2.transform.position.x;
+            return wall1Heuristic.CompareTo(wall2Heuristic);
+        });
+        foreach(Wall wall in walls)
+        {
+            wall.GetComponent<MeshRenderer>().enabled = false;
+        }
+        foreach(Wall wall in walls)
+        {
+            wall.GetComponent<MeshRenderer>().enabled = true;
+            StartCoroutine(wall.OnCreate());
+            yield return new WaitForSeconds(0.01f);
+        }
+
     }
 
     public void RemoveMap()

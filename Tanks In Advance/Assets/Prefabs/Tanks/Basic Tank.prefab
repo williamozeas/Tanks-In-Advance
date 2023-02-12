@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1856393808745056802}
   - component: {fileID: 6984858086777565192}
   - component: {fileID: 3891470613632009567}
+  - component: {fileID: 1830393612349528119}
   m_Layer: 3
   m_Name: Tank Model
   m_TagString: Untagged
@@ -114,6 +115,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!136 &1830393612349528119
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042254425304131900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.62
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3546165342195858486
 GameObject:
   m_ObjectHideFlags: 0
