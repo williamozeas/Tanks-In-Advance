@@ -13,7 +13,7 @@ public class PlayerInput
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
-        Shoot = KeyCode.Space;
+        Shoot = KeyCode.LeftShift;
     }
 }
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GameManager.Instance.RoundTime);
+        //Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
             case(GameStates.Playing): {
@@ -79,7 +79,16 @@ public class Player : MonoBehaviour
                     newVelocity += new Vector2(1, 0);
                 }
 
-                Debug.Log(newVelocity);
+                if (Input.GetKeyDown(inputs.Shoot))
+                {
+                    Vector2 angle = _currentTank.Velocity.normalized;
+                    Command shootCommand = 
+                            new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(shootCommand);
+                    shootCommand.Execute();
+                }
+
+                //Debug.Log(newVelocity);
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {

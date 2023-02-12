@@ -15,7 +15,7 @@ public class Bullet : MovingObject
     // Start is called before the first frame update
     protected override void Start()
     {
-        
+
     }
 
     // FixedUpdate called every certain amt of time

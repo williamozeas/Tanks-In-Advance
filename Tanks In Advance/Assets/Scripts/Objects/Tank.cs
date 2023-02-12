@@ -94,7 +94,7 @@ public class Tank : MovingObject
                 yield return new WaitForFixedUpdate();
             }
             nextCommand.Execute();
-            Debug.Log("Set Velocity to " + nextCommand.ToString());
+            //Debug.Log("Set Velocity to " + nextCommand.ToString());
         }
     }
 
