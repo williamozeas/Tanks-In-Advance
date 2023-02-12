@@ -25,9 +25,7 @@ public class Tank : MovingObject
 
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
-
-    protected List<Bullet> bulletList = new List<Bullet>(3); 
-
+    
     // Start will be executed when the tank spawns in
     protected override void Start()
     {
@@ -96,7 +94,7 @@ public class Tank : MovingObject
                 yield return new WaitForFixedUpdate();
             }
             nextCommand.Execute();
-            //Debug.Log("Set Velocity to " + nextCommand.ToString());
+            // Debug.Log("Set Velocity to " + nextCommand.ToString());
         }
     }
 
