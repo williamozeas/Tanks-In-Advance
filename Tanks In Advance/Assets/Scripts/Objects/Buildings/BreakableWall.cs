@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BreakableWall : Wall
 {
-    public int health = 1;
+    public int health;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = 10;
     }
 
     // Update is called once per frame
@@ -23,8 +23,16 @@ public class BreakableWall : Wall
         Debug.Log("collided");
     }*/
     
-    void OnColliderEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         Debug.Log("collided");
+        //TODO: Check if collision is from a bullet
+        health--;
+        Debug.Log(health);
+        if(health <= 0)
+        {
+            Debug.Log("Destroyed");
+            //Destroy it
+        }
     }
 }
