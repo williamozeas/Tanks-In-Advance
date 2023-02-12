@@ -29,13 +29,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private MapList _mapList;
     public MapList MapList => _mapList;
+    public GameParams gameParams;
     
     
     [HideInInspector]
     public Player[] Players = new Player[2];
 
     [HideInInspector] public MapSpawner mapSpawner;
-    [HideInInspector] public GameParams gameParams;
 
     //Events
     //These events will be called when the game state is changed. When an event is called, all subscribed
