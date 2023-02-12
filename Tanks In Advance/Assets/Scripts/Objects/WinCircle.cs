@@ -21,30 +21,22 @@ public class WinCircle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("In");
-        Debug.Log(other.transform.parent.GetComponent<Tank>());
-        if(other.transform.parent.GetComponent<Tank>()){
+        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (!= NULL)
             if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
                 numTanksP1++;
-                Debug.Log("P1=" + numTanksP1);
             }else{
                 numTanksP2++;
-                Debug.Log("P2=" + numTanksP2);
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Out");
-        Debug.Log(other.transform.parent.GetComponent<Tank>());
-        if(other.transform.parent.GetComponent<Tank>()){
+        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (!= NULL)
             if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
                 numTanksP1--;
-                Debug.Log("P1=" + numTanksP1);
             }else{
                 numTanksP2--;
-                Debug.Log("P2=" + numTanksP2);
             }
         }
     }
