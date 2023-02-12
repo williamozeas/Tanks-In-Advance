@@ -78,3 +78,8 @@ crashlytics-build.properties
 # Log files can be ignored.
 fmod_editor.log
 
+# Ignore editor user settings. This is not in the default template due to changes in unity's structure
+/[Uu]serSettings/*
+
+# mac .DS_Store
+.DS_Store

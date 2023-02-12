@@ -1,27 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 //Class to store Tank prefabs
 [CreateAssetMenu(fileName = "TankList", menuName = "ScriptableObjects/TankList", order = 1)]
 public class TankList : ScriptableObject
 {
-    [SerializeField] private List<GameObject> tankList;
-    private Dictionary<TankType, GameObject> tanks = new Dictionary<TankType, GameObject>();
+    [SerializeField] private List<GameObject> redTankList;
+    private Dictionary<TankType, GameObject> redTanks = new Dictionary<TankType, GameObject>();
+    
+    [SerializeField] private List<GameObject> blueTankList;
+    private Dictionary<TankType, GameObject> blueTanks = new Dictionary<TankType, GameObject>();
 
     //you can't serialize dictionaries so I'm populating this one from a list
-    public void Awake()
+    //must be called on game start
+    public void Init()
     {
-        foreach (var tankObj in tankList)
+        redTanks.Clear();
+        foreach (var tankObj in redTankList)
         {
             Tank tank = tankObj.GetComponent<Tank>();
-            tanks.Add(tank.Type, tankObj);
+            redTanks.Add(tank.Type, tankObj);
+        }
+        
+        blueTanks.Clear();
+        foreach (var tankObj in blueTankList)
+        {
+            Tank tank = tankObj.GetComponent<Tank>();
+            blueTanks.Add(tank.Type, tankObj);
         }
     }
     
-    public GameObject GetTank(TankType name)
+    public GameObject GetTank(PlayerNum num, TankType name)
     {
-        return tanks[name];
+        if (num == PlayerNum.Player1)
+        {
+            return blueTanks[name];
+        }
+        return redTanks[name];
     }
 }

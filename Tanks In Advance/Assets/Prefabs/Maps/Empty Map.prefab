@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &627041510725068743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4879080079598668013}
+  m_Layer: 0
+  m_Name: Walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4879080079598668013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627041510725068743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9143099225986913582}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9143099225365392313
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 9143099225451093621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 14, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 21}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9143099225365392312}
@@ -142,7 +173,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9143099225488636644}
   - component: {fileID: 9143099225488636646}
-  - component: {fileID: 9143099225488636647}
   m_Layer: 0
   m_Name: SpawnPoints
   m_TagString: Untagged
@@ -158,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9143099225488636645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -176,18 +206,6 @@ Transform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9143099225488636646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143099225488636645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e82fcd42b20b48cabebc358be78a7ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9143099225488636647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,6 +346,7 @@ Transform:
   - {fileID: 9143099226280166728}
   - {fileID: 9143099225365392312}
   - {fileID: 9143099225488636644}
+  - {fileID: 4879080079598668013}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -471,7 +490,7 @@ Transform:
   m_GameObject: {fileID: 9143099226611001944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -14, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 21}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9143099225365392312}
@@ -652,7 +671,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (1)
+      value: Team1 SpawnPoint 2
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -732,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (5)
+      value: Team2 SpawnPoint 1
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -812,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (3)
+      value: Team1 SpawnPoint 4
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -897,7 +916,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (6)
+      value: Team2 SpawnPoint 2
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -982,7 +1001,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (7)
+      value: Team2 SpawnPoint 3
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1067,7 +1086,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (8)
+      value: Team2 SpawnPoint 4
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1142,7 +1161,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint
+      value: Team1 SpawnPoint 1
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1222,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (2)
+      value: Team1 SpawnPoint 3
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1302,7 +1321,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (4)
+      value: Team1 SpawnPoint 5
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1387,7 +1406,7 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPoint (9)
+      value: Team2 SpawnPoint 5
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}

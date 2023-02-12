@@ -22,26 +22,24 @@ public class TankManager : Singleton<TankManager>
 
     private void OnRoundStart(Round round)
     {
-        Tank p1Tank = SpawnNewTank(new Vector3(-3, 0f, (round.number - 1) * 3), Quaternion.Euler(0, 0, 0), PlayerNum.Player1);
+        SpawnPoint spawnPoint1 =
+            GameManager.Instance.mapSpawner.CurrentMap.GetSpawnPoint(PlayerNum.Player1, round.number);
+        Tank p1Tank = SpawnNewTank(TankType.basic, PlayerNum.Player1, spawnPoint1.transform.position, 
+            Quaternion.Euler(0, 0, 0));
         p1Tanks.Add(p1Tank);
-        GameManager.Instance.Players[0].SetCurrentTank(p1Tank);
+        GameManager.Instance.Players[(int)PlayerNum.Player1].SetCurrentTank(p1Tank);
         
-        Tank p2Tank = SpawnNewTank(new Vector3(3, 0f, (round.number - 1) * 3), Quaternion.Euler(0, 180, 0), PlayerNum.Player2);
+        SpawnPoint spawnPoint2 =
+            GameManager.Instance.mapSpawner.CurrentMap.GetSpawnPoint(PlayerNum.Player2, round.number);
+        Tank p2Tank = SpawnNewTank(TankType.basic, PlayerNum.Player2, spawnPoint2.transform.position, 
+            Quaternion.Euler(0, 180, 0));
         p2Tanks.Add(p2Tank);
-        GameManager.Instance.Players[1].SetCurrentTank(p2Tank);
+        GameManager.Instance.Players[(int)PlayerNum.Player2].SetCurrentTank(p2Tank);
     }
 
-    public Tank SpawnNewTank(Vector3 position, Quaternion rotation, PlayerNum playerNum)
+    public Tank SpawnNewTank(TankType type, PlayerNum playerNum, Vector3 position, Quaternion rotation)
     {
-        GameObject tankPrefab;
-        if (playerNum == PlayerNum.Player1)
-        {
-            tankPrefab = BlueTankPrefab;
-        }
-        else
-        {
-            tankPrefab = RedTankPrefab;
-        }
+        GameObject tankPrefab = GameManager.Instance.TankList.GetTank(playerNum, type);
         Tank newTank = Instantiate(tankPrefab, position, rotation, transform).GetComponent<Tank>();
         newTank.AssignToTeam(playerNum);
         return newTank;

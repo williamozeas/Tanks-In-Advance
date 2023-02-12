@@ -6,10 +6,18 @@ using UnityEngine;
 public class MapSpawner : MonoBehaviour
 {
     private Map currentMap;
+
+    public Map CurrentMap => currentMap;
     // Awake is called before Start
     void Awake()
     {
         GameManager.Instance.mapSpawner = this;
+    }
+
+    void Start()
+    {
+        //DEBUG
+        SpawnMap(MapName.TestMap);
     }
 
     private void OnEnable()
