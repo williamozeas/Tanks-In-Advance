@@ -23,7 +23,7 @@ public abstract class MovingObject : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(transform.position);
+        // Debug.Log(transform.position);
     }
 
     // FixedUpdate called every certain amt of time
