@@ -18,7 +18,10 @@ public class ShootCommand : Command
     public override void Execute()
     {
         Debug.Log("Shooty shoot shoot pew pew");
-        //Bullet nbullet = new Bullet(_tank, _angle * 3);
+        //Quaternion q = Quaternion.Euler(new Vector3(_angle.x, 0, _angle.y));
+        //_tank.bulletPrefab.GetComponent<Bullet>().getShot(_tank, _angle * 3);
+        GameObject bullet = Object.Instantiate(_tank.bulletPrefab, _tank.rb.transform);
+        _tank.bulletList.Add(bullet);
     }
 
     public override string ToString()

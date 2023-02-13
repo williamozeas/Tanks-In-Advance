@@ -20,12 +20,15 @@ public class Tank : MovingObject
     [Header("Stats")]
     public float speed = 1.0f;
     public int health = 1;
+    public GameObject bulletPrefab;
 
     private Vector3 _startLocation = Vector3.zero;
 
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
-    
+
+    public List<GameObject> bulletList = new List<GameObject>();
+
     // Start will be executed when the tank spawns in
     protected override void Start()
     {
@@ -68,6 +71,9 @@ public class Tank : MovingObject
             rb.position = _startLocation;
         }
         velocity = Vector2.zero;
+
+        //Bullets from previous rounds should be removed.
+        bulletList.Clear();
     }
 
     public void AddCommand(Command newCommand)
