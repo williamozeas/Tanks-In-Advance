@@ -21,7 +21,9 @@ public class WinCircle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (!= NULL)
+        if(other.transform.parent == null) return;
+        
+        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
             if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
                 numTanksP1++;
             }else{
@@ -32,7 +34,9 @@ public class WinCircle : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (!= NULL)
+        if(other.transform.parent == null) return;
+        
+        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
             if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
                 numTanksP1--;
             }else{
