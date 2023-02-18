@@ -364,6 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameEnum: 0
   name: Empty Map
+  wallsHolder: {fileID: 627041510725068743}
 --- !u!1 &9143099226280166732
 GameObject:
   m_ObjectHideFlags: 0

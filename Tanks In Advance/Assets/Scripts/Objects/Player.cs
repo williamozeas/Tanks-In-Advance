@@ -15,7 +15,7 @@ public class PlayerInput
         Right = KeyCode.D;
         RotTurrClock = KeyCode.E;
         RotTurrCounterClock = KeyCode.Q;
-        Shoot = KeyCode.Space;
+        Shoot = KeyCode.LeftShift;
     }
 }
 
@@ -81,7 +81,16 @@ public class Player : MonoBehaviour
                     newVelocity += new Vector2(1, 0);
                 }
 
-                Debug.Log(newVelocity);
+                if (Input.GetKeyDown(inputs.Shoot))
+                {
+                    Vector2 angle = _currentTank.Velocity.normalized;
+                    Command shootCommand = 
+                            new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(shootCommand);
+                    shootCommand.Execute();
+                }
+
+                //Debug.Log(newVelocity);
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {

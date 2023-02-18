@@ -21,6 +21,7 @@ public class Tank : MovingObject
     public float speed = 1.0f;
     public float turretTurnSpeed = 0.5f;
     public int health = 1;
+    public GameObject bulletPrefab;
 
     private Vector3 _startLocation = Vector3.zero;
     private float _turretTurnVelocity = 0;
@@ -33,7 +34,9 @@ public class Tank : MovingObject
     private int roundsPassed = 0;
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
-    
+
+    public List<GameObject> bulletList = new List<GameObject>();
+
     // Start will be executed when the tank spawns in
     protected override void Start()
     {
@@ -84,6 +87,9 @@ public class Tank : MovingObject
             rb.position = _startLocation;
         }
         velocity = Vector2.zero;
+
+        //Bullets from previous rounds should be removed.
+        bulletList.Clear();
     }
 
     public void AddCommand(Command newCommand)
@@ -118,7 +124,7 @@ public class Tank : MovingObject
                 yield return new WaitForFixedUpdate();
             }
             nextCommand.Execute();
-            Debug.Log("Set Velocity to " + nextCommand.ToString());
+            // Debug.Log("Set Velocity to " + nextCommand.ToString());
         }
     }
 
