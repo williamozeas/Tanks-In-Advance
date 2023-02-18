@@ -23,7 +23,7 @@ public abstract class MovingObject : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(transform.position);
+        // Debug.Log(transform.position);
     }
 
     // FixedUpdate called every certain amt of time
@@ -31,6 +31,9 @@ public abstract class MovingObject : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         rb.velocity = new Vector3(velocity.x, 0, velocity.y);
+        
+        float direction = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        rb.rotation = Quaternion.AngleAxis(direction, new Vector3(0,1,0));
     }
     
     public void SetVelocity(Vector2 newVelocity)
