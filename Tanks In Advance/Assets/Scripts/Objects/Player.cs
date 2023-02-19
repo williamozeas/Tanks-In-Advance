@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         // Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
+            case(GameStates.MainMenu):
             case(GameStates.Playing): {
                 //Tank movement code
                 if (!_currentTank)
