@@ -13,6 +13,8 @@ public class PlayerInput
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
+        // RotTurrClock = KeyCode.E;
+        // RotTurrCounterClock = KeyCode.Q;
         Shoot = KeyCode.LeftShift;
         AimUp = KeyCode.I;
         AimDown = KeyCode.K;
@@ -52,9 +54,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(GameManager.Instance.RoundTime);
+        // Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
+            case(GameStates.MainMenu):
             case(GameStates.Playing): {
                 //Tank movement code
                 if (!_currentTank)

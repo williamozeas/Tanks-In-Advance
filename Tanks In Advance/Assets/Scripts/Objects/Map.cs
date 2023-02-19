@@ -7,6 +7,7 @@ public enum MapName
 {
     EmptyMap = 0,
     TestMap = 1,
+    MenuMap = 2,
 }
 
 public class Map : MonoBehaviour
