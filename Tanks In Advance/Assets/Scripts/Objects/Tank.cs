@@ -19,11 +19,19 @@ public class Tank : MovingObject
     public TankType Type => type;
     [Header("Stats")]
     public float speed = 1.0f;
+    public float turretTurnSpeed = 0.5f;
     public int health = 1;
     public GameObject bulletPrefab;
 
     private Vector3 _startLocation = Vector3.zero;
+    private float _turretTurnVelocity = 0;
+    private float turretAngle = 0;
+    public float TurretTurnVelocity => _turretTurnVelocity;
+    
+    public Rigidbody turretRB;
+    public List<Renderer> renderers;
 
+    private int roundsPassed = 0;
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
 
@@ -36,6 +44,13 @@ public class Tank : MovingObject
         _startLocation = transform.position;
         health *= GameManager.Instance.gameParams.tankHealthMultiplier;
         speed *= GameManager.Instance.gameParams.tankSpeedMultiplier;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        turretAngle = turretTurnSpeed * _turretTurnVelocity;
+        // TODO: update turret
     }
     
     //Subscribe to events
@@ -66,6 +81,7 @@ public class Tank : MovingObject
     
     public void OnRoundEnd()
     {
+        roundsPassed += 1;
         if (IsRecorded)
         {
             rb.position = _startLocation;
@@ -98,6 +114,14 @@ public class Tank : MovingObject
     //Requires commandList to be in order by timestamp to work properly
     public IEnumerator Replay()
     {
+        // make the tank more transparent based on rounds passed
+        foreach (Renderer r in renderers)
+        {
+            Color oldC = r.material.color;
+            Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.8f);
+            r.material.color = newC;
+        }
+        
         var enumerator = commandList.GetEnumerator();
         // for (int i = 0; i < commandList.Count; i++)
         while(enumerator.MoveNext())
@@ -117,6 +141,11 @@ public class Tank : MovingObject
     public void AssignToTeam(PlayerNum newOwner)
     {
         owner = newOwner;
-        
+    }
+    
+    public void SetTurretTurnVelocity(float newVelocity)
+    {
+        _turretTurnVelocity = newVelocity;
+        // turretRB.rotation.
     }
 }

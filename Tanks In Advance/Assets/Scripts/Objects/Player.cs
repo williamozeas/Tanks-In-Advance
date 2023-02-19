@@ -6,13 +6,15 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, Shoot;
+    public KeyCode Up, Down, Left, Right, RotTurrClock, RotTurrCounterClock, Shoot;
     public PlayerInput()
     {
         Up = KeyCode.W;
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
+        RotTurrClock = KeyCode.E;
+        RotTurrCounterClock = KeyCode.Q;
         Shoot = KeyCode.LeftShift;
     }
 }
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(GameManager.Instance.RoundTime);
+        // Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
             case(GameStates.Playing): {
@@ -96,6 +98,26 @@ public class Player : MonoBehaviour
                         new SetVelocityCommand(newVelocity, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(setVelocityCommand);
                     setVelocityCommand.Execute();
+                }
+
+                float newTurRotateVelocity = 0;
+                if (Input.GetKey(inputs.RotTurrClock))
+                {
+                    newTurRotateVelocity += 1;
+                }
+
+                if (Input.GetKey(inputs.RotTurrCounterClock))
+                {
+                    newTurRotateVelocity += -1;
+                }
+
+                if (newTurRotateVelocity != _currentTank.TurretTurnVelocity)
+                {
+                    Command setTurretTurnVelocityCommand =
+                        new SetTurretTurnVelocityCommand(newTurRotateVelocity, _currentTank,
+                            GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(setTurretTurnVelocityCommand);
+                    setTurretTurnVelocityCommand.Execute();
                 }
                 break;
             }
