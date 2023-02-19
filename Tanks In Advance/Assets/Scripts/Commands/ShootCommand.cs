@@ -17,6 +17,7 @@ public class ShootCommand : Command
 
     public override void Execute()
     {
+        _tank.Shoot(); //visuals
         Debug.Log("Shooty shoot shoot pew pew");
 
         GameObject bullet = Object.Instantiate(_tank.bulletPrefab, _tank.rb.transform);
