@@ -83,3 +83,5 @@ fmod_editor.log
 
 # mac .DS_Store
 .DS_Store
+
+.fake
