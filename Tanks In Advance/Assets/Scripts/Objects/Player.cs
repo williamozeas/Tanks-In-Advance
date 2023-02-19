@@ -6,14 +6,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, Shoot;
+    public KeyCode Up, Down, Left, Right, RotTurrClock, RotTurrCounterClock, Shoot;
     public PlayerInput()
     {
         Up = KeyCode.W;
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
-        Shoot = KeyCode.Space;
+        RotTurrClock = KeyCode.E;
+        RotTurrCounterClock = KeyCode.Q;
+        Shoot = KeyCode.LeftShift;
     }
 }
 
@@ -79,7 +81,16 @@ public class Player : MonoBehaviour
                     newVelocity += new Vector2(1, 0);
                 }
 
-                // Debug.Log(newVelocity);
+                if (Input.GetKeyDown(inputs.Shoot))
+                {
+                    Vector2 angle = _currentTank.Velocity.normalized;
+                    Command shootCommand = 
+                            new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(shootCommand);
+                    shootCommand.Execute();
+                }
+
+                //Debug.Log(newVelocity);
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {
@@ -87,6 +98,26 @@ public class Player : MonoBehaviour
                         new SetVelocityCommand(newVelocity, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(setVelocityCommand);
                     setVelocityCommand.Execute();
+                }
+
+                float newTurRotateVelocity = 0;
+                if (Input.GetKey(inputs.RotTurrClock))
+                {
+                    newTurRotateVelocity += 1;
+                }
+
+                if (Input.GetKey(inputs.RotTurrCounterClock))
+                {
+                    newTurRotateVelocity += -1;
+                }
+
+                if (newTurRotateVelocity != _currentTank.TurretTurnVelocity)
+                {
+                    Command setTurretTurnVelocityCommand =
+                        new SetTurretTurnVelocityCommand(newTurRotateVelocity, _currentTank,
+                            GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(setTurretTurnVelocityCommand);
+                    setTurretTurnVelocityCommand.Execute();
                 }
                 break;
             }
