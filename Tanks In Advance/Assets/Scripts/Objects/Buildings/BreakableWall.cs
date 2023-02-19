@@ -28,7 +28,7 @@ public class BreakableWall : Wall
         Debug.Log("collided");
         //TODO: Check if collision is from a bullet
         health--;
-        Debug.Log(health);
+        //Debug.Log(health);
         if(health <= 0)
         {
             Debug.Log("Destroyed");

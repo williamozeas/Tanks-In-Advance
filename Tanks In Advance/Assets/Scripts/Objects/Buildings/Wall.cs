@@ -28,7 +28,7 @@ public class Wall : MonoBehaviour
             y = EasingFunction.EaseOutCubic(originalPos.y + 20, originalPos.y, timeElapsed/animationTime);
             transform.position = new Vector3(originalPos.x, y, originalPos.z);
 
-            Debug.Log(y);
+            //Debug.Log(y);
             yield return null;
         }
         

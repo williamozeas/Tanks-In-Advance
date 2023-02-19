@@ -88,7 +88,11 @@ public class Tank : MovingObject
 
     public void TakeDamage(int damage)
     {
-        
+        health -= damage;
+        if (health <= 0)
+        {
+            Debug.Log("Deth");
+        }
     }
 
     //Requires commandList to be in order by timestamp to work properly
