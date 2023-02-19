@@ -9,6 +9,8 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
     protected Vector2 velocity;
+    private bool initializeVelocity = true;
+    
     public Vector2 Velocity => velocity;
     public Rigidbody rb;
 
@@ -45,21 +47,29 @@ public abstract class MovingObject : MonoBehaviour
         {
             return;
         }
-        else
-        {
-            velocity = newVelocity;
-            rb.velocity = new Vector3(velocity.x, 0, velocity.y);
+        
+        // set velocity
+        velocity = newVelocity;
+        rb.velocity = new Vector3(velocity.x, 0, velocity.y);
 
-            if (velocity.x != 0 || velocity.y != 0)
+        if (initializeVelocity)
+        {
+            float newRotation = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0,1,0));
+            initializeVelocity = false;
+            return;
+        }
+        
+        // set rotation
+        if (velocity.x != 0 || velocity.y != 0)
+        {
+            float newRotation = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            if (rotationCoroutine != null)
             {
-                float newRotation = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-                if (rotationCoroutine != null)
-                {
-                    StopCoroutine(rotationCoroutine);
-                    rotationCoroutine = null;
-                }
-                rotationCoroutine = StartCoroutine(EaseRotation(rotation, newRotation, 0.5f));
+                StopCoroutine(rotationCoroutine);
+                rotationCoroutine = null;
             }
+            rotationCoroutine = StartCoroutine(EaseRotation(rotation, newRotation, 0.5f));
         }
     }
 
