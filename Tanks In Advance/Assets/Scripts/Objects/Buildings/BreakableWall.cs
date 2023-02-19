@@ -11,13 +11,20 @@ public class BreakableWall : Wall
     void Start()
     {
         health = MaxHealth;
-        GameManager.OnRoundStart += OnRoundStart;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnEnable() {
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+
+    private void OnDisable() {
+        GameManager.OnRoundStart -= OnRoundStart;
     }
     
     void OnCollisionEnter(Collision collision)
