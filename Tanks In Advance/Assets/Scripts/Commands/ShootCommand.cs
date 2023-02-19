@@ -21,6 +21,7 @@ public class ShootCommand : Command
         //Quaternion q = Quaternion.Euler(new Vector3(_angle.x, 0, _angle.y));
         //_tank.bulletPrefab.GetComponent<Bullet>().getShot(_tank, _angle * 3);
         GameObject bullet = Object.Instantiate(_tank.bulletPrefab, _tank.rb.transform);
+        bullet.GetComponent<Bullet>().SetVelocity(_angle * 3);
         _tank.bulletList.Add(bullet);
     }
 

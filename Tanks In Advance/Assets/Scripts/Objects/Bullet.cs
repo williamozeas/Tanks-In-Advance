@@ -22,12 +22,13 @@ public class Bullet : MovingObject
     // Start is called before the first frame update
     protected override void Start()
     {
-
+        this._lifespan = 100.0f;
     }
 
     // FixedUpdate called every certain amt of time
-    protected override void FixedUpdate()
+    protected void Update()
     {
+        Debug.Log(velocity);
         if (this._lifespan < 0)
         {
             Debug.Log("Remove bullet");
