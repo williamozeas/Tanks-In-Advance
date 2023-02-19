@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, Shoot;
+    public KeyCode Up, Down, Left, Right, Shoot, AimUp, AimDown, AimLeft, AimRight;
     public PlayerInput()
     {
         Up = KeyCode.W;
@@ -14,6 +14,10 @@ public class PlayerInput
         Left = KeyCode.A;
         Right = KeyCode.D;
         Shoot = KeyCode.LeftShift;
+        AimUp = KeyCode.I;
+        AimDown = KeyCode.K;
+        AimLeft = KeyCode.J;
+        AimRight = KeyCode.L;
     }
 }
 
@@ -79,9 +83,40 @@ public class Player : MonoBehaviour
                     newVelocity += new Vector2(1, 0);
                 }
 
+                Vector2 newAim = Vector2.zero;
+                if (Input.GetKey(inputs.AimUp))
+                {
+                    newAim += new Vector2(0, 1);
+                }
+
+                if (Input.GetKey(inputs.AimDown))
+                {
+                    newAim += new Vector2(0, -1);
+                }
+
+                if (Input.GetKey(inputs.AimLeft))
+                {
+                    newAim += new Vector2(-1, 0);
+                }
+
+                if (Input.GetKey(inputs.AimRight))
+                {
+                    newAim += new Vector2(1, 0);
+                }
+                
+                newAim = newAim.normalized;
+                if (newAim != _currentTank.aim)
+                {
+                    Command setAimCommand =
+                        new SetAimCommand(newAim, _currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(setAimCommand);
+                    setAimCommand.Execute();
+                }
+
                 if (Input.GetKeyDown(inputs.Shoot))
                 {
-                    Vector2 angle = _currentTank.Velocity.normalized;
+                    // Vector2 angle = _currentTank.Velocity.normalized;
+                    Vector2 angle = _currentTank.aim;
                     Command shootCommand = 
                             new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(shootCommand);
@@ -97,6 +132,7 @@ public class Player : MonoBehaviour
                     _currentTank.AddCommand(setVelocityCommand);
                     setVelocityCommand.Execute();
                 }
+
                 break;
             }
         }

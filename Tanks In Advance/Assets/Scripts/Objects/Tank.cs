@@ -29,6 +29,8 @@ public class Tank : MovingObject
 
     public List<GameObject> bulletList = new List<GameObject>();
 
+    public Vector2 aim = Vector2.up;
+
     // Start will be executed when the tank spawns in
     protected override void Start()
     {
