@@ -30,6 +30,7 @@ public class BreakableWall : Wall
     void OnCollisionEnter(Collision collision)
     {
         //Checks if the collided object is a bullet (hopefully)
+        //TODO: Check if this works properly with bullets
         if(collision.gameObject.GetComponent<Bullet>()){
             health--;
             Debug.Log("Wall health: " + health);
