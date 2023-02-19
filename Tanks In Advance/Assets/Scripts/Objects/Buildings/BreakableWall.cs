@@ -5,11 +5,12 @@ using UnityEngine;
 public class BreakableWall : Wall
 {
     public int health;
+    public const int MaxHealth = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 10;
+        health = MaxHealth;
         GameManager.OnRoundStart += OnRoundStart;
     }
 
@@ -33,11 +34,15 @@ public class BreakableWall : Wall
 
     void Die(){
         //Disable collider & mesh renderer 
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     void OnRoundStart(Round round){
         //Reset health & undie
+        GetComponent<BoxCollider>().enabled = true;
+        GetComponent<MeshRenderer>().enabled = true;
+        health = MaxHealth;
     }
-
 
 }
