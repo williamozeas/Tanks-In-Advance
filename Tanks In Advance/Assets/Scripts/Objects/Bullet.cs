@@ -39,7 +39,6 @@ public class Bullet : MovingObject
         base.FixedUpdate();
         if (this._lifespan < 0 || ricochets > 2)
         {
-            Debug.Log("Remove bullet");
             KillSelf();
         }
         this._lifespan -= Time.deltaTime;
@@ -51,10 +50,12 @@ public class Bullet : MovingObject
         Tank tank; //= new Tank();
         Wall wall;
 
-        if (hit.TryGetComponent<Tank>(out tank))
+        if (hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
+            
             if (live) //To avoid self-destruction.
             {
+                Debug.Log("b");
                 tank.TakeDamage(power);
             }
 
@@ -66,6 +67,10 @@ public class Bullet : MovingObject
             Ricochet(collision);
             ricochets++;
         }
+        else
+        {
+            KillSelf();
+        }
 
         Debug.Log(collision.collider.name);
     }
@@ -73,17 +78,27 @@ public class Bullet : MovingObject
     protected void OnCollisionExit(Collision collision)
     {
         live = true; //To ensure that the bullet leaves the owner before being able to kill tanks.
+
+        //If the bullet doesn't interact with some random object, blame this command.
+        Physics.IgnoreCollision(
+            GetComponent<Collider>(),
+            collision.collider,
+            false
+        );
     }
 
     protected void Ricochet(Collision coll)
     {
         Vector3 normal = coll.GetContact(0).normal;
-        velocity.x = normal.x * speed;
-        velocity.y = normal.z * speed;
+        //velocity.x = normal.x * speed;
+        //velocity.y = normal.z * speed;
     }
 
     protected void KillSelf()
     {
-
+        if (_tank.bulletList.Remove(this.gameObject))
+        {
+            Debug.Log("Remove bullet");
+        }
     }
 }
