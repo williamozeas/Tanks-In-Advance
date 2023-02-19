@@ -83,6 +83,11 @@ public class Tank : MovingObject
 
     public void Shoot()
     {
+        //visuals for shooting
+    }
+
+    public void TakeDamage(int damage)
+    {
         
     }
 
