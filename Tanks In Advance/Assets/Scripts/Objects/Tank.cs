@@ -21,6 +21,7 @@ public class Tank : MovingObject
     public float speed = 1.0f;
     public int health = 1;
     public GameObject bulletPrefab;
+    public GameObject minePrefab;
 
     private Vector3 _startLocation = Vector3.zero;
 
@@ -28,6 +29,7 @@ public class Tank : MovingObject
     public bool IsRecorded => commandList.Count > 0;
 
     public List<GameObject> bulletList = new List<GameObject>();
+    public List<GameObject> mineList = new List<GameObject>();
 
     // Start will be executed when the tank spawns in
     protected override void Start()

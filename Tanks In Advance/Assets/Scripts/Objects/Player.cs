@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, Shoot;
+    public KeyCode Up, Down, Left, Right, Shoot, Mine;
     public PlayerInput()
     {
         Up = KeyCode.W;
@@ -14,6 +14,7 @@ public class PlayerInput
         Left = KeyCode.A;
         Right = KeyCode.D;
         Shoot = KeyCode.LeftShift;
+        Mine = KeyCode.Z;
     }
 }
 
@@ -88,8 +89,17 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                //Debug.Log(newVelocity);
-                newVelocity = _currentTank.speed * newVelocity.normalized;
+                if (Input.GetKeyDown(inputs.Mine))
+                {
+                    Vector2 angle = _currentTank.Velocity.normalized;
+                    Command mineCommand =
+                            new MineCommand(_currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(mineCommand);
+                    mineCommand.Execute();
+                }
+
+                    //Debug.Log(newVelocity);
+                    newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {
                     Command setVelocityCommand =

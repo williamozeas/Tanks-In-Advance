@@ -33,7 +33,7 @@ public class BreakableWall : Wall
         }
     }
 
-    void Die(){
+    public void Die(){
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
     }

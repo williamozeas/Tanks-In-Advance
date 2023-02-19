@@ -180,4 +180,7 @@ MonoBehaviour:
   health: 1
   bulletPrefab: {fileID: 6374489335037315713, guid: 70e2586bb8a07c546aa3affd4a39fc90,
     type: 3}
+  minePrefab: {fileID: 6374489335037315713, guid: 52a9148d0c7f56d4a83f15a712de5835,
+    type: 3}
   bulletList: []
+  mineList: []
