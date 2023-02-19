@@ -22,6 +22,7 @@ public class Tank : MovingObject
     public float turretTurnSpeed = 0.5f;
     public int health = 1;
     public GameObject bulletPrefab;
+    public int currentHealth;
 
     private Vector3 _startLocation = Vector3.zero;
     private float _turretTurnVelocity = 0;
@@ -34,8 +35,20 @@ public class Tank : MovingObject
     private int roundsPassed = 0;
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
+    private bool currentlyControlled = false;
+    private bool alive;
+    public bool Alive => alive;
 
     public List<GameObject> bulletList = new List<GameObject>();
+
+    private MeshRenderer[] meshes;
+    private Collider[] colliders;
+
+    private void Awake()
+    {
+        meshes = GetComponentsInChildren<MeshRenderer>();
+        colliders = GetComponentsInChildren<Collider>();
+    }
 
     // Start will be executed when the tank spawns in
     protected override void Start()
@@ -70,12 +83,20 @@ public class Tank : MovingObject
     {
         if (IsRecorded)
         {
-            rb.position = _startLocation;
+            currentlyControlled = false;
+            UnDie(round);
             StartCoroutine(Replay());
         }
         else
         {
             _startLocation = transform.position;
+            currentlyControlled = true;
+            
+            //ensure command list is not empty
+            Command setVelocityCommand =
+                new SetVelocityCommand(Vector3.zero, this, -1);
+            AddCommand(setVelocityCommand);
+            setVelocityCommand.Execute();
         }
     }
     
@@ -104,11 +125,52 @@ public class Tank : MovingObject
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage;
+        Debug.Log(currentHealth);
+        if (currentHealth <= 0)
         {
-            Debug.Log("Deth");
+            alive = false;
+            if (currentlyControlled)
+            {
+                Ghost();
+            }
+            else {
+                Die();
+            }
         }
+    }
+
+    public void Ghost()
+    {
+        Debug.Log("Spectating!");
+    }
+
+    public void Die()
+    {
+        Debug.Log("Ded?");
+        foreach(var mesh in meshes)
+        {
+            mesh.enabled = false;
+        }
+        foreach(var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    public void UnDie(Round round)
+    {
+        Debug.Log("Arise! My son.");
+        foreach(var mesh in meshes)
+        {
+            mesh.enabled = true;
+        }
+        foreach(var collider in colliders)
+        {
+            collider.enabled = true;
+        }
+        rb.position = _startLocation;
+        currentHealth = health;
     }
 
     //Requires commandList to be in order by timestamp to work properly
