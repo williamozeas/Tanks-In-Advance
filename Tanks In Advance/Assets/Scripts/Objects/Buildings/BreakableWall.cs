@@ -22,18 +22,18 @@ public class BreakableWall : Wall
     
     void OnCollisionEnter(Collision collision)
     {
-        //TODO: Check if collision is from a bullet
-        health--;
-        Debug.Log("Wall health: " + health);
-        if(health <= 0)
-        {
-            Debug.Log("Wall Destroyed");
-            Die();
+        if(collision.gameObject.GetComponent<Bullet>()){
+            health--;
+            Debug.Log("Wall health: " + health);
+            if(health <= 0)
+            {
+                Debug.Log("Wall Destroyed");
+                Die();
+            }
         }
     }
 
     void Die(){
-        //Disable collider & mesh renderer 
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
     }
