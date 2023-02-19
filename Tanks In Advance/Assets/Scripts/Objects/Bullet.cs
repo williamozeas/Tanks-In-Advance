@@ -12,6 +12,9 @@ public class Bullet : MovingObject
     private Tank _tank;
     private float _lifespan;
     private int ricochets;
+    public float speed = 5;
+    private bool live;
+    private int power = 1;
     
     public Bullet(Tank source, Vector2 velocity)
     {
@@ -26,6 +29,7 @@ public class Bullet : MovingObject
     {
         this._lifespan = 100.0f;
         this.ricochets = 0;
+        this.live = false;
     }
 
     // FixedUpdate called every certain amt of time
@@ -48,9 +52,9 @@ public class Bullet : MovingObject
 
         if (hit.TryGetComponent<Tank>(out tank))
         {
-            if (_lifespan < 99.0f) //To avoid self-destruction.
+            if (live) //To avoid self-destruction.
             {
-
+                tank.TakeDamage(power);
             }
 
             KillSelf(); //Destroy bullet
@@ -58,16 +62,23 @@ public class Bullet : MovingObject
         else if (hit.TryGetComponent<Wall>(out wall))
         {
             Debug.Log("boing");
-            Ricochet(hit);
+            Ricochet(collision);
             ricochets++;
         }
 
         Debug.Log(collision.collider.name);
     }
 
-    protected void Ricochet(Collider coll)
+    protected void OnCollisionExit(Collision collision)
     {
+        live = true; //To ensure that the bullet leaves the owner before being able to kill tanks.
+    }
 
+    protected void Ricochet(Collision coll)
+    {
+        Vector3 normal = coll.GetContact(0).normal;
+        velocity.x = normal.x * speed;
+        velocity.y = normal.z * speed;
     }
 
     protected void KillSelf()
