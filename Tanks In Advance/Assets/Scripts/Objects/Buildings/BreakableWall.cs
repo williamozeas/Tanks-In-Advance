@@ -10,6 +10,7 @@ public class BreakableWall : Wall
     void Start()
     {
         health = 10;
+        GameManager.OnRoundStart += OnRoundStart;
     }
 
     // Update is called once per frame
@@ -17,22 +18,26 @@ public class BreakableWall : Wall
     {
         
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("collided");
-    }*/
     
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collided");
         //TODO: Check if collision is from a bullet
         health--;
-        Debug.Log(health);
+        Debug.Log("Wall health: " + health);
         if(health <= 0)
         {
-            Debug.Log("Destroyed");
-            //Destroy it
+            Debug.Log("Wall Destroyed");
+            Die();
         }
     }
+
+    void Die(){
+        //Disable collider & mesh renderer 
+    }
+
+    void OnRoundStart(Round round){
+        //Reset health & undie
+    }
+
+
 }
