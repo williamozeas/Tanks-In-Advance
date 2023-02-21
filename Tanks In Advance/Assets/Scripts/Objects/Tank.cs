@@ -130,13 +130,15 @@ public class Tank : MovingObject
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (damage <= 0)
+        Debug.Log(currentHealth);
+        if (currentHealth <= 0)
         {
             alive = false;
             if (currentlyControlled)
             {
                 Ghost();
-            } else {
+            }
+            else {
                 Die();
             }
         }
@@ -144,12 +146,12 @@ public class Tank : MovingObject
 
     public void Ghost()
     {
-        //go transparent
-        
+        Debug.Log("Spectating!");
     }
 
     public void Die()
     {
+        Debug.Log("Ded?");
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
@@ -162,6 +164,7 @@ public class Tank : MovingObject
 
     public void UnDie(Round round)
     {
+        Debug.Log("Arise! My son.");
         foreach(var mesh in meshes)
         {
             mesh.enabled = true;
@@ -171,6 +174,7 @@ public class Tank : MovingObject
             collider.enabled = true;
         }
         rb.position = _startLocation;
+        currentHealth = health;
     }
 
     //Requires commandList to be in order by timestamp to work properly
