@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
                 }
 
                 Vector2 newAim = Vector2.zero;
+                //TEMP FOR CONTROLLER
                 if (Input.GetKey(inputs.AimUp))
                 {
                     newAim += new Vector2(0, 1);
@@ -107,11 +108,11 @@ public class Player : MonoBehaviour
                     newAim += new Vector2(1, 0);
                 }
                 
-                newAim = newAim.normalized;
-                if (newAim != _currentTank.aim)
+                Vector2 newAimNorm = newAim.normalized;
+                if (newAimNorm != _currentTank.Aim || newAim.magnitude < 0.1f) //controller dead zone
                 {
                     Command setAimCommand =
-                        new SetAimCommand(newAim, _currentTank, GameManager.Instance.RoundTime);
+                        new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(setAimCommand);
                     setAimCommand.Execute();
                 }
@@ -119,7 +120,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(inputs.Shoot))
                 {
                     // Vector2 angle = _currentTank.Velocity.normalized;
-                    Vector2 angle = _currentTank.aim;
+                    Vector2 angle = _currentTank.Aim;
                     Command shootCommand = 
                             new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(shootCommand);

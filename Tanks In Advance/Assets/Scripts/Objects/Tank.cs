@@ -25,9 +25,11 @@ public class Tank : MovingObject
     public int currentHealth;
 
     private Vector3 _startLocation = Vector3.zero;
-    private float _turretTurnVelocity = 0;
-    private float turretAngle = 0;
-    public float TurretTurnVelocity => _turretTurnVelocity;
+    // private float _turretTurnVelocity = 0;
+    // private float turretAngle = 0;
+    // public float TurretTurnVelocity => _turretTurnVelocity;
+    [HideInInspector] private Vector2 aim = Vector2.up;
+    public Vector2 Aim => aim;
     
     public Rigidbody turretRB;
     public List<Renderer> renderers;
@@ -41,14 +43,15 @@ public class Tank : MovingObject
 
     public List<GameObject> bulletList = new List<GameObject>();
 
-    public Vector2 aim = Vector2.up;
     private MeshRenderer[] meshes;
     private Collider[] colliders;
+    private Turret turret;
 
     private void Awake()
     {
         meshes = GetComponentsInChildren<MeshRenderer>();
         colliders = GetComponentsInChildren<Collider>();
+        turret = GetComponentInChildren<Turret>();
     }
 
     // Start will be executed when the tank spawns in
@@ -60,11 +63,11 @@ public class Tank : MovingObject
         speed *= GameManager.Instance.gameParams.tankSpeedMultiplier;
     }
 
-    protected override void FixedUpdate()
+    protected void Update()
     {
         base.FixedUpdate();
-        turretAngle = turretTurnSpeed * _turretTurnVelocity;
-        // TODO: update turret
+        // turretAngle = turretTurnSpeed * _turretTurnVelocity;
+        
     }
     
     //Subscribe to events
@@ -201,10 +204,17 @@ public class Tank : MovingObject
     {
         owner = newOwner;
     }
-    
-    public void SetTurretTurnVelocity(float newVelocity)
+
+    public void SetAim(Vector2 newAim)
     {
-        _turretTurnVelocity = newVelocity;
-        // turretRB.rotation.
+        aim = newAim;
+        float angle = -Vector2.SignedAngle(Vector2.up, newAim);
+        turret.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+    
+    // public void SetTurretTurnVelocity(float newVelocity)
+    // {
+    //     _turretTurnVelocity = newVelocity;
+    //     // turretRB.rotation.
+    // }
 }
