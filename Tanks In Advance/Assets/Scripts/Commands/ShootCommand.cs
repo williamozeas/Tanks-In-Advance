@@ -26,7 +26,7 @@ public class ShootCommand : Command
         );
 
         Bullet bulletBullet = bullet.GetComponent<Bullet>();
-        bulletBullet.Init(_tank, _angle * 5);
+        bulletBullet.Init(_tank, _angle);
 
         Physics.IgnoreCollision(
             bulletBullet.GetComponent<Collider>(),

@@ -19,10 +19,10 @@ public class Bullet : MonoBehaviour
     private Vector2 velocity;
     
     //called on creation
-    public void Init(Tank source, Vector2 velocityIn)
+    public void Init(Tank source, Vector2 angle)
     {
         _tank = source;
-        this.velocity = velocityIn;
+        this.velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
     }
@@ -106,7 +106,6 @@ public class Bullet : MonoBehaviour
     protected void KillSelf()
     {
         _tank.bulletList.Remove(this.gameObject);
-        //Destroy animation
         //Destroy animation
         Destroy(gameObject);
     }

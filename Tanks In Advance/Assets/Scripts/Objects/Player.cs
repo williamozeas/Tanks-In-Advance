@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
                 }
                 
                 Vector2 newAimNorm = newAim.normalized;
-                if (newAimNorm != _currentTank.Aim || newAim.magnitude < 0.1f) //controller dead zone
+                if (newAimNorm != _currentTank.Aim && newAim.magnitude > 0.1f) //controller dead zone
                 {
                     Command setAimCommand =
                         new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
@@ -127,7 +127,6 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                //Debug.Log(newVelocity);
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {
