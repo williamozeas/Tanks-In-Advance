@@ -71,15 +71,16 @@ public class Tank : MovingObject
             
         //ensure command list is not empty
         Command setVelocityCommand =
-            new SetVelocityCommand(Vector3.zero, this, -1);
+            new SetVelocityCommand(Vector2.zero, this, -1);
         AddCommand(setVelocityCommand);
         setVelocityCommand.Execute();
     }
 
     protected void Update()
     {
-        // turretAngle = turretTurnSpeed * _turretTurnVelocity;
-        
+        if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
+            Debug.Log(rb.velocity);
+
     }
     
     //Subscribe to events
@@ -99,6 +100,7 @@ public class Tank : MovingObject
     {
         if (!Owner.IsCurrentTank(this)) //should always be true but in case we decide to spawn in tanks early
         {
+            rb.position = _startLocation;
             currentlyControlled = false;
             UnDie(round);
             replay = StartCoroutine(Replay());
@@ -112,7 +114,12 @@ public class Tank : MovingObject
         velocity = Vector2.zero;
 
         //Bullets from previous rounds should be removed.
+        foreach (GameObject bullet in bulletList)
+        {
+            Destroy(bullet);
+        }
         bulletList.Clear();
+        SetVelocity(Vector2.zero);
     }
 
     public void AddCommand(Command newCommand)
@@ -144,6 +151,7 @@ public class Tank : MovingObject
     public void Ghost()
     {
         Debug.Log("Spectating!");
+        alive = false;
         foreach(var collider in colliders)
         {
             collider.enabled = false;
@@ -153,6 +161,7 @@ public class Tank : MovingObject
     public void Die()
     {
         Debug.Log("Ded?");
+        alive = false;
         StopCoroutine(replay);
         foreach(var mesh in meshes)
         {
@@ -166,7 +175,8 @@ public class Tank : MovingObject
 
     public void UnDie(Round round)
     {
-        Debug.Log("Arise! My son.");
+        Debug.Log(rb.useGravity);
+        alive = true;
         foreach(var mesh in meshes)
         {
             mesh.enabled = true;

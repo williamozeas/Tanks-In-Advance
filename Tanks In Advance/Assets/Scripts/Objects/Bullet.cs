@@ -92,6 +92,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks"))
         {
             live = true; //To ensure that the bullet leaves the owner before being able to kill its owner.
+            // _tank.SetCollisions(GetComponent<Collider>(), true);
         }
         
     }
