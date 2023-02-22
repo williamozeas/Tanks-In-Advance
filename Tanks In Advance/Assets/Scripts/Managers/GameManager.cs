@@ -80,7 +80,6 @@ public class GameManager : Singleton<GameManager>
                 GameState = GameStates.Playing;
             }
         }
-        Debug.Log(GameState);
     }
 
     // Update is called once per frame

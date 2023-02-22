@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         this.live = false;
     }
 
-    // FixedUpdate called every certain amt of time
+    // Update called every frame
     protected void Update()
     {
         if (this._lifespan < 0 || ricochets > 2)
@@ -54,10 +54,13 @@ public class Bullet : MonoBehaviour
     protected void OnCollisionEnter(Collision collision)
     {
         Collider hit = collision.collider;
-        Tank tank; //= new Tank();
+        Tank tank;
         Wall wall;
-
-        if (hit.transform.parent.TryGetComponent<Tank>(out tank))
+        
+        Debug.Log("COLLIDED");
+        
+        
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") && hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
             
             if (tank == _tank && live) //To avoid self-destruction.
@@ -86,21 +89,20 @@ public class Bullet : MonoBehaviour
 
     protected void OnCollisionExit(Collision collision)
     {
-        live = true; //To ensure that the bullet leaves the owner before being able to kill tanks.
-
-        //If the bullet doesn't interact with some random object, blame this command.
-        Physics.IgnoreCollision(
-            GetComponent<Collider>(),
-            collision.collider,
-            false
-        );
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks"))
+        {
+            live = true; //To ensure that the bullet leaves the owner before being able to kill its owner.
+        }
+        
     }
 
     protected void Ricochet(Collision coll)
     {
         Vector3 normal = coll.GetContact(0).normal;
-        //velocity.x = normal.x * speed;
-        //velocity.y = normal.z * speed;
+        Vector2 normal2 = new Vector2(normal.x, normal.z);
+        Vector2 incident = velocity;
+        Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
+        velocity = incident - 2 * normalComponent;
     }
 
     protected void KillSelf()

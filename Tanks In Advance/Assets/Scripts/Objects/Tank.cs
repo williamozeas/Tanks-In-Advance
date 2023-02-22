@@ -218,6 +218,14 @@ public class Tank : MovingObject
         float angle = -Vector2.SignedAngle(Vector2.up, newAim);
         turret.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+
+    public void SetCollisions(Collider _coll, bool state)
+    {
+        foreach (Collider collider in colliders)
+        {
+            Physics.IgnoreCollision(_coll, collider, !state);
+        }
+    }
     
     // public void SetTurretTurnVelocity(float newVelocity)
     // {

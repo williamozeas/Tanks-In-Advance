@@ -16,7 +16,6 @@ public class SetAimCommand : Command
 
     public override void Execute()
     {
-        Debug.Log("new aim: " + _angle);
         _tank.SetAim(_angle);
     }
 
