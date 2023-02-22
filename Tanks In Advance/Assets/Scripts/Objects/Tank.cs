@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 public enum TankType
 {
@@ -14,7 +16,8 @@ public enum TankType
  */
 public class Tank : MovingObject
 {
-    [HideInInspector] public PlayerNum owner;
+    [HideInInspector] public PlayerNum ownerNum;
+    public Player Owner => GameManager.Instance.Players[(int)ownerNum];
     private TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
     [Header("Stats")]
@@ -46,6 +49,7 @@ public class Tank : MovingObject
     private MeshRenderer[] meshes;
     private Collider[] colliders;
     private Turret turret;
+    private Coroutine replay;
 
     private void Awake()
     {
@@ -61,11 +65,19 @@ public class Tank : MovingObject
         _startLocation = transform.position;
         health *= GameManager.Instance.gameParams.tankHealthMultiplier;
         speed *= GameManager.Instance.gameParams.tankSpeedMultiplier;
+        
+        _startLocation = transform.position;
+        currentlyControlled = true;
+            
+        //ensure command list is not empty
+        Command setVelocityCommand =
+            new SetVelocityCommand(Vector3.zero, this, -1);
+        AddCommand(setVelocityCommand);
+        setVelocityCommand.Execute();
     }
 
     protected void Update()
     {
-        base.FixedUpdate();
         // turretAngle = turretTurnSpeed * _turretTurnVelocity;
         
     }
@@ -85,32 +97,18 @@ public class Tank : MovingObject
 
     public void OnRoundStart(Round round)
     {
-        if (IsRecorded)
+        if (!Owner.IsCurrentTank(this)) //should always be true but in case we decide to spawn in tanks early
         {
             currentlyControlled = false;
             UnDie(round);
-            StartCoroutine(Replay());
-        }
-        else
-        {
-            _startLocation = transform.position;
-            currentlyControlled = true;
-            
-            //ensure command list is not empty
-            Command setVelocityCommand =
-                new SetVelocityCommand(Vector3.zero, this, -1);
-            AddCommand(setVelocityCommand);
-            setVelocityCommand.Execute();
+            replay = StartCoroutine(Replay());
         }
     }
     
     public void OnRoundEnd()
     {
         roundsPassed += 1;
-        if (IsRecorded)
-        {
-            rb.position = _startLocation;
-        }
+        rb.position = _startLocation;
         velocity = Vector2.zero;
 
         //Bullets from previous rounds should be removed.
@@ -130,7 +128,6 @@ public class Tank : MovingObject
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             alive = false;
@@ -147,11 +144,16 @@ public class Tank : MovingObject
     public void Ghost()
     {
         Debug.Log("Spectating!");
+        foreach(var collider in colliders)
+        {
+            collider.enabled = false;
+        }
     }
 
     public void Die()
     {
         Debug.Log("Ded?");
+        StopCoroutine(replay);
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
@@ -206,7 +208,8 @@ public class Tank : MovingObject
     //aesthetic changes based on team
     public void AssignToTeam(PlayerNum newOwner)
     {
-        owner = newOwner;
+        ownerNum = newOwner;
+        GameManager.Instance.Players[(int)ownerNum].SetCurrentTank(this);
     }
 
     public void SetAim(Vector2 newAim)

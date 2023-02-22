@@ -146,4 +146,9 @@ public class Player : MonoBehaviour
     {
         _currentTank = newTank;
     }
+
+    public bool IsCurrentTank(Tank compare)
+    {
+        return compare == _currentTank;
+    }
 }

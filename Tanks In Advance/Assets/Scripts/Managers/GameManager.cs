@@ -15,7 +15,7 @@ public enum GameStates
 //Singleton class means it can be ref'd with GameManger.Instance anywhere
 public class GameManager : Singleton<GameManager> 
 {
-    private GameStates _gameState = GameStates.BetweenRounds;
+    private GameStates _gameState = GameStates.MainMenu;
     public GameStates GameState
     {
         //get/set means that gamestate can't be changed without calling SetGameState();
@@ -49,7 +49,7 @@ public class GameManager : Singleton<GameManager>
     private float _roundTime = 0.0f;
     public float RoundTime => _roundTime; //shorthand to make round time unmodifiable from outside class
     
-    private int _roundNumber = 1;
+    private int _roundNumber = 0;
     public int RoundNumber => _roundNumber; //shorthand to make round # unmodifiable from outside class
 
     public override void Awake()
@@ -71,7 +71,7 @@ public class GameManager : Singleton<GameManager>
         //DEBUG
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (GameState == GameStates.Playing)
+            if (GameState == GameStates.Playing || GameState == GameStates.MainMenu)
             {
                 GameState = GameStates.BetweenRounds;
             }
@@ -80,6 +80,7 @@ public class GameManager : Singleton<GameManager>
                 GameState = GameStates.Playing;
             }
         }
+        Debug.Log(GameState);
     }
 
     // Update is called once per frame
