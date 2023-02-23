@@ -56,10 +56,8 @@ public class Bullet : MonoBehaviour
         Collider hit = collision.collider;
         Tank tank;
         Wall wall;
-        
-        Debug.Log("COLLIDED");
-        
-        
+
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") && hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
             
@@ -75,7 +73,6 @@ public class Bullet : MonoBehaviour
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {
-            Debug.Log("boing");
             Ricochet(collision);
             ricochets++;
         }
@@ -84,7 +81,6 @@ public class Bullet : MonoBehaviour
             KillSelf();
         }
 
-        Debug.Log(collision.collider.name);
     }
 
     protected void OnCollisionExit(Collision collision)
@@ -97,11 +93,35 @@ public class Bullet : MonoBehaviour
         
     }
 
-    protected void Ricochet(Collision coll)
+    protected void Ricochet(Collision coll, bool quantizeNormal = true)
     {
-        Vector3 normal = coll.GetContact(0).normal;
-        Vector2 normal2 = new Vector2(normal.x, normal.z);
+        float tolerance = 0.01f;
+        
         Vector2 incident = velocity;
+        Vector3 normal = coll.GetContact(0).normal;
+        Vector2 normal2;
+
+        //quantize weird normals
+        if (quantizeNormal && (normal.x != 0 && normal.z != 0))
+        {
+            //quantize to 45 degree angles
+            normal2 = new Vector2(Math.Sign(normal.x), Math.Sign(normal.z)).normalized;
+            Debug.Log("quantized " + normal + " to " + normal2);
+        }
+        else
+        {
+            normal2 = new Vector2(normal.x, normal.z);
+            
+            //quantize perpendicular collisions
+            float dot = Vector2.Dot(normal2, incident);
+            if (quantizeNormal && (Mathf.Abs(dot) < tolerance))
+            {
+                //quantize to 45 degree angles
+                normal2 = new Vector2(Math.Sign(normal.x - incident.x), Math.Sign(normal.z - incident.y)).normalized;
+                Debug.Log("quantized " + normal + " to " + normal2);
+            }
+            Debug.Log("did not quantize " + normal);
+        }
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
         velocity = incident - 2 * normalComponent;
     }

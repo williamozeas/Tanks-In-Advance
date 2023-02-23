@@ -33,10 +33,10 @@ public class BreakableWall : Wall
         //TODO: Check if this works properly with bullets
         if(collision.gameObject.GetComponent<Bullet>()){
             health--;
-            Debug.Log("Wall health: " + health);
+            // Debug.Log("Wall health: " + health);
             if(health <= 0)
             {
-                Debug.Log("Wall Destroyed");
+                // Debug.Log("Wall Destroyed");
                 Die();
             }
         }
