@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerBlock : Wall
+public class TriggerBlock : BreakableWall
 {
     public UnityEvent OnHit;
+    public float delay = 0f;
     
     // Start is called before the first frame update
     void Start()
@@ -20,11 +21,24 @@ public class TriggerBlock : Wall
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Bullets"))
         {
-            OnHit?.Invoke();
+            Die();
         }
+    }
+
+    public override void Die()
+    {
+        Invoke("Call", delay);
+        base.Die();
+    }
+
+    void Call()
+    {
+        OnHit?.Invoke();
     }
 }

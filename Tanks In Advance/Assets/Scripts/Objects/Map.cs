@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum MapName
 {
@@ -45,10 +46,19 @@ public class Map : MonoBehaviour
         foreach(Wall wall in walls)
         {
             wall.GetComponent<MeshRenderer>().enabled = false;
+
+            Canvas canvas = wall.GetComponentInChildren<Canvas>();
+            if (canvas != null)
+                canvas.enabled = false;
         }
         foreach(Wall wall in walls)
         {
             wall.GetComponent<MeshRenderer>().enabled = true;
+
+            Canvas canvas = wall.GetComponentInChildren<Canvas>();
+            if (canvas != null)
+                canvas.enabled = true;
+
             StartCoroutine(wall.OnCreate());
             yield return new WaitForSeconds(0.01f);
         }

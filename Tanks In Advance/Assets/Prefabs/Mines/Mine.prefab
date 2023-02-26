@@ -128,5 +128,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45ed27d7b02ab246bb77e76ea74b99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineExplosion: {fileID: 6374489335037315713, guid: 8508f235e5b14d14cbd8c6ac05b51b6e,
-    type: 3}
+  speed: 0
+  power: 5

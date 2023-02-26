@@ -27,7 +27,7 @@ public class BreakableWall : Wall
         GameManager.OnRoundStart -= OnRoundStart;
     }
     
-    void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         //Checks if the collided object is a bullet (hopefully)
         //TODO: Check if this works properly with bullets
@@ -42,9 +42,12 @@ public class BreakableWall : Wall
         }
     }
 
-    public void Die(){
+    public virtual void Die(){
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas != null) canvas.enabled = false;
     }
 
     void OnRoundStart(Round round){

@@ -18,7 +18,10 @@ public class MineCommand : Command
         GameObject mine = Object.Instantiate(_tank.minePrefab, _tank.rb.transform);
         mine.transform.SetParent(null);
         mine.transform.position += Vector3.down * 0.5f;
-        _tank.mineList.Add(mine);
+        _tank.bulletList.Add(mine);
+
+        Mine mineScript = mine.GetComponent<Mine>();
+        mineScript.Init(_tank, Vector2.zero);
     }
 
     public override string ToString()
