@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     protected bool live;
     public int power = 1;
     private Vector2 velocity;
+    private TrailRenderer trailRenderer;
     private bool is_ghost;
     
     //called on creation
@@ -26,6 +27,15 @@ public class Bullet : MonoBehaviour
         this.velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
+        
+        //Change the color of the trail based on player
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (source.ownerNum == PlayerNum.Player1) {
+            //TODO
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,1);
+        } else {
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
+        }
         is_ghost = !source.Alive;
     }
     

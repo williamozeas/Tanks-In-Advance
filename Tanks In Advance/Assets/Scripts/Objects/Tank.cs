@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 public enum TankType
 {
@@ -28,6 +29,9 @@ public class Tank : MovingObject
     public GameObject minePrefab;
     public int currentHealth;
     public float shootingCooldown = 0;
+    [Header("VFX")]
+    public VisualEffect vfx;
+    
 
     private Vector3 _startLocation = Vector3.zero;
     // private float _turretTurnVelocity = 0;
@@ -133,6 +137,7 @@ public class Tank : MovingObject
 
     public void Shoot()
     {
+        vfx.Play();
         //visuals for shooting
     }
 
