@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1603225130937425645}
   - component: {fileID: 1603225130937425642}
+  - component: {fileID: 7867146319710155179}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,3 +55,15 @@ MonoBehaviour:
     tankSpeedMultiplier: 1
   Players: []
   mapSpawner: {fileID: 0}
+--- !u!114 &7867146319710155179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603225130937425643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880c6508e37814861a968a7515dc8cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
