@@ -15,4 +15,19 @@ public class AudioManager : Singleton<AudioManager>
     {
         
     }
+
+    public void Shoot()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Shoot");
+    }
+
+    public void BlockLay()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Shoot");
+    }
+
+    public void Die()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Die");
+    }
 }

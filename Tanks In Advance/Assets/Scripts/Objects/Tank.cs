@@ -132,6 +132,7 @@ public class Tank : MovingObject
     public void Shoot()
     {
         //visuals for shooting
+        AudioManager.Instance.Shoot();
     }
 
     public void TakeDamage(int damage)
