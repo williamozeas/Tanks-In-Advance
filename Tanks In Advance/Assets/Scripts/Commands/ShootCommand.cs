@@ -33,6 +33,7 @@ public class ShootCommand : Command
         }
         //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
 
+
         GameObject bullet = Object.Instantiate(
             _tank.bulletPrefab,
             _tank.rb.position + new Vector3(_angle.x, 0, _angle.y) * 1f,
@@ -41,7 +42,7 @@ public class ShootCommand : Command
 
         Bullet bulletBullet = bullet.GetComponent<Bullet>();
         bulletBullet.Init(_tank, _angle);
-        
+
         // _tank.SetCollisions(bulletBullet.GetComponent<Collider>(), false);
 
         _tank.bulletList.Add(bullet);

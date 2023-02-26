@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     private bool live;
     private int power = 1;
     private Vector2 velocity;
+    private bool is_ghost;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
@@ -25,6 +26,7 @@ public class Bullet : MonoBehaviour
         this.velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
+        is_ghost = !source.Alive;
     }
     
     // Start is called before the first frame update
@@ -33,6 +35,7 @@ public class Bullet : MonoBehaviour
         this._lifespan = 100.0f;
         this.ricochets = 0;
         this.live = false;
+        this.is_ghost = false;
     }
 
     // Update called every frame
@@ -53,12 +56,16 @@ public class Bullet : MonoBehaviour
 
     protected void OnCollisionEnter(Collision collision)
     {
+
+        //Bullets fired after the tank becomes a ghost do not affect the living world.
+        if (is_ghost) return;
+
         Collider hit = collision.collider;
         Tank tank;
         Wall wall;
 
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") && hit.transform.parent.TryGetComponent<Tank>(out tank))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") &&
+            hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
             
             if (tank == _tank && live) //To avoid self-destruction.
