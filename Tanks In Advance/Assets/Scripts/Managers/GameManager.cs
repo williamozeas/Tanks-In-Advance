@@ -24,7 +24,6 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
-    VisualEffect
     [Header("Parameters")] 
     public int maxRounds = 5;
 
