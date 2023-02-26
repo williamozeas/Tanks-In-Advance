@@ -35,10 +35,7 @@ public abstract class MovingObject : MonoBehaviour
     // used here to ensure variable framerate won't mess up our replay
     protected virtual void FixedUpdate()
     {
-    //     rb.velocity = new Vector3(velocity.x, 0, velocity.y);
-    //     
-    //     float direction = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-    //     rb.rotation = Quaternion.AngleAxis(direction, new Vector3(0,1,0));
+        rb.velocity = new Vector3(velocity.x, 0, velocity.y); //this is needed to prevent bouncing off of walls
     }
     
     public void SetVelocity(Vector2 newVelocity)
@@ -71,6 +68,15 @@ public abstract class MovingObject : MonoBehaviour
             }
             rotationCoroutine = StartCoroutine(EaseRotation(rotation, newRotation, 0.5f));
         }
+    }
+
+    public void Reset()
+    {
+        SetVelocity(Vector2.zero);
+        StopCoroutine(rotationCoroutine);
+        rotationCoroutine = null;
+        rotation = 0;
+        rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0,1,0));
     }
 
     IEnumerator EaseRotation(float start, float end, float duration)

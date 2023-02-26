@@ -11,7 +11,6 @@ public class BreakableWall : Wall
     void Start()
     {
         health = MaxHealth;
-        GameManager.OnRoundStart += OnRoundStart;
     }
 
     // Update is called once per frame
@@ -19,15 +18,25 @@ public class BreakableWall : Wall
     {
         
     }
+
+    private void OnEnable() {
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+
+    private void OnDisable() {
+        GameManager.OnRoundStart -= OnRoundStart;
+    }
     
     void OnCollisionEnter(Collision collision)
     {
+        //Checks if the collided object is a bullet (hopefully)
+        //TODO: Check if this works properly with bullets
         if(collision.gameObject.GetComponent<Bullet>()){
             health--;
-            Debug.Log("Wall health: " + health);
+            // Debug.Log("Wall health: " + health);
             if(health <= 0)
             {
-                Debug.Log("Wall Destroyed");
+                // Debug.Log("Wall Destroyed");
                 Die();
             }
         }

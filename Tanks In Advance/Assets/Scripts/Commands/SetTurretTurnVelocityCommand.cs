@@ -17,7 +17,7 @@ public class SetTurretTurnVelocityCommand : Command
 
     public override void Execute()
     {
-        _tank.SetTurretTurnVelocity(_ang_velocity);
+        // _tank.SetTurretTurnVelocity(_ang_velocity);
     }
 
     public override string ToString()

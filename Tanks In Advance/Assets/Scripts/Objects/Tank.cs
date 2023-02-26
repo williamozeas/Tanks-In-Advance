@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 public enum TankType
 {
@@ -14,7 +16,8 @@ public enum TankType
  */
 public class Tank : MovingObject
 {
-    [HideInInspector] public PlayerNum owner;
+    [HideInInspector] public PlayerNum ownerNum;
+    public Player Owner => GameManager.Instance.Players[(int)ownerNum];
     private TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
     [Header("Stats")]
@@ -23,11 +26,14 @@ public class Tank : MovingObject
     public int health = 1;
     public GameObject bulletPrefab;
     public GameObject minePrefab;
+    public int currentHealth;
 
     private Vector3 _startLocation = Vector3.zero;
-    private float _turretTurnVelocity = 0;
-    private float turretAngle = 0;
-    public float TurretTurnVelocity => _turretTurnVelocity;
+    // private float _turretTurnVelocity = 0;
+    // private float turretAngle = 0;
+    // public float TurretTurnVelocity => _turretTurnVelocity;
+    [HideInInspector] private Vector2 aim = Vector2.up;
+    public Vector2 Aim => aim;
     
     public Rigidbody turretRB;
     public List<Renderer> renderers;
@@ -35,9 +41,24 @@ public class Tank : MovingObject
     private int roundsPassed = 0;
     protected List<Command> commandList = new List<Command>();
     public bool IsRecorded => commandList.Count > 0;
+    private bool currentlyControlled = false;
+    private bool alive;
+    public bool Alive => alive;
 
     public List<GameObject> bulletList = new List<GameObject>();
     public List<GameObject> mineList = new List<GameObject>();
+
+    private MeshRenderer[] meshes;
+    private Collider[] colliders;
+    private Turret turret;
+    private Coroutine replay;
+
+    private void Awake()
+    {
+        meshes = GetComponentsInChildren<MeshRenderer>();
+        colliders = GetComponentsInChildren<Collider>();
+        turret = GetComponentInChildren<Turret>();
+    }
 
     // Start will be executed when the tank spawns in
     protected override void Start()
@@ -46,13 +67,22 @@ public class Tank : MovingObject
         _startLocation = transform.position;
         health *= GameManager.Instance.gameParams.tankHealthMultiplier;
         speed *= GameManager.Instance.gameParams.tankSpeedMultiplier;
+        
+        _startLocation = transform.position;
+        currentlyControlled = true;
+            
+        //ensure command list is not empty
+        Command setVelocityCommand =
+            new SetVelocityCommand(Vector2.zero, this, -1);
+        AddCommand(setVelocityCommand);
+        setVelocityCommand.Execute();
     }
 
-    protected override void FixedUpdate()
+    protected void Update()
     {
-        base.FixedUpdate();
-        turretAngle = turretTurnSpeed * _turretTurnVelocity;
-        // TODO: update turret
+        if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
+            Debug.Log(rb.velocity);
+
     }
     
     //Subscribe to events
@@ -70,28 +100,28 @@ public class Tank : MovingObject
 
     public void OnRoundStart(Round round)
     {
-        if (IsRecorded)
+        if (!Owner.IsCurrentTank(this)) //should always be true but in case we decide to spawn in tanks early
         {
             rb.position = _startLocation;
-            StartCoroutine(Replay());
-        }
-        else
-        {
-            _startLocation = transform.position;
+            currentlyControlled = false;
+            UnDie(round);
+            replay = StartCoroutine(Replay());
         }
     }
     
     public void OnRoundEnd()
     {
         roundsPassed += 1;
-        if (IsRecorded)
-        {
-            rb.position = _startLocation;
-        }
+        rb.position = _startLocation;
         velocity = Vector2.zero;
 
         //Bullets from previous rounds should be removed.
+        foreach (GameObject bullet in bulletList)
+        {
+            Destroy(bullet);
+        }
         bulletList.Clear();
+        SetVelocity(Vector2.zero);
     }
 
     public void AddCommand(Command newCommand)
@@ -106,7 +136,59 @@ public class Tank : MovingObject
 
     public void TakeDamage(int damage)
     {
-        
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            alive = false;
+            if (currentlyControlled)
+            {
+                Ghost();
+            }
+            else {
+                Die();
+            }
+        }
+    }
+
+    public void Ghost()
+    {
+        Debug.Log("Spectating!");
+        alive = false;
+        foreach(var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("Ded?");
+        alive = false;
+        StopCoroutine(replay);
+        foreach(var mesh in meshes)
+        {
+            mesh.enabled = false;
+        }
+        foreach(var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    public void UnDie(Round round)
+    {
+        Debug.Log(rb.useGravity);
+        alive = true;
+        foreach(var mesh in meshes)
+        {
+            mesh.enabled = true;
+        }
+        foreach(var collider in colliders)
+        {
+            collider.enabled = true;
+        }
+        rb.position = _startLocation;
+        currentHealth = health;
     }
 
     //Requires commandList to be in order by timestamp to work properly
@@ -138,12 +220,28 @@ public class Tank : MovingObject
     //aesthetic changes based on team
     public void AssignToTeam(PlayerNum newOwner)
     {
-        owner = newOwner;
+        ownerNum = newOwner;
+        GameManager.Instance.Players[(int)ownerNum].SetCurrentTank(this);
+    }
+
+    public void SetAim(Vector2 newAim)
+    {
+        aim = newAim;
+        float angle = -Vector2.SignedAngle(Vector2.up, newAim);
+        turret.transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+
+    public void SetCollisions(Collider _coll, bool state)
+    {
+        foreach (Collider collider in colliders)
+        {
+            Physics.IgnoreCollision(_coll, collider, !state);
+        }
     }
     
-    public void SetTurretTurnVelocity(float newVelocity)
-    {
-        _turretTurnVelocity = newVelocity;
-        // turretRB.rotation.
-    }
+    // public void SetTurretTurnVelocity(float newVelocity)
+    // {
+    //     _turretTurnVelocity = newVelocity;
+    //     // turretRB.rotation.
+    // }
 }

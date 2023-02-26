@@ -6,18 +6,19 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, RotTurrClock, RotTurrCounterClock, Shoot, Mine;
-
+    public KeyCode Up, Down, Left, Right, Shoot, Mine, AimUp, AimDown, AimLeft, AimRight;
     public PlayerInput()
     {
         Up = KeyCode.W;
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
-        RotTurrClock = KeyCode.E;
-        RotTurrCounterClock = KeyCode.Q;
         Shoot = KeyCode.LeftShift;
         Mine = KeyCode.Z;
+        AimUp = KeyCode.I;
+        AimDown = KeyCode.K;
+        AimLeft = KeyCode.J;
+        AimRight = KeyCode.L;
     }
 }
 
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
         // Debug.Log(GameManager.Instance.RoundTime);
         switch (GameManager.Instance.GameState)
         {
+            case(GameStates.MainMenu):
             case(GameStates.Playing): {
                 //Tank movement code
                 if (!_currentTank)
@@ -83,9 +85,41 @@ public class Player : MonoBehaviour
                     newVelocity += new Vector2(1, 0);
                 }
 
+                Vector2 newAim = Vector2.zero;
+                //TEMP FOR CONTROLLER
+                if (Input.GetKey(inputs.AimUp))
+                {
+                    newAim += new Vector2(0, 1);
+                }
+
+                if (Input.GetKey(inputs.AimDown))
+                {
+                    newAim += new Vector2(0, -1);
+                }
+
+                if (Input.GetKey(inputs.AimLeft))
+                {
+                    newAim += new Vector2(-1, 0);
+                }
+
+                if (Input.GetKey(inputs.AimRight))
+                {
+                    newAim += new Vector2(1, 0);
+                }
+                
+                Vector2 newAimNorm = newAim.normalized;
+                if (newAimNorm != _currentTank.Aim && newAim.magnitude > 0.1f) //controller dead zone
+                {
+                    Command setAimCommand =
+                        new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
+                    _currentTank.AddCommand(setAimCommand);
+                    setAimCommand.Execute();
+                }
+
                 if (Input.GetKeyDown(inputs.Shoot))
                 {
-                    Vector2 angle = _currentTank.Velocity.normalized;
+                    // Vector2 angle = _currentTank.Velocity.normalized;
+                    Vector2 angle = _currentTank.Aim;
                     Command shootCommand = 
                             new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(shootCommand);
@@ -101,8 +135,7 @@ public class Player : MonoBehaviour
                     mineCommand.Execute();
                 }
 
-                    //Debug.Log(newVelocity);
-                    newVelocity = _currentTank.speed * newVelocity.normalized;
+                newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
                 {
                     Command setVelocityCommand =
@@ -111,25 +144,6 @@ public class Player : MonoBehaviour
                     setVelocityCommand.Execute();
                 }
 
-                float newTurRotateVelocity = 0;
-                if (Input.GetKey(inputs.RotTurrClock))
-                {
-                    newTurRotateVelocity += 1;
-                }
-
-                if (Input.GetKey(inputs.RotTurrCounterClock))
-                {
-                    newTurRotateVelocity += -1;
-                }
-
-                if (newTurRotateVelocity != _currentTank.TurretTurnVelocity)
-                {
-                    Command setTurretTurnVelocityCommand =
-                        new SetTurretTurnVelocityCommand(newTurRotateVelocity, _currentTank,
-                            GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(setTurretTurnVelocityCommand);
-                    setTurretTurnVelocityCommand.Execute();
-                }
                 break;
             }
         }
@@ -138,5 +152,10 @@ public class Player : MonoBehaviour
     public void SetCurrentTank(Tank newTank)
     {
         _currentTank = newTank;
+    }
+
+    public bool IsCurrentTank(Tank compare)
+    {
+        return compare == _currentTank;
     }
 }

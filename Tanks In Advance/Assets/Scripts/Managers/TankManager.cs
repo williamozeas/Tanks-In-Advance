@@ -27,14 +27,12 @@ public class TankManager : Singleton<TankManager>
         Tank p1Tank = SpawnNewTank(TankType.basic, PlayerNum.Player1, spawnPoint1.transform.position, 
             Quaternion.Euler(0, 0, 0));
         p1Tanks.Add(p1Tank);
-        GameManager.Instance.Players[(int)PlayerNum.Player1].SetCurrentTank(p1Tank);
         
         SpawnPoint spawnPoint2 =
             GameManager.Instance.mapSpawner.CurrentMap.GetSpawnPoint(PlayerNum.Player2, round.number);
         Tank p2Tank = SpawnNewTank(TankType.basic, PlayerNum.Player2, spawnPoint2.transform.position, 
             Quaternion.Euler(0, 180, 0));
         p2Tanks.Add(p2Tank);
-        GameManager.Instance.Players[(int)PlayerNum.Player2].SetCurrentTank(p2Tank);
     }
 
     public Tank SpawnNewTank(TankType type, PlayerNum playerNum, Vector3 position, Quaternion rotation)

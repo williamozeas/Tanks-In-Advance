@@ -24,7 +24,7 @@ public class WinCircle : MonoBehaviour
         if(other.transform.parent == null) return;
         
         if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
-            if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
+            if(other.transform.parent.GetComponent<Tank>().ownerNum == PlayerNum.Player1){
                 numTanksP1++;
             }else{
                 numTanksP2++;
@@ -37,7 +37,7 @@ public class WinCircle : MonoBehaviour
         if(other.transform.parent == null) return;
         
         if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
-            if(other.transform.parent.GetComponent<Tank>().owner == PlayerNum.Player1){
+            if(other.transform.parent.GetComponent<Tank>().ownerNum == PlayerNum.Player1){
                 numTanksP1--;
             }else{
                 numTanksP2--;
