@@ -17,7 +17,22 @@ public class ShootCommand : Command
 
     public override void Execute()
     {
+        //The tank does nothing if shooting has not yet cooled down.
+        if (_tank.shootingCooldown > 0.5f) return;
+
         _tank.Shoot(); //visuals
+
+        //Tank must wait to shoot again.
+        if (_tank.shootingCooldown < 0.1f) 
+        {
+            _tank.shootingCooldown += 0.6f; //Rapid barrage after waiting
+        }
+        else                                
+        {
+            _tank.shootingCooldown += 0.8f; //Space out following shots.
+        }
+        //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
+
 
         GameObject bullet = Object.Instantiate(
             _tank.bulletPrefab,
@@ -27,7 +42,7 @@ public class ShootCommand : Command
 
         Bullet bulletBullet = bullet.GetComponent<Bullet>();
         bulletBullet.Init(_tank, _angle);
-        
+
         // _tank.SetCollisions(bulletBullet.GetComponent<Collider>(), false);
 
         _tank.bulletList.Add(bullet);

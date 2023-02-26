@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mine : MonoBehaviour
+public class Mine : Bullet
 {
-    private Tank _tank;
-    private float _lifespan;
-    
     public Mine(Tank source)
     {
         _tank = source;
@@ -14,13 +11,13 @@ public class Mine : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
         _lifespan = 5f;
     }
 
     // FixedUpdate called every certain amt of time
-    protected void Update()
+    protected override void Update()
     {
         if (_lifespan < 0)
         {
@@ -43,8 +40,24 @@ public class Mine : MonoBehaviour
                 Debug.Log("Got here");
                 bWall.Die();
             }
+
+            Tank tank = hit.gameObject.GetComponent<Tank>();
+            if (tank == _tank && live) //To avoid self-destruction.
+            {
+                tank.TakeDamage(power);
+            }
+            else if (tank != null && tank != _tank)
+            {
+                tank.TakeDamage(power);
+            }
         }
 
-        Destroy(gameObject);
+        KillSelf();
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        if (live)
+            Explode();
     }
 }
