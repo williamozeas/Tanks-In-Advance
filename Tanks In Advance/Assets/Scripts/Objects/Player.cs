@@ -6,15 +6,15 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInput
 {
-    public KeyCode Up, Down, Left, Right, Shoot, Mine, AimUp, AimDown, AimLeft, AimRight;
+    public KeyCode Up, Down, Left, Right, Fire, AltFire, AimUp, AimDown, AimLeft, AimRight;
     public PlayerInput()
     {
         Up = KeyCode.W;
         Down = KeyCode.S;
         Left = KeyCode.A;
         Right = KeyCode.D;
-        Shoot = KeyCode.LeftShift;
-        Mine = KeyCode.Z;
+        Fire = KeyCode.LeftShift;
+        AltFire = KeyCode.Z;
         AimUp = KeyCode.I;
         AimDown = KeyCode.K;
         AimLeft = KeyCode.J;
@@ -116,7 +116,8 @@ public class Player : MonoBehaviour
                     setAimCommand.Execute();
                 }
 
-                if (Input.GetKeyDown(inputs.Shoot))
+                // fire button pressed (shooting for now)
+                if (Input.GetKeyDown(inputs.Fire))
                 {
                     // Vector2 angle = _currentTank.Velocity.normalized;
                     Vector2 angle = _currentTank.Aim;
@@ -126,7 +127,8 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                if (Input.GetKeyDown(inputs.Mine))
+                // alt fire button pressed (mines for now)
+                if (Input.GetKeyDown(inputs.AltFire))
                 {
                     Vector2 angle = _currentTank.Velocity.normalized;
                     Command mineCommand =

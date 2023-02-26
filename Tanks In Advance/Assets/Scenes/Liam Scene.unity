@@ -562,8 +562,12 @@ MonoBehaviour:
     Down: 274
     Left: 276
     Right: 275
-    Shoot: 46
-    Mine: 44
+    Fire: 32
+    AltFire: 44
+    AimUp: 105
+    AimDown: 107
+    AimLeft: 106
+    AimRight: 108
 --- !u!1 &813731936
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,8 +745,12 @@ MonoBehaviour:
     Down: 115
     Left: 97
     Right: 100
-    Shoot: 32
-    Mine: 122
+    Fire: 304
+    AltFire: 122
+    AimUp: 105
+    AimDown: 107
+    AimLeft: 106
+    AimRight: 108
 --- !u!1 &1877302040
 GameObject:
   m_ObjectHideFlags: 0
