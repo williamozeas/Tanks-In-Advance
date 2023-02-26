@@ -102,5 +102,21 @@ public class Map : MonoBehaviour
     {
         return winCircle.numTanksP1 - winCircle.numTanksP2;
     }
+
+    public PlayerNum GetWinner()
+    {
+        if (winCircle.numTanksP1 > winCircle.numTanksP2)
+        {
+            return PlayerNum.Player1;
+        }
+        else if(winCircle.numTanksP1 < winCircle.numTanksP2)
+        {
+            return PlayerNum.Player2;
+        }
+        else
+        {
+            return PlayerNum.Neither;
+        }
+    }
     
 }

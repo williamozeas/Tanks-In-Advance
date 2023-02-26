@@ -25,7 +25,8 @@ public class PlayerInput
 public enum PlayerNum
 {
     Player1 = 0,
-    Player2 = 1
+    Player2 = 1,
+    Neither = 2
 }
 
 /*
