@@ -27,6 +27,7 @@ public class Tank : MovingObject
     public GameObject bulletPrefab;
     public GameObject minePrefab;
     public int currentHealth;
+    public float shootingCooldown = 0;
 
     private Vector3 _startLocation = Vector3.zero;
     // private float _turretTurnVelocity = 0;
@@ -83,6 +84,8 @@ public class Tank : MovingObject
         if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
             Debug.Log(rb.velocity);
 
+        //Tank can shoot when cooldown < 0.5
+        shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
     }
     
     //Subscribe to events
@@ -189,6 +192,7 @@ public class Tank : MovingObject
         }
         rb.position = _startLocation;
         currentHealth = health;
+        shootingCooldown = 0.0f;
     }
 
     //Requires commandList to be in order by timestamp to work properly
@@ -238,7 +242,7 @@ public class Tank : MovingObject
             Physics.IgnoreCollision(_coll, collider, !state);
         }
     }
-    
+
     // public void SetTurretTurnVelocity(float newVelocity)
     // {
     //     _turretTurnVelocity = newVelocity;
