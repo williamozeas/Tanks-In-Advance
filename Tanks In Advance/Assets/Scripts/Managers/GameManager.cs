@@ -68,37 +68,33 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        //DEBUG
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (GameState == GameStates.Playing || GameState == GameStates.MainMenu)
-            {
-                GameState = GameStates.BetweenRounds;
-            }
-            else
-            {
-                GameState = GameStates.Playing;
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         if (GameState == GameStates.Playing)
         {
-            _roundTime += Time.fixedDeltaTime;
+            _roundTime += Time.deltaTime;
+            if(_roundTime >= 30){
+                Debug.Log("End of Round");
+                GameState = GameStates.BetweenRounds;
+            }
+        } else if(Input.GetKeyDown(KeyCode.R)){
+            Debug.Log("R pressed");
+            if(GameState == GameStates.MainMenu)
+                GameState = GameStates.BetweenRounds;
+            else
+                GameState = GameStates.Playing;
         }
     }
 
     public void SetGameState(GameStates newGameState)
     {
+        Debug.Log("new game state: " + newGameState);
         switch (newGameState)
         {
             case(GameStates.Playing):
             {
                 _roundTime = 0;
-                if (OnRoundStart != null) OnRoundStart(new Round() { number = _roundNumber });
+                if (OnRoundStart != null){
+                    OnRoundStart(new Round() { number = _roundNumber });
+                }
                 break;
             }
             case(GameStates.BetweenRounds):
