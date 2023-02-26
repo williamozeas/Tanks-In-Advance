@@ -68,19 +68,19 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (GameManager.Instance.GameState == GameStates.Playing)
+        if (GameState == GameStates.Playing)
         {
             _roundTime += Time.deltaTime;
             if(_roundTime >= 30){
                 Debug.Log("End of Round");
-                GameManager.Instance.GameState = GameStates.BetweenRounds;
+                GameState = GameStates.BetweenRounds;
             }
         } else if(Input.GetKeyDown(KeyCode.R)){
             Debug.Log("R pressed");
-            if(GameManager.Instance.GameState == GameStates.MainMenu)
-                GameManager.Instance.GameState = GameStates.BetweenRounds;
+            if(GameState == GameStates.MainMenu)
+                GameState = GameStates.BetweenRounds;
             else
-                GameManager.Instance.GameState = GameStates.Playing;
+                GameState = GameStates.Playing;
         }
     }
 
