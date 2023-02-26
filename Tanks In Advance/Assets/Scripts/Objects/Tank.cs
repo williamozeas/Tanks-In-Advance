@@ -46,7 +46,6 @@ public class Tank : MovingObject
     public bool Alive => alive;
 
     public List<GameObject> bulletList = new List<GameObject>();
-    public List<GameObject> mineList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
     private Collider[] colliders;

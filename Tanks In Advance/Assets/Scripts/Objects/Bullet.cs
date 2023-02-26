@@ -10,12 +10,12 @@ public enum BulletType
 
 public class Bullet : MonoBehaviour
 {
-    private Tank _tank;
-    private float _lifespan;
+    protected Tank _tank;
+    protected float _lifespan;
     private int ricochets;
     public float speed = 5;
-    private bool live;
-    private int power = 1;
+    protected bool live;
+    public int power = 1;
     private Vector2 velocity;
     
     //called on creation
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         this._lifespan = 100.0f;
         this.ricochets = 0;
@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
     }
 
     // Update called every frame
-    protected void Update()
+    protected virtual void Update()
     {
         if (this._lifespan < 0 || ricochets > 2)
         {
@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(actualVelocity * Time.fixedDeltaTime);
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         Collider hit = collision.collider;
         Tank tank;
@@ -83,7 +83,7 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected void OnCollisionExit(Collision collision)
+    protected virtual void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks"))
         {
@@ -128,7 +128,9 @@ public class Bullet : MonoBehaviour
 
     protected void KillSelf()
     {
-        _tank.bulletList.Remove(this.gameObject);
+        if (_tank.bulletList.Contains(gameObject))
+            _tank.bulletList.Remove(gameObject);
+
         //Destroy animation
         Destroy(gameObject);
     }
