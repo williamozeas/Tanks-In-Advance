@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum MapName
 {
@@ -16,10 +18,16 @@ public class Map : MonoBehaviour
     public string name = "Test Map";
     
     public GameObject wallsHolder;
+    private WinCircle winCircle;
     
     private List<SpawnPoint> team1SpawnPoints;
     private List<SpawnPoint> team2SpawnPoints;
-    
+
+    private void Awake()
+    {
+        winCircle = GetComponentInChildren<WinCircle>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +53,19 @@ public class Map : MonoBehaviour
         foreach(Wall wall in walls)
         {
             wall.GetComponent<MeshRenderer>().enabled = false;
+
+            Canvas canvas = wall.GetComponentInChildren<Canvas>();
+            if (canvas != null)
+                canvas.enabled = false;
         }
         foreach(Wall wall in walls)
         {
             wall.GetComponent<MeshRenderer>().enabled = true;
+
+            Canvas canvas = wall.GetComponentInChildren<Canvas>();
+            if (canvas != null)
+                canvas.enabled = true;
+
             StartCoroutine(wall.OnCreate());
             yield return new WaitForSeconds(0.01f);
         }
@@ -79,6 +96,11 @@ public class Map : MonoBehaviour
             }
             return team2SpawnPoints[round - 1];
         }
+    }
+
+    public int GetCircleTotal()
+    {
+        return winCircle.numTanksP1 - winCircle.numTanksP2;
     }
     
 }
