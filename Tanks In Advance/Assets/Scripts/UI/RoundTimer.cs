@@ -15,21 +15,23 @@ public class RoundTimer : MonoBehaviour
     }
     
     private void Update() {
-        _tmp.text = Math.Floor(GameManager.Instance.RoundTime).ToString();
+        if(GameManager.Instance.GameState == GameStates.Playing){
+            _tmp.text = Math.Floor(GameManager.Instance.RoundTime).ToString();
+        }
     }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnRoundEnd += OnRoundEnd;
-    // }
+    private void OnEnable()
+    {
+        GameManager.OnRoundEnd += OnRoundEnd;
+    }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnRoundEnd -= OnRoundEnd;
-    // }
+    private void OnDisable()
+    {
+        GameManager.OnRoundEnd -= OnRoundEnd;
+    }
 
-    // private void OnRoundEnd()
-    // {
-    //     _tmp.text = " ";
-    // }
+    private void OnRoundEnd()
+    {
+        _tmp.text = "";
+    }
 }
