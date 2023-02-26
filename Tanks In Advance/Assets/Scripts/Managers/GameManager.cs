@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
     //function, and "EventName -= FnName" inside an OnDisable() function.
     public static event Action<Round> OnRoundStart;
     public static event Action OnRoundEnd;
-    public static event Action OnGameEnd;
+    public static event Action<PlayerNum> OnGameEnd;
     public static event Action OnMainMenu;
 
     private float _roundTime = 0.0f;
@@ -112,7 +112,7 @@ public class GameManager : Singleton<GameManager>
             }
             case (GameStates.EndGame):
             {
-                OnGameEnd?.Invoke();
+                OnGameEnd?.Invoke(mapSpawner.CurrentMap.GetWinner());
                 break;
             }
         }
