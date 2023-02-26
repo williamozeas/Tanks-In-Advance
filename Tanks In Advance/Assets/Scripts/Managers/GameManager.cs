@@ -23,6 +23,9 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
+    [Header("Parameters")] 
+    public int maxRounds = 5;
+
     [Header("References")] [SerializeField]
     private TankList _tankList;
     public TankList TankList => _tankList;
@@ -104,7 +107,16 @@ public class GameManager : Singleton<GameManager>
             case(GameStates.BetweenRounds):
             {
                 _roundNumber++;
+                if (_roundNumber > maxRounds)
+                {
+                    SetGameState(GameStates.EndGame);
+                }
                 if (OnRoundEnd != null) OnRoundEnd();
+                break;
+            }
+            case (GameStates.EndGame):
+            {
+                OnGameEnd?.Invoke();
                 break;
             }
         }

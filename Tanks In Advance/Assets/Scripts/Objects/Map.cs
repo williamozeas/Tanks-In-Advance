@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,10 +17,16 @@ public class Map : MonoBehaviour
     public string name = "Test Map";
     
     public GameObject wallsHolder;
+    private WinCircle winCircle;
     
     private List<SpawnPoint> team1SpawnPoints;
     private List<SpawnPoint> team2SpawnPoints;
-    
+
+    private void Awake()
+    {
+        winCircle = GetComponentInChildren<WinCircle>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +86,11 @@ public class Map : MonoBehaviour
             }
             return team2SpawnPoints[round - 1];
         }
+    }
+
+    public int GetCircleTotal()
+    {
+        return winCircle.numTanksP1 - winCircle.numTanksP2;
     }
     
 }
