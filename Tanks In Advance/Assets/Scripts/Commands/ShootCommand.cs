@@ -17,6 +17,7 @@ public class ShootCommand : Command
 
     public override void Execute()
     {
+        _tank.Shoot(); //visuals
         Debug.Log("Shooty shoot shoot pew pew");
         //Quaternion q = Quaternion.Euler(new Vector3(_angle.x, 0, _angle.y));
         //_tank.bulletPrefab.GetComponent<Bullet>().getShot(_tank, _angle * 3);

@@ -28,7 +28,7 @@ public class Bullet : MovingObject
     // FixedUpdate called every certain amt of time
     protected void Update()
     {
-        Debug.Log(velocity);
+        base.FixedUpdate();
         if (this._lifespan < 0)
         {
             Debug.Log("Remove bullet");
