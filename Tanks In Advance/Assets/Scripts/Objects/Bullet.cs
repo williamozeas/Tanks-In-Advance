@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     private bool live;
     private int power = 1;
     private Vector2 velocity;
+    private TrailRenderer trailRenderer;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
@@ -25,6 +26,15 @@ public class Bullet : MonoBehaviour
         this.velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
+        
+        //Change the color of the trail based on player
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (source.ownerNum == PlayerNum.Player1) {
+            //TODO
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,1);
+        } else {
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
+        }
     }
     
     // Start is called before the first frame update
