@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public enum GameStates
 {
@@ -23,6 +24,7 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
+    VisualEffect
     [Header("Parameters")] 
     public int maxRounds = 5;
 
