@@ -79,8 +79,7 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("End of Round");
                 GameState = GameStates.BetweenRounds;
             }
-        } else if(Input.GetKeyDown(KeyCode.R)){
-            Debug.Log("R pressed");
+        } else if(Input.GetKeyDown(KeyCode.R)){ //FOR DEBUG
             if(GameState == GameStates.MainMenu)
                 GameState = GameStates.BetweenRounds;
             else

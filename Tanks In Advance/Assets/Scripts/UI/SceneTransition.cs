@@ -7,6 +7,7 @@ public class SceneTransition : MonoBehaviour
 {
     public void Transition(string scene)
     {
+        GameManager.Instance.GameState = GameStates.BetweenRounds;
         SceneManager.LoadScene(scene);
     }
 }

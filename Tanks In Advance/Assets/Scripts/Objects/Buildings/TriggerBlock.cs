@@ -8,6 +8,7 @@ public class TriggerBlock : BreakableWall
 {
     public UnityEvent OnHit;
     public float delay = 0f;
+    public bool triggered = false;
     
     // Start is called before the first frame update
     void Start()
@@ -33,12 +34,17 @@ public class TriggerBlock : BreakableWall
 
     public override void Die()
     {
-        Invoke("Call", delay);
-        base.Die();
+        if (!triggered)
+        {
+            triggered = true;
+            Invoke("Call", delay);
+            base.Die();
+        }
     }
 
     void Call()
     {
         OnHit?.Invoke();
+        triggered = false;
     }
 }
