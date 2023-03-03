@@ -68,11 +68,20 @@ public class Player : MonoBehaviour
                 {
                     break;
                 }
-                
+
+                float horizontalInput = 0;
+                float verticalInput = 0;
                 // Vector2 newVelocity = Vector2.zero;
+                if (PlayerNumber == PlayerNum.Player1)
+                {
+                    horizontalInput = Input.GetAxis("P1_Move_H");
+                    verticalInput = Input.GetAxis("P1_Move_V");
+                } else if (PlayerNumber == PlayerNum.Player2)
+                {
+                    horizontalInput = Input.GetAxis("P2_Move_H");
+                    verticalInput = Input.GetAxis("P2_Move_V");
+                }
                 
-                float horizontalInput = Input.GetAxis("P1_Move_H");
-                float verticalInput = Input.GetAxis("P1_Move_V");
 
                 Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
                 
@@ -96,10 +105,20 @@ public class Player : MonoBehaviour
                 //     newVelocity += new Vector2(1, 0);
                 // }
                 
-                float rhorizontalInput = Input.GetAxis("P1_Aim_H");
-                float rverticalInput = Input.GetAxis("P1_Aim_V");
+                float rHorizontalInput = 0;
+                float rVerticalInput = 0;
+                // Vector2 newVelocity = Vector2.zero;
+                if (PlayerNumber == PlayerNum.Player1)
+                {
+                    rHorizontalInput = Input.GetAxis("P1_Aim_H");
+                    rVerticalInput = Input.GetAxis("P1_Aim_V");
+                } else if (PlayerNumber == PlayerNum.Player2)
+                {
+                    rHorizontalInput = Input.GetAxis("P2_Aim_H");
+                    rVerticalInput = Input.GetAxis("P2_Aim_V");
+                }
 
-                Vector2 newAim = new Vector2(rhorizontalInput, rverticalInput);
+                Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
                 
                 //TEMP FOR CONTROLLER
                 // if (Input.GetKey(inputs.AimUp))
