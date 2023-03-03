@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,12 +44,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerInput inputs;
 
+    private Rigidbody m_Rb;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //allows GameManager to exist before scene starts
         GameManager.Instance.Players[(int)PlayerNumber] = this;
+        m_Rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -65,48 +69,58 @@ public class Player : MonoBehaviour
                     break;
                 }
                 
-                Vector2 newVelocity = Vector2.zero;
-                if (Input.GetKey(inputs.Up))
-                {
-                    newVelocity += new Vector2(0, 1);
-                }
+                // Vector2 newVelocity = Vector2.zero;
+                
+                float horizontalInput = Input.GetAxis("P1_Move_H");
+                float verticalInput = Input.GetAxis("P1_Move_V");
 
-                if (Input.GetKey(inputs.Down))
-                {
-                    newVelocity += new Vector2(0, -1);
-                }
+                Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
+                
+                // if (Input.GetKey(inputs.Up))
+                // {
+                //     newVelocity += new Vector2(0, 1);
+                // }
+                //
+                // if (Input.GetKey(inputs.Down))
+                // {
+                //     newVelocity += new Vector2(0, -1);
+                // }
+                //
+                // if (Input.GetKey(inputs.Left))
+                // {
+                //     newVelocity += new Vector2(-1, 0);
+                // }
+                //
+                // if (Input.GetKey(inputs.Right))
+                // {
+                //     newVelocity += new Vector2(1, 0);
+                // }
+                
+                float rhorizontalInput = Input.GetAxis("P1_Aim_H");
+                float rverticalInput = Input.GetAxis("P1_Aim_V");
 
-                if (Input.GetKey(inputs.Left))
-                {
-                    newVelocity += new Vector2(-1, 0);
-                }
-
-                if (Input.GetKey(inputs.Right))
-                {
-                    newVelocity += new Vector2(1, 0);
-                }
-
-                Vector2 newAim = Vector2.zero;
+                Vector2 newAim = new Vector2(rhorizontalInput, rverticalInput);
+                
                 //TEMP FOR CONTROLLER
-                if (Input.GetKey(inputs.AimUp))
-                {
-                    newAim += new Vector2(0, 1);
-                }
-
-                if (Input.GetKey(inputs.AimDown))
-                {
-                    newAim += new Vector2(0, -1);
-                }
-
-                if (Input.GetKey(inputs.AimLeft))
-                {
-                    newAim += new Vector2(-1, 0);
-                }
-
-                if (Input.GetKey(inputs.AimRight))
-                {
-                    newAim += new Vector2(1, 0);
-                }
+                // if (Input.GetKey(inputs.AimUp))
+                // {
+                //     newAim += new Vector2(0, 1);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimDown))
+                // {
+                //     newAim += new Vector2(0, -1);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimLeft))
+                // {
+                //     newAim += new Vector2(-1, 0);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimRight))
+                // {
+                //     newAim += new Vector2(1, 0);
+                // }
                 
                 Vector2 newAimNorm = newAim.normalized;
                 if (newAimNorm != _currentTank.Aim && newAim.magnitude > 0.1f) //controller dead zone
