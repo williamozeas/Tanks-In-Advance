@@ -54,7 +54,7 @@ public class Tank : MovingObject
     public List<GameObject> bulletList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
-    private List<Material> origMat;
+    private List<Material> origMat = new List<Material>();
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
@@ -200,7 +200,11 @@ public class Tank : MovingObject
         Debug.Log("Ded?");
         DimTank(0.5f);
         alive = false;
-        StopCoroutine(replay);
+        if (replay != null)
+        {
+            StopCoroutine(replay);
+        }
+
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
