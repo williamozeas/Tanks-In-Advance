@@ -131,7 +131,6 @@ public class Bullet : MonoBehaviour
         {
             //quantize to 45 degree angles
             normal2 = new Vector2(Math.Sign(normal.x), Math.Sign(normal.z)).normalized;
-            Debug.Log("quantized " + normal + " to " + normal2);
         }
         else
         {
@@ -143,9 +142,7 @@ public class Bullet : MonoBehaviour
             {
                 //quantize to 45 degree angles
                 normal2 = new Vector2(Math.Sign(normal.x - incident.x), Math.Sign(normal.z - incident.y)).normalized;
-                Debug.Log("quantized " + normal + " to " + normal2);
             }
-            Debug.Log("did not quantize " + normal);
         }
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
         velocity = incident - 2 * normalComponent;
