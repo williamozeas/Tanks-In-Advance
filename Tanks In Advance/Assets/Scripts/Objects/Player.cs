@@ -81,7 +81,6 @@ public class Player : MonoBehaviour
                     horizontalInput = Input.GetAxis("P2_Move_H");
                     verticalInput = Input.GetAxis("P2_Move_V");
                 }
-                
 
                 Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
                 
@@ -119,6 +118,7 @@ public class Player : MonoBehaviour
                 }
 
                 Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
+                Debug.Log(newAim);
                 
                 //TEMP FOR CONTROLLER
                 // if (Input.GetKey(inputs.AimUp))
@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
                 // }
                 
                 Vector2 newAimNorm = newAim.normalized;
-                if (newAimNorm != _currentTank.Aim && newAim.magnitude > 0.1f) //controller dead zone
+                if (newAimNorm != _currentTank.Aim) //controller dead zone
                 {
                     Command setAimCommand =
                         new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
@@ -150,8 +150,11 @@ public class Player : MonoBehaviour
                     setAimCommand.Execute();
                 }
 
+                if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
+
                 // fire button pressed (shooting for now)
-                if (Input.GetKeyDown(inputs.Fire))
+                if ((PlayerNumber == PlayerNum.Player1 && Input.GetButtonDown("P1_Fire")) ||
+                     PlayerNumber == PlayerNum.Player2 && Input.GetButtonDown("P2_Fire"))
                 {
                     // Vector2 angle = _currentTank.Velocity.normalized;
                     Vector2 angle = _currentTank.Aim;

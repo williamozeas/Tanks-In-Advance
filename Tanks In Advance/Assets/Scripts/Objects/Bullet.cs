@@ -14,10 +14,11 @@ public class Bullet : MonoBehaviour
 {
     protected Tank _tank;
     protected float _lifespan;
-    private int ricochets;
+    public int ricochets;
     public float speed = 5;
     protected bool live;
     public int power = 1;
+    public int _maxBounces = 0;
     private Vector2 velocity;
     private TrailRenderer trailRenderer;
     private bool is_ghost;
@@ -54,7 +55,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        this._lifespan = 100.0f;
+        this._lifespan = 5.0f;
         this.ricochets = 0;
         this.live = false;
     }
@@ -62,7 +63,7 @@ public class Bullet : MonoBehaviour
     // Update called every frame
     protected virtual void Update()
     {
-        if (this._lifespan < 0 || ricochets > 2)
+        if (this._lifespan < 0 || ricochets > _maxBounces)
         {
             KillSelf();
         }

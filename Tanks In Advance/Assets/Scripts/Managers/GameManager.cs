@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
         if (GameState == GameStates.Playing)
         {
             _roundTime += Time.deltaTime;
-            if(_roundTime >= 30){
+            if(_roundTime >= gameParams.time){
                 Debug.Log("End of Round");
                 GameState = GameStates.BetweenRounds;
             }

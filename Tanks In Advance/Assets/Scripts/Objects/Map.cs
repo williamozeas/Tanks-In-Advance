@@ -68,7 +68,7 @@ public class Map : MonoBehaviour
                 canvas.enabled = true;
 
             StartCoroutine(wall.OnCreate());
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.005f);
         }
 
     }
