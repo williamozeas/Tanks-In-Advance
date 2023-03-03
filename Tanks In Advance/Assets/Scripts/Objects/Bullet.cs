@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum BulletType
@@ -36,7 +38,17 @@ public class Bullet : MonoBehaviour
         } else {
             // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
         }
+        
         is_ghost = !source.Alive;
+        if (is_ghost)
+        {
+            Ghostify();
+        }
+    }
+
+    protected void Ghostify()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ghost");
     }
     
     // Start is called before the first frame update
@@ -45,7 +57,6 @@ public class Bullet : MonoBehaviour
         this._lifespan = 100.0f;
         this.ricochets = 0;
         this.live = false;
-        this.is_ghost = false;
     }
 
     // Update called every frame
@@ -66,10 +77,6 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-
-        //Bullets fired after the tank becomes a ghost do not affect the living world.
-        if (is_ghost) return;
-
         Collider hit = collision.collider;
         Tank tank;
         Wall wall;

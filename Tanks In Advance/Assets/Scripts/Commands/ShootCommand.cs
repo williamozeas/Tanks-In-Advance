@@ -43,8 +43,6 @@ public class ShootCommand : Command
         Bullet bulletBullet = bullet.GetComponent<Bullet>();
         bulletBullet.Init(_tank, _angle);
 
-        // _tank.SetCollisions(bulletBullet.GetComponent<Collider>(), false);
-
         _tank.bulletList.Add(bullet);
     }
 

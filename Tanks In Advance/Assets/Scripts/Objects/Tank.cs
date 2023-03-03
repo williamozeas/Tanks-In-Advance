@@ -40,7 +40,6 @@ public class Tank : MovingObject
     [HideInInspector] private Vector2 aim = Vector2.up;
     public Vector2 Aim => aim;
     
-    public Rigidbody turretRB;
     public List<Renderer> renderers;
 
     private int roundsPassed = 0;
@@ -74,6 +73,7 @@ public class Tank : MovingObject
         
         _startLocation = transform.position;
         currentlyControlled = true;
+        alive = true;
             
         //ensure command list is not empty
         Command setVelocityCommand =
@@ -157,19 +157,36 @@ public class Tank : MovingObject
         }
     }
 
+    private void ChangeLayer(Transform tran, int layer)
+    {
+        if (tran == null)
+        {
+            return;
+        }
+        
+        foreach (Transform child in tran)
+        {
+            if (child == null)
+            {
+                continue;
+            }
+            
+            child.gameObject.layer = layer;
+            ChangeLayer(child, layer);
+        }
+    }
+
     public void Ghost()
     {
         Debug.Log("Spectating!");
         alive = false;
-        foreach(var collider in colliders)
-        {
-            collider.enabled = false;
-        }
+        ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
     }
 
     public void Die()
     {
         Debug.Log("Ded?");
+        DimTank(0.5f);
         alive = false;
         StopCoroutine(replay);
         foreach(var mesh in meshes)
@@ -197,18 +214,29 @@ public class Tank : MovingObject
         rb.position = _startLocation;
         currentHealth = health;
         shootingCooldown = 0.0f;
+        ChangeLayer(transform, LayerMask.NameToLayer("Tanks"));
+    }
+
+    private void DimTank(float multiplier)
+    {
+        foreach (Renderer r in renderers)
+        {
+            foreach (Material material in r.materials)
+            {
+                Color oldC = material.color;
+                Color newC = new Color(oldC.r * multiplier, oldC.g * multiplier, oldC.b * multiplier, oldC.a * multiplier);
+                material.color = newC;
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", Color.black);
+            }
+        }
     }
 
     //Requires commandList to be in order by timestamp to work properly
     public IEnumerator Replay()
     {
         // make the tank more transparent based on rounds passed
-        foreach (Renderer r in renderers)
-        {
-            Color oldC = r.material.color;
-            Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.8f);
-            r.material.color = newC;
-        }
+        DimTank(0.7f);
         
         var enumerator = commandList.GetEnumerator();
         // for (int i = 0; i < commandList.Count; i++)
@@ -237,14 +265,6 @@ public class Tank : MovingObject
         aim = newAim;
         float angle = -Vector2.SignedAngle(Vector2.up, newAim);
         turret.transform.rotation = Quaternion.Euler(0, angle, 0);
-    }
-
-    public void SetCollisions(Collider _coll, bool state)
-    {
-        foreach (Collider collider in colliders)
-        {
-            Physics.IgnoreCollision(_coll, collider, !state);
-        }
     }
 
     // public void SetTurretTurnVelocity(float newVelocity)
