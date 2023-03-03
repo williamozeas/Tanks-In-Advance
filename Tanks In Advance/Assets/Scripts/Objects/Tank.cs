@@ -31,6 +31,8 @@ public class Tank : MovingObject
     public float shootingCooldown = 0;
     [Header("VFX")]
     public VisualEffect vfx;
+
+    public Material ghostMat;
     
 
     private Vector3 _startLocation = Vector3.zero;
@@ -52,6 +54,7 @@ public class Tank : MovingObject
     public List<GameObject> bulletList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
+    private List<Material> origMat;
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
@@ -59,6 +62,10 @@ public class Tank : MovingObject
     private void Awake()
     {
         meshes = GetComponentsInChildren<MeshRenderer>();
+        foreach (var mesh in meshes)
+        {
+            origMat.Add(mesh.material);
+        }
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
     }
@@ -182,6 +189,10 @@ public class Tank : MovingObject
         Debug.Log("Spectating!");
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
+        foreach(var mesh in meshes)
+        {
+            mesh.material = ghostMat;
+        }
     }
 
     public void Die()
@@ -204,9 +215,11 @@ public class Tank : MovingObject
     {
         Debug.Log(rb.useGravity);
         alive = true;
-        foreach(var mesh in meshes)
+        for(int i = 0; i < meshes.Length; i++)
         {
+            MeshRenderer mesh = meshes[i];
             mesh.enabled = true;
+            mesh.material = origMat[i];
         }
         foreach(var collider in colliders)
         {

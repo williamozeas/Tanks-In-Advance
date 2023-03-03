@@ -332,6 +332,7 @@ MonoBehaviour:
   currentHealth: 0
   shootingCooldown: 0
   vfx: {fileID: 3746282628575911403}
+  ghostMat: {fileID: 2100000, guid: a54dbf4d4c9ef4538bee9dbe822fe8bc, type: 2}
   renderers:
   - {fileID: 3072425928619063113}
   - {fileID: 1856393808745056802}
