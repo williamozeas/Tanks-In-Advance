@@ -5,7 +5,7 @@ using UnityEngine;
 public class BreakableWall : Wall
 {
     public int health;
-    public const int MaxHealth = 3;
+    public const int MaxHealth = 2;
 
     // Start is called before the first frame update
     void Start()
