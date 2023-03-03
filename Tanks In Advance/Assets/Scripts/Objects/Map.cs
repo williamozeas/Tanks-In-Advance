@@ -10,6 +10,7 @@ public enum MapName
     EmptyMap = 0,
     TestMap = 1,
     MenuMap = 2,
+    Level1 = 3,
 }
 
 public class Map : MonoBehaviour

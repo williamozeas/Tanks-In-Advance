@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3891470613632009567}
   ownerNum: 0
-  speed: 2
+  speed: 2.5
   turretTurnSpeed: 0.5
   health: 1
   bulletPrefab: {fileID: 6374489335037315713, guid: 70e2586bb8a07c546aa3affd4a39fc90,
@@ -332,7 +332,6 @@ MonoBehaviour:
   currentHealth: 0
   shootingCooldown: 0
   vfx: {fileID: 3746282628575911403}
-  turretRB: {fileID: 0}
   renderers:
   - {fileID: 3072425928619063113}
   - {fileID: 1856393808745056802}
