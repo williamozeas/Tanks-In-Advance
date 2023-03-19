@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     protected float _lifespan;
     public int ricochets;
     public float speed = 5;
-    protected bool live;
+    protected bool canHitSelf;
     public int power = 1;
     public int _maxBounces = 0;
     private Vector2 velocity;
@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
     {
         this._lifespan = 5.0f;
         this.ricochets = 0;
-        this.live = false;
+        this.canHitSelf = false;
     }
 
     // Update called every frame
@@ -86,15 +86,15 @@ public class Bullet : MonoBehaviour
             hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
             
-            if (tank == _tank && live) //To avoid self-destruction.
+            if (tank == _tank && canHitSelf) //To avoid self-destruction.
             {
                 tank.TakeDamage(power);
+                KillSelf(); //Destroy bullet
             } else if (tank != _tank)
             {
                 tank.TakeDamage(power);
+                KillSelf(); //Destroy bullet
             }
-
-            KillSelf(); //Destroy bullet
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {
@@ -108,18 +108,9 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected virtual void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks"))
-        {
-            live = true; //To ensure that the bullet leaves the owner before being able to kill its owner.
-            // _tank.SetCollisions(GetComponent<Collider>(), true);
-        }
-        
-    }
-
     protected void Ricochet(Collision coll, bool quantizeNormal = true)
     {
+        canHitSelf = true;
         float tolerance = 0.01f;
         
         Vector2 incident = velocity;
