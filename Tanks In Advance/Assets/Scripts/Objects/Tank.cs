@@ -28,6 +28,8 @@ public class Tank : MovingObject
     public int health = 1;
     public GameObject bulletPrefab;
     public int currentHealth;
+    public float cooldown = 1f;
+    [HideInInspector]
     public float shootingCooldown = 0;
     [Header("VFX")]
     public VisualEffect vfx;
@@ -143,10 +145,36 @@ public class Tank : MovingObject
         commandList.Add(newCommand);
     }
 
-    public virtual void Shoot()
+    public virtual void Shoot(ShootCommand shootCommand)
     {
-        vfx.Play();
+        //The tank does nothing if shooting has not yet cooled down.
+        if (shootingCooldown > 0.5f) return;
+
         //visuals for shooting
+        vfx.Play();
+
+        //Tank must wait to shoot again.
+        if (shootingCooldown < 0.1f)
+        {
+            shootingCooldown += 0.6f; //Rapid barrage after waiting
+        }
+        else
+        {
+            shootingCooldown += 0.8f; //Space out following shots.
+        }
+        //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
+
+
+        GameObject bullet = Instantiate(
+            bulletPrefab,
+            rb.position + new Vector3(shootCommand._angle.x, 0, shootCommand._angle.y) * 1f,
+            Quaternion.Euler(shootCommand._angle.x, 0, shootCommand._angle.y)
+        );
+
+        Bullet bulletBullet = bullet.GetComponent<Bullet>();
+        bulletBullet.Init(this, shootCommand._angle);
+
+        bulletList.Add(bullet);
     }
 
     public void TakeDamage(int damage)

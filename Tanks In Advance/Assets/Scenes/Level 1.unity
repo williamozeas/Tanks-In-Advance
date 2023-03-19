@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028404, g: 0.22571412, b: 0.30692312, a: 1}
+  m_IndirectSpecularColor: {r: 0.1802842, g: 0.22571433, b: 0.30692378, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 0
-  BlueTankPrefab: {fileID: 2795345262792937369, guid: 3c0677c9d697f49efbab130ca602d34c,
+  BlueTankPrefab: {fileID: 3221551894152851609, guid: 9d6c0787a7720ce46bf01857546d1538,
     type: 3}
-  RedTankPrefab: {fileID: 2795345262792937369, guid: d37dc6c93aa934f59b345bf8f60c3f77,
+  RedTankPrefab: {fileID: 3004475480438644137, guid: 2c9ac523361e9424bb02eeef7aae419d,
     type: 3}
 --- !u!1 &330585543
 GameObject:

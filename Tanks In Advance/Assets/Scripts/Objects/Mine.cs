@@ -30,34 +30,46 @@ public class Mine : Bullet
     {
         Debug.Log("Explode mine");
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
-
-        foreach (Collider hit in hits)
+        if (!is_ghost)
         {
-            BreakableWall bWall = hit.gameObject.GetComponent<BreakableWall>();
-            if (bWall != null)
-            {
-                Debug.Log("Got here");
-                bWall.Die();
-            }
+            Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
 
-            Tank tank = hit.gameObject.GetComponent<Tank>();
-            if (tank == _tank && canHitSelf) //To avoid self-destruction.
+            foreach (Collider hit in hits)
             {
-                tank.TakeDamage(power);
-            }
-            else if (tank != null && tank != _tank)
-            {
-                tank.TakeDamage(power);
+                BreakableWall bWall = hit.gameObject.GetComponent<BreakableWall>();
+                if (bWall != null)
+                {
+                    bWall.TakeDamage(power);
+                }
+
+                // tank collision detection
+                if (hit.transform.parent != null)
+                {
+                    Tank tank = hit.transform.parent.GetComponent<Tank>();
+                    if (tank == _tank && canHitSelf) //To avoid self-destruction.
+                    {
+                        tank.TakeDamage(power);
+                    }
+                    else if (tank != null && tank != _tank)
+                    {
+                        tank.TakeDamage(power);
+                    }
+                }
             }
         }
 
         KillSelf();
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected void OnTriggerEnter(Collider collision)
     {
-        if (canHitSelf)
+        if (canHitSelf && collision.gameObject != _tank.gameObject)
             Explode();
+    }
+
+    protected void OnTriggerExit(Collider collision)
+    {
+        if (collision.transform.parent == _tank.transform)
+            canHitSelf = true;
     }
 }

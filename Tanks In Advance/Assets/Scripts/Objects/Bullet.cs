@@ -21,13 +21,13 @@ public class Bullet : MonoBehaviour
     public int _maxBounces = 0;
     private Vector2 velocity;
     private TrailRenderer trailRenderer;
-    private bool is_ghost;
+    protected bool is_ghost;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
     {
         _tank = source;
-        this.velocity = angle.normalized * speed;
+        velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
         
