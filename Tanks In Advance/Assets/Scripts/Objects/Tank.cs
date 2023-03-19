@@ -148,6 +148,8 @@ public class Tank : MovingObject
 
     public virtual void Shoot(ShootCommand shootCommand)
     {
+        //Shield Tank can't shoot
+        if(type == TankType.shield) return;
         //The tank does nothing if shooting has not yet cooled down.
         if (shootingCooldown > 0.5f) return;
 
