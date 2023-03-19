@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &698137989934538237
+--- !u!1 &986360804433723438
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8085201862332363103}
-  - component: {fileID: 8379959376855979944}
+  - component: {fileID: 7918812206312659098}
+  - component: {fileID: 8609643744591233775}
   m_Layer: 3
   m_Name: back_collider
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8085201862332363103
+--- !u!4 &7918812206312659098
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698137989934538237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0225, y: -0.073, z: -1.285}
-  m_LocalScale: {x: 1.9334707, y: 1.1434379, z: 0.2892064}
+  m_GameObject: {fileID: 986360804433723438}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.022500077, y: -0.072999984, z: -1.285}
+  m_LocalScale: {x: 1.9334742, y: 1.1434447, z: 0.28919953}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3471850391542573526}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8379959376855979944
+--- !u!65 &8609643744591233775
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698137989934538237}
+  m_GameObject: {fileID: 986360804433723438}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -163,7 +163,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1856967696377260600}
-  - {fileID: 8085201862332363103}
+  - {fileID: 7918812206312659098}
   m_Father: {fileID: 3546165342195858485}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3546165342195858485}
-  - component: {fileID: 3546165342195858633}
+  - component: {fileID: -4422409901572363767}
   m_Layer: 3
   m_Name: Shield Tank
   m_TagString: Tank
@@ -354,7 +354,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3546165342195858633
+--- !u!114 &-4422409901572363767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3546165342195858486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05972fbd394774b728167a5abd40b389, type: 3}
+  m_Script: {fileID: 11500000, guid: 68afc26a875d50d42af7232b98e90bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3891470613632009567}

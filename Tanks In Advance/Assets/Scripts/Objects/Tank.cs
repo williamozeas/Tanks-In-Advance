@@ -21,7 +21,7 @@ public class Tank : MovingObject
 {
     [HideInInspector] public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];
-    private TankType type => TankType.basic; //can be overridden in parent class bc it's a property
+    protected virtual TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
     [Header("Stats")]
     public float speed = 1.0f;
@@ -152,6 +152,7 @@ public class Tank : MovingObject
 
     public void TakeDamage(int damage)
     {
+        // Debug.Log("TakeDamage called on: " + type);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
