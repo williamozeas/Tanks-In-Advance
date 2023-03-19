@@ -17,6 +17,8 @@ public class ShootCommand : Command
 
     public override void Execute()
     {
+        //Shield Tank can't shoot
+        if(_tank.Type == TankType.shield) return;
         //The tank does nothing if shooting has not yet cooled down.
         if (_tank.shootingCooldown > 0.5f) return;
 

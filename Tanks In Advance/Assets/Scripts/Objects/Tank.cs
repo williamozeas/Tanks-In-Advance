@@ -9,7 +9,8 @@ using UnityEngine.VFX;
 public enum TankType
 {
     basic = 0,
-    mine = 1
+    mine = 1,
+    shield = 2
 }
 
 /*
