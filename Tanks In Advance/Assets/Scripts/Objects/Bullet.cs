@@ -88,11 +88,13 @@ public class Bullet : MonoBehaviour
             
             if (tank == _tank && canHitSelf) //To avoid self-destruction.
             {
-                tank.TakeDamage(power);
+                if(tank.Type != TankType.shield)
+                    tank.TakeDamage(power);
                 KillSelf(); //Destroy bullet
             } else if (tank != _tank)
             {
-                tank.TakeDamage(power);
+                if(tank.Type != TankType.shield)
+                    tank.TakeDamage(power);
                 KillSelf(); //Destroy bullet
             }
         }

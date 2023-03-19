@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MineTank : Tank
 {
-    private TankType type => TankType.mine;
+    protected override TankType type => TankType.mine;
 
     public override void Shoot(ShootCommand shootCommand)
     {
