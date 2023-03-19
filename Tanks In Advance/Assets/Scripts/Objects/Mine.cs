@@ -42,7 +42,7 @@ public class Mine : Bullet
             }
 
             Tank tank = hit.gameObject.GetComponent<Tank>();
-            if (tank == _tank && live) //To avoid self-destruction.
+            if (tank == _tank && canHitSelf) //To avoid self-destruction.
             {
                 tank.TakeDamage(power);
             }
@@ -57,7 +57,7 @@ public class Mine : Bullet
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (live)
+        if (canHitSelf)
             Explode();
     }
 }
