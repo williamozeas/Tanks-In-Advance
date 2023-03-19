@@ -164,14 +164,16 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                // alt fire button pressed (mines for now)
+                // alt fire button pressed
                 if (Input.GetKeyDown(inputs.AltFire))
                 {
+                    /*
                     Vector2 angle = _currentTank.Velocity.normalized;
                     Command mineCommand =
                             new MineCommand(_currentTank, GameManager.Instance.RoundTime);
                     _currentTank.AddCommand(mineCommand);
                     mineCommand.Execute();
+                    */
                 }
 
                 newVelocity = _currentTank.speed * newVelocity.normalized;
