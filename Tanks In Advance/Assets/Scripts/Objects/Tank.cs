@@ -9,6 +9,7 @@ using UnityEngine.VFX;
 public enum TankType
 {
     basic = 0,
+    mine = 1
 }
 
 /*
@@ -26,7 +27,6 @@ public class Tank : MovingObject
     public float turretTurnSpeed = 0.5f;
     public int health = 1;
     public GameObject bulletPrefab;
-    public GameObject minePrefab;
     public int currentHealth;
     public float shootingCooldown = 0;
     [Header("VFX")]
@@ -59,7 +59,7 @@ public class Tank : MovingObject
     private Turret turret;
     private Coroutine replay;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         meshes = GetComponentsInChildren<MeshRenderer>();
         foreach (var mesh in meshes)
@@ -89,7 +89,7 @@ public class Tank : MovingObject
         setVelocityCommand.Execute();
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
             Debug.Log(rb.velocity);
@@ -112,7 +112,7 @@ public class Tank : MovingObject
         GameManager.OnRoundEnd -= OnRoundEnd;
     }
 
-    public void OnRoundStart(Round round)
+    public virtual void OnRoundStart(Round round)
     {
         if (!Owner.IsCurrentTank(this)) //should always be true but in case we decide to spawn in tanks early
         {
@@ -123,7 +123,7 @@ public class Tank : MovingObject
         }
     }
     
-    public void OnRoundEnd()
+    public virtual void OnRoundEnd()
     {
         roundsPassed += 1;
         rb.position = _startLocation;
@@ -138,12 +138,12 @@ public class Tank : MovingObject
         SetVelocity(Vector2.zero);
     }
 
-    public void AddCommand(Command newCommand)
+    public virtual void AddCommand(Command newCommand)
     {
         commandList.Add(newCommand);
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         vfx.Play();
         //visuals for shooting
@@ -184,7 +184,7 @@ public class Tank : MovingObject
         }
     }
 
-    public void Ghost()
+    public virtual void Ghost()
     {
         Debug.Log("Spectating!");
         alive = false;
@@ -195,7 +195,7 @@ public class Tank : MovingObject
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Debug.Log("Ded?");
         DimTank(0.5f);
@@ -215,7 +215,7 @@ public class Tank : MovingObject
         }
     }
 
-    public void UnDie(Round round)
+    public virtual void UnDie(Round round)
     {
         Debug.Log(rb.useGravity);
         alive = true;
