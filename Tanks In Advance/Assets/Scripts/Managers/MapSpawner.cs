@@ -17,7 +17,7 @@ public class MapSpawner : MonoBehaviour
     void Start()
     {
         //DEBUG
-        SpawnMap(MapName.TestMap);
+        SpawnMap(MapName.Level1);
     }
 
     private void OnEnable()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,8 @@ public class PlayerInput
 public enum PlayerNum
 {
     Player1 = 0,
-    Player2 = 1
+    Player2 = 1,
+    Neither = 2
 }
 
 /*
@@ -42,12 +44,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerInput inputs;
 
+    private Rigidbody m_Rb;
+    private float deadzone = 0.1f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //allows GameManager to exist before scene starts
         GameManager.Instance.Players[(int)PlayerNumber] = this;
+        m_Rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -63,61 +69,94 @@ public class Player : MonoBehaviour
                 {
                     break;
                 }
+
+                float horizontalInput = 0;
+                float verticalInput = 0;
+                // Vector2 newVelocity = Vector2.zero;
+                if (PlayerNumber == PlayerNum.Player1)
+                {
+                    horizontalInput = Input.GetAxis("P1_Move_H");
+                    verticalInput = Input.GetAxis("P1_Move_V");
+                } else if (PlayerNumber == PlayerNum.Player2)
+                {
+                    horizontalInput = Input.GetAxis("P2_Move_H");
+                    verticalInput = Input.GetAxis("P2_Move_V");
+                }
+
+                Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
                 
-                Vector2 newVelocity = Vector2.zero;
-                if (Input.GetKey(inputs.Up))
+                // if (Input.GetKey(inputs.Up))
+                // {
+                //     newVelocity += new Vector2(0, 1);
+                // }
+                //
+                // if (Input.GetKey(inputs.Down))
+                // {
+                //     newVelocity += new Vector2(0, -1);
+                // }
+                //
+                // if (Input.GetKey(inputs.Left))
+                // {
+                //     newVelocity += new Vector2(-1, 0);
+                // }
+                //
+                // if (Input.GetKey(inputs.Right))
+                // {
+                //     newVelocity += new Vector2(1, 0);
+                // }
+                
+                float rHorizontalInput = 0;
+                float rVerticalInput = 0;
+                // Vector2 newVelocity = Vector2.zero;
+                if (PlayerNumber == PlayerNum.Player1)
                 {
-                    newVelocity += new Vector2(0, 1);
+                    rHorizontalInput = Input.GetAxis("P1_Aim_H");
+                    rVerticalInput = Input.GetAxis("P1_Aim_V");
+                } else if (PlayerNumber == PlayerNum.Player2)
+                {
+                    rHorizontalInput = Input.GetAxis("P2_Aim_H");
+                    rVerticalInput = Input.GetAxis("P2_Aim_V");
                 }
 
-                if (Input.GetKey(inputs.Down))
-                {
-                    newVelocity += new Vector2(0, -1);
-                }
-
-                if (Input.GetKey(inputs.Left))
-                {
-                    newVelocity += new Vector2(-1, 0);
-                }
-
-                if (Input.GetKey(inputs.Right))
-                {
-                    newVelocity += new Vector2(1, 0);
-                }
-
-                Vector2 newAim = Vector2.zero;
+                Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
+                
                 //TEMP FOR CONTROLLER
-                if (Input.GetKey(inputs.AimUp))
+                // if (Input.GetKey(inputs.AimUp))
+                // {
+                //     newAim += new Vector2(0, 1);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimDown))
+                // {
+                //     newAim += new Vector2(0, -1);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimLeft))
+                // {
+                //     newAim += new Vector2(-1, 0);
+                // }
+                //
+                // if (Input.GetKey(inputs.AimRight))
+                // {
+                //     newAim += new Vector2(1, 0);
+                // }
+                if (newAim.magnitude > deadzone) //controller dead zone
                 {
-                    newAim += new Vector2(0, 1);
+                    Vector2 newAimNorm = newAim.normalized;
+                    if (newAimNorm != _currentTank.Aim) 
+                    {
+                        Command setAimCommand =
+                            new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
+                        _currentTank.AddCommand(setAimCommand);
+                        setAimCommand.Execute();
+                    }
                 }
 
-                if (Input.GetKey(inputs.AimDown))
-                {
-                    newAim += new Vector2(0, -1);
-                }
-
-                if (Input.GetKey(inputs.AimLeft))
-                {
-                    newAim += new Vector2(-1, 0);
-                }
-
-                if (Input.GetKey(inputs.AimRight))
-                {
-                    newAim += new Vector2(1, 0);
-                }
-                
-                Vector2 newAimNorm = newAim.normalized;
-                if (newAimNorm != _currentTank.Aim && newAim.magnitude > 0.1f) //controller dead zone
-                {
-                    Command setAimCommand =
-                        new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(setAimCommand);
-                    setAimCommand.Execute();
-                }
+                if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
 
                 // fire button pressed (shooting for now)
-                if (Input.GetKeyDown(inputs.Fire))
+                if ((PlayerNumber == PlayerNum.Player1 && Input.GetButtonDown("P1_Fire")) ||
+                     PlayerNumber == PlayerNum.Player2 && Input.GetButtonDown("P2_Fire"))
                 {
                     // Vector2 angle = _currentTank.Velocity.normalized;
                     Vector2 angle = _currentTank.Aim;
@@ -127,14 +166,10 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                // alt fire button pressed (mines for now)
+                // alt fire button pressed
                 if (Input.GetKeyDown(inputs.AltFire))
                 {
-                    Vector2 angle = _currentTank.Velocity.normalized;
-                    Command mineCommand =
-                            new MineCommand(_currentTank, GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(mineCommand);
-                    mineCommand.Execute();
+                    
                 }
 
                 newVelocity = _currentTank.speed * newVelocity.normalized;

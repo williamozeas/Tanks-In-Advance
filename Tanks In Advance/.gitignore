@@ -84,4 +84,8 @@ fmod_editor.log
 # mac .DS_Store
 .DS_Store
 
+# Files related to code editor
+.idea/*
+.vscode
+
 .fake

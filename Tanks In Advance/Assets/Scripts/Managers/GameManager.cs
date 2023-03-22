@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public enum GameStates
 {
@@ -23,6 +24,9 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
+    [Header("Parameters")] 
+    public int maxRounds = 5;
+
     [Header("References")] [SerializeField]
     private TankList _tankList;
     public TankList TankList => _tankList;
@@ -43,7 +47,7 @@ public class GameManager : Singleton<GameManager>
     //function, and "EventName -= FnName" inside an OnDisable() function.
     public static event Action<Round> OnRoundStart;
     public static event Action OnRoundEnd;
-    public static event Action OnGameEnd;
+    public static event Action<PlayerNum> OnGameEnd;
     public static event Action OnMainMenu;
 
     private float _roundTime = 0.0f;
@@ -68,43 +72,47 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        //DEBUG
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (GameState == GameStates.Playing || GameState == GameStates.MainMenu)
-            {
-                GameState = GameStates.BetweenRounds;
-            }
-            else
-            {
-                GameState = GameStates.Playing;
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         if (GameState == GameStates.Playing)
         {
-            _roundTime += Time.fixedDeltaTime;
+            _roundTime += Time.deltaTime;
+            if(_roundTime >= gameParams.time){
+                Debug.Log("End of Round");
+                GameState = GameStates.BetweenRounds;
+            }
+        } else if(Input.GetKeyDown(KeyCode.R)){ //FOR DEBUG
+            if(GameState == GameStates.MainMenu)
+                GameState = GameStates.BetweenRounds;
+            else
+                GameState = GameStates.Playing;
         }
     }
 
     public void SetGameState(GameStates newGameState)
     {
+        Debug.Log("new game state: " + newGameState);
         switch (newGameState)
         {
             case(GameStates.Playing):
             {
                 _roundTime = 0;
-                if (OnRoundStart != null) OnRoundStart(new Round() { number = _roundNumber });
+                if (OnRoundStart != null){
+                    OnRoundStart(new Round() { number = _roundNumber });
+                }
                 break;
             }
             case(GameStates.BetweenRounds):
             {
                 _roundNumber++;
+                if (_roundNumber > maxRounds)
+                {
+                    SetGameState(GameStates.EndGame);
+                }
                 if (OnRoundEnd != null) OnRoundEnd();
+                break;
+            }
+            case (GameStates.EndGame):
+            {
+                OnGameEnd?.Invoke(mapSpawner.CurrentMap.GetWinner());
                 break;
             }
         }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum BulletType
@@ -10,35 +12,58 @@ public enum BulletType
 
 public class Bullet : MonoBehaviour
 {
-    private Tank _tank;
-    private float _lifespan;
-    private int ricochets;
+    protected Tank _tank;
+    protected float _lifespan;
+    public int ricochets;
     public float speed = 5;
-    private bool live;
-    private int power = 1;
+    protected bool canHitSelf;
+    public int power = 1;
+    public int _maxBounces = 0;
     private Vector2 velocity;
+    private TrailRenderer trailRenderer;
+    protected bool is_ghost;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
     {
         _tank = source;
-        this.velocity = angle.normalized * speed;
+        velocity = angle.normalized * speed;
         _lifespan = 100.0f;
         ricochets = 0;
+        
+        //Change the color of the trail based on player
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (source.ownerNum == PlayerNum.Player1) {
+            //TODO
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,1);
+        } else {
+            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
+        }
+        
+        is_ghost = !source.Alive;
+        if (is_ghost)
+        {
+            Ghostify();
+        }
+    }
+
+    protected void Ghostify()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ghost");
     }
     
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
-        this._lifespan = 100.0f;
+        this._lifespan = 5.0f;
         this.ricochets = 0;
-        this.live = false;
+        this.canHitSelf = false;
     }
 
     // Update called every frame
-    protected void Update()
+    protected virtual void Update()
     {
-        if (this._lifespan < 0 || ricochets > 2)
+        if (this._lifespan < 0 || ricochets > _maxBounces)
         {
             KillSelf();
         }
@@ -51,25 +76,27 @@ public class Bullet : MonoBehaviour
         transform.Translate(actualVelocity * Time.fixedDeltaTime);
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         Collider hit = collision.collider;
         Tank tank;
         Wall wall;
 
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") && hit.transform.parent.TryGetComponent<Tank>(out tank))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") &&
+            hit.transform.parent.TryGetComponent<Tank>(out tank))
         {
             
-            if (tank == _tank && live) //To avoid self-destruction.
+            if (tank == _tank && canHitSelf) //To avoid self-destruction.
             {
-                tank.TakeDamage(power);
+                if(tank.Type != TankType.shield)
+                    tank.TakeDamage(power);
+                KillSelf(); //Destroy bullet
             } else if (tank != _tank)
             {
-                tank.TakeDamage(power);
+                if(tank.Type != TankType.shield)
+                    tank.TakeDamage(power);
+                KillSelf(); //Destroy bullet
             }
-
-            KillSelf(); //Destroy bullet
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {
@@ -83,18 +110,9 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks"))
-        {
-            live = true; //To ensure that the bullet leaves the owner before being able to kill its owner.
-            // _tank.SetCollisions(GetComponent<Collider>(), true);
-        }
-        
-    }
-
     protected void Ricochet(Collision coll, bool quantizeNormal = true)
     {
+        canHitSelf = true;
         float tolerance = 0.01f;
         
         Vector2 incident = velocity;
@@ -106,7 +124,6 @@ public class Bullet : MonoBehaviour
         {
             //quantize to 45 degree angles
             normal2 = new Vector2(Math.Sign(normal.x), Math.Sign(normal.z)).normalized;
-            Debug.Log("quantized " + normal + " to " + normal2);
         }
         else
         {
@@ -118,9 +135,7 @@ public class Bullet : MonoBehaviour
             {
                 //quantize to 45 degree angles
                 normal2 = new Vector2(Math.Sign(normal.x - incident.x), Math.Sign(normal.z - incident.y)).normalized;
-                Debug.Log("quantized " + normal + " to " + normal2);
             }
-            Debug.Log("did not quantize " + normal);
         }
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
         velocity = incident - 2 * normalComponent;
@@ -128,7 +143,9 @@ public class Bullet : MonoBehaviour
 
     protected void KillSelf()
     {
-        _tank.bulletList.Remove(this.gameObject);
+        if (_tank.bulletList.Contains(gameObject))
+            _tank.bulletList.Remove(gameObject);
+
         //Destroy animation
         Destroy(gameObject);
     }

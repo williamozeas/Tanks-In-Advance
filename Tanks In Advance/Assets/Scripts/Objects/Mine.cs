@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mine : MonoBehaviour
+public class Mine : Bullet
 {
-    private Tank _tank;
-    private float _lifespan;
-    
     public Mine(Tank source)
     {
         _tank = source;
@@ -14,13 +11,13 @@ public class Mine : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
         _lifespan = 5f;
     }
 
     // FixedUpdate called every certain amt of time
-    protected void Update()
+    protected override void Update()
     {
         if (_lifespan < 0)
         {
@@ -33,18 +30,46 @@ public class Mine : MonoBehaviour
     {
         Debug.Log("Explode mine");
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
-
-        foreach (Collider hit in hits)
+        if (!is_ghost)
         {
-            BreakableWall bWall = hit.gameObject.GetComponent<BreakableWall>();
-            if (bWall != null)
+            Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
+
+            foreach (Collider hit in hits)
             {
-                Debug.Log("Got here");
-                bWall.Die();
+                BreakableWall bWall = hit.gameObject.GetComponent<BreakableWall>();
+                if (bWall != null)
+                {
+                    bWall.TakeDamage(power);
+                }
+
+                // tank collision detection
+                if (hit.transform.parent != null)
+                {
+                    Tank tank = hit.transform.parent.GetComponent<Tank>();
+                    if (tank == _tank && canHitSelf) //To avoid self-destruction.
+                    {
+                        tank.TakeDamage(power);
+                    }
+                    else if (tank != null && tank != _tank)
+                    {
+                        tank.TakeDamage(power);
+                    }
+                }
             }
         }
 
-        Destroy(gameObject);
+        KillSelf();
+    }
+
+    protected void OnTriggerEnter(Collider collision)
+    {
+        if (canHitSelf && collision.gameObject != _tank.gameObject)
+            Explode();
+    }
+
+    protected void OnTriggerExit(Collider collision)
+    {
+        if (collision.transform.parent == _tank.transform)
+            canHitSelf = true;
     }
 }

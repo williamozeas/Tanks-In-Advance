@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 public enum TankType
 {
     basic = 0,
+    mine = 1,
+    shield = 2
 }
 
 /*
@@ -18,15 +21,22 @@ public class Tank : MovingObject
 {
     [HideInInspector] public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];
-    private TankType type => TankType.basic; //can be overridden in parent class bc it's a property
+    protected virtual TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
     [Header("Stats")]
     public float speed = 1.0f;
     public float turretTurnSpeed = 0.5f;
     public int health = 1;
     public GameObject bulletPrefab;
-    public GameObject minePrefab;
     public int currentHealth;
+    public float cooldown = 1f;
+    [HideInInspector]
+    public float shootingCooldown = 0;
+    [Header("VFX")]
+    public VisualEffect vfx;
+
+    public Material ghostMat;
+    
 
     private Vector3 _startLocation = Vector3.zero;
     // private float _turretTurnVelocity = 0;
@@ -35,7 +45,6 @@ public class Tank : MovingObject
     [HideInInspector] private Vector2 aim = Vector2.up;
     public Vector2 Aim => aim;
     
-    public Rigidbody turretRB;
     public List<Renderer> renderers;
 
     private int roundsPassed = 0;
@@ -46,16 +55,20 @@ public class Tank : MovingObject
     public bool Alive => alive;
 
     public List<GameObject> bulletList = new List<GameObject>();
-    public List<GameObject> mineList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
+    private List<Material> origMat = new List<Material>();
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         meshes = GetComponentsInChildren<MeshRenderer>();
+        foreach (var mesh in meshes)
+        {
+            origMat.Add(mesh.material);
+        }
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
     }
@@ -70,6 +83,7 @@ public class Tank : MovingObject
         
         _startLocation = transform.position;
         currentlyControlled = true;
+        alive = true;
             
         //ensure command list is not empty
         Command setVelocityCommand =
@@ -78,11 +92,14 @@ public class Tank : MovingObject
         setVelocityCommand.Execute();
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
             Debug.Log(rb.velocity);
 
+        Debug.Log(Input.GetAxis("Horizontal"));
+        //Tank can shoot when cooldown < 0.5
+        shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
     }
     
     //Subscribe to events
@@ -98,7 +115,7 @@ public class Tank : MovingObject
         GameManager.OnRoundEnd -= OnRoundEnd;
     }
 
-    public void OnRoundStart(Round round)
+    public virtual void OnRoundStart(Round round)
     {
         if (!Owner.IsCurrentTank(this)) //should always be true but in case we decide to spawn in tanks early
         {
@@ -109,7 +126,7 @@ public class Tank : MovingObject
         }
     }
     
-    public void OnRoundEnd()
+    public virtual void OnRoundEnd()
     {
         roundsPassed += 1;
         rb.position = _startLocation;
@@ -124,19 +141,49 @@ public class Tank : MovingObject
         SetVelocity(Vector2.zero);
     }
 
-    public void AddCommand(Command newCommand)
+    public virtual void AddCommand(Command newCommand)
     {
         commandList.Add(newCommand);
     }
 
-    public void Shoot()
+    public virtual void Shoot(ShootCommand shootCommand)
     {
-        //visuals for shooting
+        //Shield Tank can't shoot
+        if(type == TankType.shield) return;
+        //The tank does nothing if shooting has not yet cooled down.
+        if (shootingCooldown > 0.5f) return;
+
         AudioManager.Instance.Shoot();
+        //visuals for shooting
+        vfx.Play();
+
+        //Tank must wait to shoot again.
+        if (shootingCooldown < 0.1f)
+        {
+            shootingCooldown += 0.6f; //Rapid barrage after waiting
+        }
+        else
+        {
+            shootingCooldown += 0.8f; //Space out following shots.
+        }
+        //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
+
+
+        GameObject bullet = Instantiate(
+            bulletPrefab,
+            rb.position + new Vector3(shootCommand._angle.x, 0, shootCommand._angle.y) * 1f,
+            Quaternion.Euler(shootCommand._angle.x, 0, shootCommand._angle.y)
+        );
+
+        Bullet bulletBullet = bullet.GetComponent<Bullet>();
+        bulletBullet.Init(this, shootCommand._angle);
+
+        bulletList.Add(bullet);
     }
 
     public void TakeDamage(int damage)
     {
+        // Debug.Log("TakeDamage called on: " + type);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -151,21 +198,46 @@ public class Tank : MovingObject
         }
     }
 
-    public void Ghost()
+    private void ChangeLayer(Transform tran, int layer)
     {
-        Debug.Log("Spectating!");
-        alive = false;
-        foreach(var collider in colliders)
+        if (tran == null)
         {
-            collider.enabled = false;
+            return;
+        }
+        
+        foreach (Transform child in tran)
+        {
+            if (child == null)
+            {
+                continue;
+            }
+            
+            child.gameObject.layer = layer;
+            ChangeLayer(child, layer);
         }
     }
 
-    public void Die()
+    public virtual void Ghost()
+    {
+        Debug.Log("Spectating!");
+        alive = false;
+        ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
+        foreach(var mesh in meshes)
+        {
+            mesh.material = ghostMat;
+        }
+    }
+
+    public virtual void Die()
     {
         Debug.Log("Ded?");
+        DimTank(0.5f);
         alive = false;
-        StopCoroutine(replay);
+        if (replay != null)
+        {
+            StopCoroutine(replay);
+        }
+
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
@@ -176,13 +248,15 @@ public class Tank : MovingObject
         }
     }
 
-    public void UnDie(Round round)
+    public virtual void UnDie(Round round)
     {
         Debug.Log(rb.useGravity);
         alive = true;
-        foreach(var mesh in meshes)
+        for(int i = 0; i < meshes.Length; i++)
         {
+            MeshRenderer mesh = meshes[i];
             mesh.enabled = true;
+            mesh.material = origMat[i];
         }
         foreach(var collider in colliders)
         {
@@ -190,18 +264,30 @@ public class Tank : MovingObject
         }
         rb.position = _startLocation;
         currentHealth = health;
+        shootingCooldown = 0.0f;
+        ChangeLayer(transform, LayerMask.NameToLayer("Tanks"));
+    }
+
+    private void DimTank(float multiplier)
+    {
+        foreach (Renderer r in renderers)
+        {
+            foreach (Material material in r.materials)
+            {
+                Color oldC = material.color;
+                Color newC = new Color(oldC.r * multiplier, oldC.g * multiplier, oldC.b * multiplier, oldC.a * multiplier);
+                material.color = newC;
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", Color.black);
+            }
+        }
     }
 
     //Requires commandList to be in order by timestamp to work properly
     public IEnumerator Replay()
     {
         // make the tank more transparent based on rounds passed
-        foreach (Renderer r in renderers)
-        {
-            Color oldC = r.material.color;
-            Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.8f);
-            r.material.color = newC;
-        }
+        DimTank(0.7f);
         
         var enumerator = commandList.GetEnumerator();
         // for (int i = 0; i < commandList.Count; i++)
@@ -232,14 +318,6 @@ public class Tank : MovingObject
         turret.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
-    public void SetCollisions(Collider _coll, bool state)
-    {
-        foreach (Collider collider in colliders)
-        {
-            Physics.IgnoreCollision(_coll, collider, !state);
-        }
-    }
-    
     // public void SetTurretTurnVelocity(float newVelocity)
     // {
     //     _turretTurnVelocity = newVelocity;

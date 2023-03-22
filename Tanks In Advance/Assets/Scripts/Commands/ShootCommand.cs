@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShootCommand : Command
 {
-    private Vector2 _angle;
+    public Vector2 _angle;
     private Tank _tank;
     //private Bullet _bullet;
     
@@ -17,20 +17,7 @@ public class ShootCommand : Command
 
     public override void Execute()
     {
-        _tank.Shoot(); //visuals
-
-        GameObject bullet = Object.Instantiate(
-            _tank.bulletPrefab,
-            _tank.rb.position + new Vector3(_angle.x, 0, _angle.y) * 1f,
-            Quaternion.Euler(_angle.x, 0, _angle.y)
-        );
-
-        Bullet bulletBullet = bullet.GetComponent<Bullet>();
-        bulletBullet.Init(_tank, _angle);
-        
-        // _tank.SetCollisions(bulletBullet.GetComponent<Collider>(), false);
-
-        _tank.bulletList.Add(bullet);
+        _tank.Shoot(this);
     }
 
     public override string ToString()

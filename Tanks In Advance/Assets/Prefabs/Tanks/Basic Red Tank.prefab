@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 688605008361345367, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 688605008361345367, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: e48760bf6d8b9416bb5ba80ede9f4893, type: 2}
     - target: {fileID: 1856393808745056802, guid: e4dc9b159aff746a0872b02363b3f14f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -77,5 +87,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7d1545ef515854b4383a1b05d7dd89d4, type: 2}
+    - target: {fileID: 6331138417598695271, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 6331138417598695271, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 6331138417598695271, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 6331138417598695271, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4dc9b159aff746a0872b02363b3f14f, type: 3}

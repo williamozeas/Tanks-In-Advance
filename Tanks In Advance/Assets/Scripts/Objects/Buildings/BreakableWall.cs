@@ -5,7 +5,7 @@ using UnityEngine;
 public class BreakableWall : Wall
 {
     public int health;
-    public const int MaxHealth = 3;
+    public const int MaxHealth = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -27,24 +27,31 @@ public class BreakableWall : Wall
         GameManager.OnRoundStart -= OnRoundStart;
     }
     
-    void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         //Checks if the collided object is a bullet (hopefully)
         //TODO: Check if this works properly with bullets
-        if(collision.gameObject.GetComponent<Bullet>()){
-            health--;
-            // Debug.Log("Wall health: " + health);
-            if(health <= 0)
-            {
-                // Debug.Log("Wall Destroyed");
-                Die();
-            }
+        Bullet bullet;
+        if(collision.gameObject.TryGetComponent<Bullet>(out bullet)){
+            TakeDamage(bullet.power);
         }
     }
 
-    public void Die(){
+    public virtual void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void Die(){
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas != null) canvas.enabled = false;
     }
 
     void OnRoundStart(Round round){
