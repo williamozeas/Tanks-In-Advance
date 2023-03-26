@@ -81,22 +81,27 @@ public class Bullet : MonoBehaviour
         Collider hit = collision.collider;
         Tank tank;
         Wall wall;
-
+        
         if (collision.gameObject.layer == LayerMask.NameToLayer("Tanks") &&
-            hit.transform.parent.TryGetComponent<Tank>(out tank))
+            hit.transform.parent.TryGetComponent<Tank>(out tank) &&
+            tank.Type != TankType.shield)
         {
-            
+            Debug.Log(tank);
             if (tank == _tank && canHitSelf) //To avoid self-destruction.
             {
-                if(tank.Type != TankType.shield)
-                    tank.TakeDamage(power);
+                tank.TakeDamage(power);
                 KillSelf(); //Destroy bullet
             } else if (tank != _tank)
             {
-                if(tank.Type != TankType.shield)
-                    tank.TakeDamage(power);
+                tank.TakeDamage(power);
                 KillSelf(); //Destroy bullet
             }
+        }
+        else if (hit.CompareTag("Shield_Collider"))
+        {
+            tank = hit.transform.parent.GetComponentInParent<Tank>();
+            tank.TakeDamage(power);
+            KillSelf(); //Destroy bullet
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {

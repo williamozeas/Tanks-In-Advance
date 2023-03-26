@@ -95,9 +95,9 @@ public class Tank : MovingObject
     protected virtual void Update()
     {
         if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
-            Debug.Log(rb.velocity);
+            // Debug.Log(rb.velocity);
 
-        Debug.Log(Input.GetAxis("Horizontal"));
+        // Debug.Log(Input.GetAxis("Horizontal"));
         //Tank can shoot when cooldown < 0.5
         shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
     }
