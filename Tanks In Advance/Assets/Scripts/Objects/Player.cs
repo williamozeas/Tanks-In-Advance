@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     private Rigidbody m_Rb;
     private float deadzone = 0.1f;
 
+    private string moveString = "";
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour
         //allows GameManager to exist before scene starts
         GameManager.Instance.Players[(int)PlayerNumber] = this;
         m_Rb = GetComponent<Rigidbody>();
+
+        moveString = (PlayerNumber == PlayerNum.Player1) ? "P1" : "P2";
     }
 
     // Update is called once per frame
@@ -73,15 +76,9 @@ public class Player : MonoBehaviour
                 float horizontalInput = 0;
                 float verticalInput = 0;
                 // Vector2 newVelocity = Vector2.zero;
-                if (PlayerNumber == PlayerNum.Player1)
-                {
-                    horizontalInput = Input.GetAxis("P1_Move_H");
-                    verticalInput = Input.GetAxis("P1_Move_V");
-                } else if (PlayerNumber == PlayerNum.Player2)
-                {
-                    horizontalInput = Input.GetAxis("P2_Move_H");
-                    verticalInput = Input.GetAxis("P2_Move_V");
-                }
+                
+                horizontalInput = Input.GetAxis(moveString + "_Move_H");
+                verticalInput = Input.GetAxis(moveString + "_Move_V");
 
                 Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
                 
@@ -108,15 +105,9 @@ public class Player : MonoBehaviour
                 float rHorizontalInput = 0;
                 float rVerticalInput = 0;
                 // Vector2 newVelocity = Vector2.zero;
-                if (PlayerNumber == PlayerNum.Player1)
-                {
-                    rHorizontalInput = Input.GetAxis("P1_Aim_H");
-                    rVerticalInput = Input.GetAxis("P1_Aim_V");
-                } else if (PlayerNumber == PlayerNum.Player2)
-                {
-                    rHorizontalInput = Input.GetAxis("P2_Aim_H");
-                    rVerticalInput = Input.GetAxis("P2_Aim_V");
-                }
+                
+                rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
+                rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
 
                 Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
                 
@@ -152,11 +143,10 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
+                // if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
 
                 // fire button pressed (shooting for now)
-                if ((PlayerNumber == PlayerNum.Player1 && Input.GetButtonDown("P1_Fire")) ||
-                     PlayerNumber == PlayerNum.Player2 && Input.GetButtonDown("P2_Fire"))
+                if (Input.GetButtonDown(moveString + "_Fire"))
                 {
                     // Vector2 angle = _currentTank.Velocity.normalized;
                     Vector2 angle = _currentTank.Aim;
@@ -167,10 +157,10 @@ public class Player : MonoBehaviour
                 }
 
                 // alt fire button pressed
-                if (Input.GetKeyDown(inputs.AltFire))
-                {
-                    
-                }
+                // if (Input.GetKeyDown(inputs.AltFire))
+                // {
+                //     
+                // }
 
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)
