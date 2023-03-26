@@ -138,7 +138,7 @@ public abstract class MovingObject : MonoBehaviour
         }
         
         rotation = end;
-        rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0,1,0));
+        rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0,-1,0));
 
         rotationCoroutine = null;
     }
