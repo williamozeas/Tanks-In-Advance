@@ -49,6 +49,7 @@ public class Tank : MovingObject
     private bool alive;
     public bool Alive => alive;
 
+    [HideInInspector]
     public List<GameObject> bulletList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
@@ -84,6 +85,7 @@ public class Tank : MovingObject
         _startLocation = transform.position;
         currentlyControlled = true;
         alive = true;
+        currentHealth = health;
             
         //ensure command list is not empty
         Command setVelocityCommand =
