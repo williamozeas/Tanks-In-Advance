@@ -415,10 +415,6 @@ MonoBehaviour:
   cooldown: 1.2
   shootingCooldown: 0
   vfx: {fileID: 3746282628575911403}
-  ghostMat: {fileID: 2100000, guid: a54dbf4d4c9ef4538bee9dbe822fe8bc, type: 2}
-  renderers:
-  - {fileID: 3072425928619063113}
-  - {fileID: 1856393808745056802}
   bulletList: []
 --- !u!1 &3644445999247259289
 GameObject:
@@ -606,6 +602,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7edbd704eedfd4206b1efaee623b5dce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7edbd704eedfd4206b1efaee623b5dce,
         type: 3}

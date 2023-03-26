@@ -23,6 +23,19 @@ MonoBehaviour:
     DirectLightingStrength: 0.25
     Radius: 0.25
     SampleCount: 12
+--- !u!114 &-1437528250570497588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab1bf7fc3467a4db48b1da96baee200b, type: 3}
+  m_Name: DepthNormalsFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
 --- !u!114 &-205409931966901750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,12 +92,11 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
+  - {fileID: 6962305165726148271}
   - {fileID: -205409931966901750}
   - {fileID: 4278495623332860710}
-  - {fileID: 6887021910582693172}
-  - {fileID: 6962305165726148271}
-  - {fileID: 5429364940236200181}
-  m_RendererFeatureMap: adc0de57c6d2eee50a92c653c13c26fd2693d1d91945603b340d9d4cf09d935faf66f90ca9139f60f518bdaaa5fa584b
+  - {fileID: -1437528250570497588}
+  m_RendererFeatureMap: adc0de57c6d2eee5af66f90ca9139f600a92c653c13c26fd2693d1d91945603bcc212826acdf0cec
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -142,7 +154,7 @@ MonoBehaviour:
     passTag: Draw Tank
     Event: 500
     filterSettings:
-      RenderQueueType: 0
+      RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
         m_Bits: 8
@@ -150,62 +162,6 @@ MonoBehaviour:
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideDepthState: 1
-    depthCompareFunction: 4
-    enableWrite: 1
-    stencilSettings:
-      overrideStencilState: 0
-      stencilReference: 0
-      stencilCompareFunction: 8
-      passOperation: 0
-      failOperation: 0
-      zFailOperation: 0
-    cameraSettings:
-      overrideCamera: 0
-      restoreCamera: 1
-      offset: {x: 0, y: 0, z: 0, w: 0}
-      cameraFieldOfView: 60
---- !u!114 &5429364940236200181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4110501681852495481f85f636cdfef9, type: 3}
-  m_Name: BlitMaterialFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    material: {fileID: 2100000, guid: 3dc24a608c7d24c18b0970e37d952fad, type: 2}
-    materialPassIndex: 0
-    renderEvent: 500
---- !u!114 &6887021910582693172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: OutlineWalls
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings:
-    passTag: OutlineWalls
-    Event: 500
-    filterSettings:
-      RenderQueueType: 0
-      LayerMask:
-        serializedVersion: 2
-        m_Bits: 64
-      PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 3dc24a608c7d24c18b0970e37d952fad, type: 2}
-    overrideMaterialPassIndex: 0
-    overrideDepthState: 0
     depthCompareFunction: 4
     enableWrite: 1
     stencilSettings:
