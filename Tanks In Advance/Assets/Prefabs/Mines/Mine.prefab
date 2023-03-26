@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8341050629326768138}
   - component: {fileID: 9171443930846904482}
+  - component: {fileID: 454307948087849548}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -128,5 +129,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45ed27d7b02ab246bb77e76ea74b99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ricochets: 0
   speed: 0
   power: 5
+  _maxBounces: 0
+--- !u!136 &454307948087849548
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374489335037315713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}

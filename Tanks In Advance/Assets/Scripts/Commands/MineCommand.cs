@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MineCommand : Command
+public class MineCommand : MonoBehaviour
 {
+    /*
     private Tank _tank;
     
     public MineCommand(Tank tank, float timestamp)
@@ -28,4 +29,5 @@ public class MineCommand : Command
     {
         return _tank.name + ": Laid mine";
     }
+    */
 }

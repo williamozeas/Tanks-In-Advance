@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerInput inputs;
 
     private Rigidbody m_Rb;
+    private float deadzone = 0.1f;
 
 
     // Start is called before the first frame update
@@ -118,7 +119,6 @@ public class Player : MonoBehaviour
                 }
 
                 Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
-                Debug.Log(newAim);
                 
                 //TEMP FOR CONTROLLER
                 // if (Input.GetKey(inputs.AimUp))
@@ -140,14 +140,16 @@ public class Player : MonoBehaviour
                 // {
                 //     newAim += new Vector2(1, 0);
                 // }
-                
-                Vector2 newAimNorm = newAim.normalized;
-                if (newAimNorm != _currentTank.Aim) //controller dead zone
+                if (newAim.magnitude > deadzone) //controller dead zone
                 {
-                    Command setAimCommand =
-                        new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(setAimCommand);
-                    setAimCommand.Execute();
+                    Vector2 newAimNorm = newAim.normalized;
+                    if (newAimNorm != _currentTank.Aim) 
+                    {
+                        Command setAimCommand =
+                            new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
+                        _currentTank.AddCommand(setAimCommand);
+                        setAimCommand.Execute();
+                    }
                 }
 
                 if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
@@ -164,14 +166,10 @@ public class Player : MonoBehaviour
                     shootCommand.Execute();
                 }
 
-                // alt fire button pressed (mines for now)
+                // alt fire button pressed
                 if (Input.GetKeyDown(inputs.AltFire))
                 {
-                    Vector2 angle = _currentTank.Velocity.normalized;
-                    Command mineCommand =
-                            new MineCommand(_currentTank, GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(mineCommand);
-                    mineCommand.Execute();
+                    
                 }
 
                 newVelocity = _currentTank.speed * newVelocity.normalized;
