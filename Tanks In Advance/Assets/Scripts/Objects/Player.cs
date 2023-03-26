@@ -143,7 +143,8 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                // if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
+                if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
+                if (Input.GetButtonDown("P2_Fire")) Debug.Log("hamburger");
 
                 // fire button pressed (shooting for now)
                 if (Input.GetButtonDown(moveString + "_Fire"))
