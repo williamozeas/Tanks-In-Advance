@@ -33,7 +33,8 @@ public class BreakableWall : Wall
         //TODO: Check if this works properly with bullets
         Bullet bullet;
         if(collision.gameObject.TryGetComponent<Bullet>(out bullet)){
-            TakeDamage(bullet.power);
+            if (!bullet.is_ghost)
+                TakeDamage(bullet.power);
         }
     }
 

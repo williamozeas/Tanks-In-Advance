@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     public int _maxBounces = 0;
     private Vector2 velocity;
     private TrailRenderer trailRenderer;
-    protected bool is_ghost;
+    public bool is_ghost;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
