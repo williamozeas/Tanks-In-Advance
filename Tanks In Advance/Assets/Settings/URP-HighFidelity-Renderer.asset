@@ -51,9 +51,8 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: DrawTanksBehind
-    Event: 500
+    Event: 450
     filterSettings:
-      RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
         m_Bits: 8
@@ -92,11 +91,11 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: 6962305165726148271}
-  - {fileID: -205409931966901750}
   - {fileID: 4278495623332860710}
+  - {fileID: -205409931966901750}
+  - {fileID: 6962305165726148271}
   - {fileID: -1437528250570497588}
-  m_RendererFeatureMap: adc0de57c6d2eee5af66f90ca9139f600a92c653c13c26fd2693d1d91945603bcc212826acdf0cec
+  m_RendererFeatureMap: adc0de57c6d2eee52693d1d91945603b0a92c653c13c26fdaf66f90ca9139f60cc212826acdf0cec
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
