@@ -35,7 +35,7 @@ public class Tank : MovingObject
     [Header("VFX")]
     public VisualEffect vfx;
 
-    public Material ghostMat;
+    // public Material ghostMat;
     
 
     private Vector3 _startLocation = Vector3.zero;
@@ -52,7 +52,7 @@ public class Tank : MovingObject
     public List<GameObject> bulletList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
-    private List<Material> origMat = new List<Material>();
+    // private List<Material> origMat = new List<Material>();
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
