@@ -226,7 +226,7 @@ public class Tank : MovingObject
             for (int i = 0; i < mesh.materials.Length; i++)
             {
                 Color oldC = mesh.materials[i].color;
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.5f);
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.1f);
                 mesh.materials[i].color = newC;
             }
         }
@@ -257,6 +257,7 @@ public class Tank : MovingObject
         alive = true;
         foreach (var mesh in meshes)
         {
+            mesh.enabled = true;
             for (int i = 0; i < mesh.materials.Length; i++)
             {
                 Color oldC = mesh.materials[i].color;
