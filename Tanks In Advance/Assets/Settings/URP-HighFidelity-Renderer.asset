@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4110501681852495481f85f636cdfef9, type: 3}
   m_Name: BlitMaterialFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     material: {fileID: 2100000, guid: 3dc24a608c7d24c18b0970e37d952fad, type: 2}
     materialPassIndex: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dea88b8bfbd93941b433ee338a4192d, type: 3}
   m_Name: Blit
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     Event: 500
     blitMaterial: {fileID: 2100000, guid: 3dc24a608c7d24c18b0970e37d952fad, type: 2}
