@@ -35,17 +35,12 @@ public class Tank : MovingObject
     [Header("VFX")]
     public VisualEffect vfx;
 
-    public Material ghostMat;
+    // public Material ghostMat;
     
 
     private Vector3 _startLocation = Vector3.zero;
-    // private float _turretTurnVelocity = 0;
-    // private float turretAngle = 0;
-    // public float TurretTurnVelocity => _turretTurnVelocity;
     [HideInInspector] private Vector2 aim = Vector2.up;
     public Vector2 Aim => aim;
-    
-    public List<Renderer> renderers;
 
     private int roundsPassed = 0;
     protected List<Command> commandList = new List<Command>();
@@ -54,10 +49,11 @@ public class Tank : MovingObject
     private bool alive;
     public bool Alive => alive;
 
+    [HideInInspector]
     public List<GameObject> bulletList = new List<GameObject>();
 
     private MeshRenderer[] meshes;
-    private List<Material> origMat = new List<Material>();
+    // private List<Material> origMat = new List<Material>();
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
@@ -65,10 +61,15 @@ public class Tank : MovingObject
     protected virtual void Awake()
     {
         meshes = GetComponentsInChildren<MeshRenderer>();
-        foreach (var mesh in meshes)
-        {
-            origMat.Add(mesh.material);
-        }
+        
+        // foreach (var mesh in meshes)
+        // {
+        //     foreach (var material in mesh.materials)
+        //     {
+        //         origMat.Add(material);
+        //     }
+        // }
+        
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
     }
@@ -84,6 +85,7 @@ public class Tank : MovingObject
         _startLocation = transform.position;
         currentlyControlled = true;
         alive = true;
+        currentHealth = health;
             
         //ensure command list is not empty
         Command setVelocityCommand =
@@ -94,10 +96,10 @@ public class Tank : MovingObject
 
     protected virtual void Update()
     {
-        if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
-            Debug.Log(rb.velocity);
-
-        Debug.Log(Input.GetAxis("Horizontal"));
+        // if(!currentlyControlled && GameManager.Instance.GameState == GameStates.Playing)
+        //     Debug.Log(rb.velocity);
+        //
+        // Debug.Log(Input.GetAxis("Horizontal"));
         //Tank can shoot when cooldown < 0.5
         shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
     }
@@ -222,16 +224,20 @@ public class Tank : MovingObject
         Debug.Log("Spectating!");
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
-        foreach(var mesh in meshes)
+        foreach (var mesh in meshes)
         {
-            mesh.material = ghostMat;
+            for (int i = 0; i < mesh.materials.Length; i++)
+            {
+                Color oldC = mesh.materials[i].color;
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.1f);
+                mesh.materials[i].color = newC;
+            }
         }
     }
 
     public virtual void Die()
     {
         Debug.Log("Ded?");
-        DimTank(0.5f);
         alive = false;
         if (replay != null)
         {
@@ -252,11 +258,15 @@ public class Tank : MovingObject
     {
         Debug.Log(rb.useGravity);
         alive = true;
-        for(int i = 0; i < meshes.Length; i++)
+        foreach (var mesh in meshes)
         {
-            MeshRenderer mesh = meshes[i];
             mesh.enabled = true;
-            mesh.material = origMat[i];
+            for (int i = 0; i < mesh.materials.Length; i++)
+            {
+                Color oldC = mesh.materials[i].color;
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, 1);
+                mesh.materials[i].color = newC;
+            }
         }
         foreach(var collider in colliders)
         {
@@ -268,27 +278,9 @@ public class Tank : MovingObject
         ChangeLayer(transform, LayerMask.NameToLayer("Tanks"));
     }
 
-    private void DimTank(float multiplier)
-    {
-        foreach (Renderer r in renderers)
-        {
-            foreach (Material material in r.materials)
-            {
-                Color oldC = material.color;
-                Color newC = new Color(oldC.r * multiplier, oldC.g * multiplier, oldC.b * multiplier, oldC.a * multiplier);
-                material.color = newC;
-                material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", Color.black);
-            }
-        }
-    }
-
     //Requires commandList to be in order by timestamp to work properly
     public IEnumerator Replay()
     {
-        // make the tank more transparent based on rounds passed
-        DimTank(0.7f);
-        
         var enumerator = commandList.GetEnumerator();
         // for (int i = 0; i < commandList.Count; i++)
         while(enumerator.MoveNext())

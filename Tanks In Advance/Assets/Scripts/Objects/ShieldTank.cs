@@ -6,4 +6,8 @@ public class ShieldTank : Tank
 {
     protected override TankType type => TankType.shield;
     //TODO: Make the collider kill this tank
+
+    // protected virtual void OnCollisionEnter(Collision collision){
+
+    // }
 }

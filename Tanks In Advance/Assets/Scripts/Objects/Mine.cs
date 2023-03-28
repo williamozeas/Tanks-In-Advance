@@ -26,7 +26,7 @@ public class Mine : Bullet
         _lifespan -= Time.deltaTime;
     }
 
-    protected void Explode()
+    public void Explode()
     {
         Debug.Log("Explode mine");
 
@@ -53,6 +53,19 @@ public class Mine : Bullet
                     else if (tank != null && tank != _tank)
                     {
                         tank.TakeDamage(power);
+                    }
+                }
+
+                // bullet collision detection
+                if (TryGetComponent<Bullet>(out Bullet bullet))
+                {
+                    // don't explode self
+                    if (bullet != this)
+                    {
+                        if (bullet is Mine)
+                            ((Mine)bullet).Explode();
+                        else
+                            Destroy(bullet);
                     }
                 }
             }
