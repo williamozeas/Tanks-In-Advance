@@ -30,4 +30,9 @@ public class AudioManager : Singleton<AudioManager>
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Die");
     }
+
+    public void startBattleMusic()
+    {
+        FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
+    }
 }
