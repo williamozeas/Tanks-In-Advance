@@ -7,6 +7,10 @@ public class WinCircle : MonoBehaviour
     public int numTanksP1 = 0;
     public int numTanksP2 = 0;
 
+    [Header("Colors")] public Color blueColor;
+    public Color redColor;
+    public Color whiteColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +47,15 @@ public class WinCircle : MonoBehaviour
                 numTanksP2--;
             }
         }
+    }
+
+    private void CheckForNewColor()
+    {
+        
+    }
+
+    private void ChangeColor()
+    {
+        
     }
 }

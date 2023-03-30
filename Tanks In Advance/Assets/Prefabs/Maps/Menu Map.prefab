@@ -9005,6 +9005,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4991226083504799645, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9143099225986913580, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_Name
