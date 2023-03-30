@@ -99,6 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numTanksP1: 0
   numTanksP2: 0
+  colorFadeTime: 0.8
+  blueColor: {r: 0, g: 1.71208, b: 4, a: 0}
+  pinkColor: {r: 3.2382517, g: 0.04699173, b: 3.3207548, a: 0}
+  whiteColor: {r: 4, g: 4, b: 4, a: 0}
 --- !u!136 &4014695752992789388
 CapsuleCollider:
   m_ObjectHideFlags: 0
