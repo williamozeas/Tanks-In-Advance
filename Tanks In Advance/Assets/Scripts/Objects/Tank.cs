@@ -224,7 +224,7 @@ public class Tank : MovingObject
     public virtual void Ghost()
     {
         Debug.Log("Spectating!");
-        DeathVfx.SetInt("IsBlue", (int)type);
+        DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
