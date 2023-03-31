@@ -256,7 +256,7 @@ public class Tank : MovingObject
         {
             collider.enabled = false;
         }
-        DeathVfx.SetInt("IsBlue", (int)type);
+        DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
     }
 
