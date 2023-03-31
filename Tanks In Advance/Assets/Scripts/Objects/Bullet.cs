@@ -25,6 +25,8 @@ public class Bullet : MonoBehaviour
 
     private float _ricochetCooldown = 0.1f;
     private float _timeSinceRicochet = 0f;
+    private Vector2 _previousRicochet;
+    private Vector2 _previousRicochetIncident;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
@@ -120,11 +122,6 @@ public class Bullet : MonoBehaviour
 
     protected void Ricochet(Collision coll, bool quantizeNormal = true)
     {
-        if (_timeSinceRicochet > _ricochetCooldown)
-        {
-            ricochets++;
-            _timeSinceRicochet = _ricochetCooldown;
-        }
 
         canHitSelf = true;
         float tolerance = 0.01f;
@@ -152,7 +149,28 @@ public class Bullet : MonoBehaviour
             }
         }
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
-        velocity = incident - 2 * normalComponent;
+        Debug.Log("Ricochet! " + normalComponent);
+
+        Vector2 newVelocity = incident - 2 * normalComponent;
+        
+        if (_timeSinceRicochet > _ricochetCooldown)
+        {
+            ricochets++;
+            _timeSinceRicochet = _ricochetCooldown;
+            _previousRicochet = newVelocity;
+            _previousRicochetIncident = incident;
+        }
+        else
+        {
+            if(Vector2.Dot(newVelocity, _previousRicochetIncident) > Vector2.Dot(_previousRicochet, _previousRicochetIncident))
+            {
+                
+                Debug.Log("Ricochet changed to " + _previousRicochet);
+                newVelocity = _previousRicochet;
+            }
+        }
+        
+        velocity = newVelocity;
     }
 
     protected void KillSelf()
