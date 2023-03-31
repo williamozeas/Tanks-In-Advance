@@ -155,6 +155,7 @@ public class Tank : MovingObject
         //The tank does nothing if shooting has not yet cooled down.
         if (shootingCooldown > 0.5f) return;
 
+        AudioManager.Instance.Shoot();
         //visuals for shooting
         vfx.Play();
 

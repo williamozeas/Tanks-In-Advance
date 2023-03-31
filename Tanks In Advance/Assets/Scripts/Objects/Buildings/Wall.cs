@@ -31,8 +31,7 @@ public class Wall : MonoBehaviour
             //Debug.Log(y);
             yield return null;
         }
-        
+        AudioManager.Instance.BlockLay();
         transform.position = originalPos;
-
     }
 }
