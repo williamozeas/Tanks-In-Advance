@@ -22,6 +22,9 @@ public class Bullet : MonoBehaviour
     private Vector2 velocity;
     private TrailRenderer trailRenderer;
     public bool is_ghost;
+
+    private float _ricochetCooldown = 0.1f;
+    private float _timeSinceRicochet = 0f;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
@@ -68,6 +71,7 @@ public class Bullet : MonoBehaviour
             KillSelf();
         }
         this._lifespan -= Time.deltaTime;
+        _timeSinceRicochet += Time.deltaTime;
     }
 
     protected void FixedUpdate()
@@ -106,7 +110,6 @@ public class Bullet : MonoBehaviour
         else if (hit.TryGetComponent<Wall>(out wall))
         {
             Ricochet(collision);
-            ricochets++;
         }
         else
         {
@@ -117,6 +120,12 @@ public class Bullet : MonoBehaviour
 
     protected void Ricochet(Collision coll, bool quantizeNormal = true)
     {
+        if (_timeSinceRicochet > _ricochetCooldown)
+        {
+            ricochets++;
+            _timeSinceRicochet = _ricochetCooldown;
+        }
+
         canHitSelf = true;
         float tolerance = 0.01f;
         
