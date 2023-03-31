@@ -15,6 +15,8 @@ MonoBehaviour:
   redTankList:
   - {fileID: 2795345262792937369, guid: d37dc6c93aa934f59b345bf8f60c3f77, type: 3}
   - {fileID: 3004475480438644137, guid: 2c9ac523361e9424bb02eeef7aae419d, type: 3}
+  - {fileID: 5357189843109381146, guid: 0c6d4e5ef15af4409b20c81cced89663, type: 3}
   blueTankList:
   - {fileID: 2795345262792937369, guid: 3c0677c9d697f49efbab130ca602d34c, type: 3}
   - {fileID: 3221551894152851609, guid: 9d6c0787a7720ce46bf01857546d1538, type: 3}
+  - {fileID: 5357189843109381146, guid: 8d0c8bcad60cf4bcbbb9f2fac05e7afa, type: 3}

@@ -27,6 +27,13 @@ public class GameManager : Singleton<GameManager>
     [Header("Parameters")] 
     public int maxRounds = 5;
 
+    [Serializable] public struct NumOfTanks
+    {
+        public TankType type;
+        public int num;
+    }
+    public List<NumOfTanks> tankChoices = new List<NumOfTanks>();
+
     [Header("References")] [SerializeField]
     private TankList _tankList;
     public TankList TankList => _tankList;
