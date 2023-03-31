@@ -32,8 +32,10 @@ public class Tank : MovingObject
     public float cooldown = 1f;
     [HideInInspector]
     public float shootingCooldown = 0;
-    [Header("VFX")]
-    public VisualEffect vfx;
+    [FormerlySerializedAs("vfx")] [Header("VFX")]
+    public VisualEffect ShootVfx;
+
+    public VisualEffect DeathVfx;
 
     // public Material ghostMat;
     
@@ -157,7 +159,7 @@ public class Tank : MovingObject
 
         AudioManager.Instance.Shoot();
         //visuals for shooting
-        vfx.Play();
+        ShootVfx.Play();
 
         //Tank must wait to shoot again.
         if (shootingCooldown < 0.1f)
@@ -222,6 +224,8 @@ public class Tank : MovingObject
     public virtual void Ghost()
     {
         Debug.Log("Spectating!");
+        DeathVfx.SetInt("IsBlue", (int)type);
+        DeathVfx.Play();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
         foreach (var mesh in meshes)
@@ -252,6 +256,8 @@ public class Tank : MovingObject
         {
             collider.enabled = false;
         }
+        DeathVfx.SetInt("IsBlue", (int)type);
+        DeathVfx.Play();
     }
 
     public virtual void UnDie(Round round)

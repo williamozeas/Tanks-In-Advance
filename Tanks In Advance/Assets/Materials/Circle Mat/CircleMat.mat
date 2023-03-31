@@ -15,7 +15,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3010
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -88,19 +88,22 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DissolvePower: 2
     - _DstBlend: 10
     - _EnvironmentReflections: 1
+    - _FalloffPower: 7.89
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GradientPower: -1.4
     - _Metallic: 0
     - _NoiseScale: 50
     - _NoiseSpeed: 0
     - _NoiseTiling: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueControl: 1
+    - _QueueOffset: 10
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -111,7 +114,8 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0.019607844}
-    - _Color: {r: 0, g: 4.867144, b: 4.5358725, a: 0.6392157}
+    - _Color: {r: 4, g: 4, b: 4, a: 0}
+    - _DissolveSpeed: {r: 0.3, g: -0.1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _NoiseSpeed: {r: 0, g: -0.02, b: 0, a: 0}
     - _NoiseTiling: {r: 7, g: 0.1, b: 0, a: 0}
