@@ -184,6 +184,8 @@ MonoBehaviour:
     type: 3}
   RedTankPrefab: {fileID: 2795345262792937369, guid: d37dc6c93aa934f59b345bf8f60c3f77,
     type: 3}
+  P1selectedType: 0
+  P2selectedType: 0
 --- !u!1 &329351277
 GameObject:
   m_ObjectHideFlags: 0
