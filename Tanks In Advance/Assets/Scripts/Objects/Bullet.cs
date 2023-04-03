@@ -13,7 +13,7 @@ public enum BulletType
 public class Bullet : MonoBehaviour
 {
     protected Tank _tank;
-    protected float _lifespan;
+    public float _lifespan;
     public int ricochets;
     public float speed = 5;
     protected bool canHitSelf;
@@ -22,6 +22,9 @@ public class Bullet : MonoBehaviour
     private Vector2 velocity;
     private TrailRenderer trailRenderer;
     public bool is_ghost;
+
+    [SerializeField] private Gradient trailColorBlue;
+    [SerializeField] private Gradient trailColorPink;
 
     private float _ricochetCooldown = 0.1f;
     private float _timeSinceRicochet = 0f;
@@ -33,16 +36,15 @@ public class Bullet : MonoBehaviour
     {
         _tank = source;
         velocity = angle.normalized * speed;
-        _lifespan = 100.0f;
+        _lifespan = 5.0f;
         ricochets = 0;
         
         //Change the color of the trail based on player
         trailRenderer = GetComponent<TrailRenderer>();
         if (source.ownerNum == PlayerNum.Player1) {
-            //TODO
-            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,1);
+            trailRenderer.colorGradient = trailColorBlue;
         } else {
-            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
+            trailRenderer.colorGradient = trailColorPink;
         }
         
         is_ghost = !source.Alive;
@@ -55,6 +57,7 @@ public class Bullet : MonoBehaviour
     protected void Ghostify()
     {
         gameObject.layer = LayerMask.NameToLayer("Ghost");
+        trailRenderer.enabled = false;
     }
     
     // Start is called before the first frame update
