@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Mine : Bullet
 {
+    private bool exploding;
+
     public Mine(Tank source)
     {
         _tank = source;
         _lifespan = 5f;
+
+        exploding = false;
     }
     
     // Start is called before the first frame update
@@ -28,7 +32,12 @@ public class Mine : Bullet
 
     public void Explode()
     {
+        if (exploding)
+            return;
+
         Debug.Log("Explode mine");
+
+        exploding = true;
 
         if (!is_ghost)
         {
@@ -43,21 +52,17 @@ public class Mine : Bullet
                 }
 
                 // tank collision detection
-                if (hit.transform.parent != null)
+                if (hit.transform.parent != null
+                    && hit.gameObject.layer == LayerMask.NameToLayer("Tanks"))
                 {
-                    Tank tank = hit.transform.parent.GetComponent<Tank>();
-                    if (tank == _tank && canHitSelf) //To avoid self-destruction.
-                    {
-                        tank.TakeDamage(power);
-                    }
-                    else if (tank != null && tank != _tank)
+                    if (hit.transform.parent.TryGetComponent<Tank>(out Tank tank))
                     {
                         tank.TakeDamage(power);
                     }
                 }
 
                 // bullet collision detection
-                if (TryGetComponent<Bullet>(out Bullet bullet))
+                if (hit.TryGetComponent<Bullet>(out Bullet bullet))
                 {
                     // don't explode self
                     if (bullet != this)

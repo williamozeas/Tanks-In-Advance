@@ -16,7 +16,8 @@ public class SetAimCommand : Command
 
     public override void Execute()
     {
-        _tank.SetAim(_angle);
+        if (_tank != null)
+            _tank.SetAim(_angle);
     }
 
     public override string ToString()

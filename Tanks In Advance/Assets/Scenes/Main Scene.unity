@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028404, g: 0.22571412, b: 0.30692312, a: 1}
+  m_IndirectSpecularColor: {r: 0.1802842, g: 0.22571433, b: 0.30692378, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,6 +172,8 @@ MonoBehaviour:
     type: 3}
   RedTankPrefab: {fileID: 2795345262792937369, guid: d37dc6c93aa934f59b345bf8f60c3f77,
     type: 3}
+  P1selectedType: 0
+  P2selectedType: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +813,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6931676317533425910, guid: d4659e371098146399eee07713de2f89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945403960755518785, guid: d4659e371098146399eee07713de2f89,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 8298684370419048130, guid: d4659e371098146399eee07713de2f89,
         type: 3}
       propertyPath: m_Pivot.x

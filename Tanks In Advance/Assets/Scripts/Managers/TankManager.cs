@@ -71,7 +71,7 @@ public class TankManager : Singleton<TankManager>
         }
         else if (playerNum == PlayerNum.Player2)
         {
-            if (_p1AvailableTanks[type] <= 0)
+            if (_p2AvailableTanks[type] <= 0)
             {
                 Debug.LogError("Tank spawned when player should be out of that type of tank!");
             }

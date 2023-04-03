@@ -19,6 +19,8 @@ public enum TankType
  */
 public class Tank : MovingObject
 {
+    public string tankName;
+
     [HideInInspector] public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];
     protected virtual TankType type => TankType.basic; //can be overridden in parent class bc it's a property

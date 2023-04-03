@@ -86,11 +86,11 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("End of Round");
                 GameState = GameStates.BetweenRounds;
             }
-        } else if(Input.GetKeyDown(KeyCode.R)){ //FOR DEBUG
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R)){ //FOR DEBUG
             if(GameState == GameStates.MainMenu)
                 GameState = GameStates.BetweenRounds;
-            else
-                GameState = GameStates.Playing;
         }
     }
 
@@ -113,6 +113,9 @@ public class GameManager : Singleton<GameManager>
                 if (_roundNumber > maxRounds)
                 {
                     SetGameState(GameStates.EndGame);
+                } else
+                {
+                    FindObjectOfType<SelectTank>().Initialize();
                 }
                 if (OnRoundEnd != null) OnRoundEnd();
                 break;
