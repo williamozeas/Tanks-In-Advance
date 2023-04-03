@@ -59,6 +59,7 @@ public class Tank : MovingObject
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
+    private TreadEmitter _treadEmitter;
 
     protected virtual void Awake()
     {
@@ -74,6 +75,7 @@ public class Tank : MovingObject
         
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
+        _treadEmitter = GetComponentInChildren<TreadEmitter>();
     }
 
     // Start will be executed when the tank spawns in
@@ -226,6 +228,7 @@ public class Tank : MovingObject
         Debug.Log("Spectating!");
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        _treadEmitter.OnGhost();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
         foreach (var mesh in meshes)
@@ -233,7 +236,7 @@ public class Tank : MovingObject
             for (int i = 0; i < mesh.materials.Length; i++)
             {
                 Color oldC = mesh.materials[i].color;
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.1f);
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.12f);
                 mesh.materials[i].color = newC;
             }
         }

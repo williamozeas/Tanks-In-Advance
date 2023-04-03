@@ -41,4 +41,9 @@ public class TreadEmitter : MonoBehaviour
         _newMainModule.startRotation = Mathf.Deg2Rad * (transform.rotation.eulerAngles.y);
         // Debug.Log(newMainModule.startRotation.constant);
     }
+
+    public void OnGhost()
+    {
+        _particles.Stop();
+    }
 }
