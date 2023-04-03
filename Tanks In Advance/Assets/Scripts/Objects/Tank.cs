@@ -226,6 +226,7 @@ public class Tank : MovingObject
     public virtual void Ghost()
     {
         Debug.Log("Spectating!");
+        DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
         _treadEmitter.OnGhost();
@@ -244,23 +245,24 @@ public class Tank : MovingObject
 
     public virtual void Die()
     {
-        Debug.Log("Ded?");
         alive = false;
+        
+        DeathVfx.SetInt("IsBlue", (int)ownerNum);
+        DeathVfx.Play();
         if (replay != null)
         {
             StopCoroutine(replay);
         }
 
+        ChangeLayer(transform, LayerMask.NameToLayer("Dead"));
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
         }
-        foreach(var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-        DeathVfx.SetInt("IsBlue", (int)ownerNum);
-        DeathVfx.Play();
+        // foreach(var collider in colliders)
+        // {
+        //     collider.enabled = false;
+        // }
     }
 
     public virtual void UnDie(Round round)
