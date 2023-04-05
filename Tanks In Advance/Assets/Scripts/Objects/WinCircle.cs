@@ -31,9 +31,14 @@ public class WinCircle : MonoBehaviour
         _colorChangeCoroutine = StartCoroutine(ChangeColor(whiteColor, 0.01f));
     }
 
+    void Update()
+    {
+        Debug.Log("Blue: " + numTanksP1 + " Pink: " + numTanksP2);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.parent == null) return;
+        if(other.transform.parent == null || other.name != "Tank Model") return;
         
         if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
             if(other.transform.parent.GetComponent<Tank>().ownerNum == PlayerNum.Player1){
@@ -48,9 +53,9 @@ public class WinCircle : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.transform.parent == null) return;
+        if(other.transform.parent == null || other.name != "Tank Model") return;
         
-        if(other.transform.parent.GetComponent<Tank>()){  //If tank component exists (ie != NULL)
+        if(other.transform.parent.GetComponent<Tank>() ){  //If tank component exists (ie != NULL)
             if(other.transform.parent.GetComponent<Tank>().ownerNum == PlayerNum.Player1){
                 numTanksP1--;
             }else{

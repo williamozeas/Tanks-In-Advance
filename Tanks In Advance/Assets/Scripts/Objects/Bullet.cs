@@ -13,7 +13,7 @@ public enum BulletType
 public class Bullet : MonoBehaviour
 {
     protected Tank _tank;
-    protected float _lifespan;
+    public float _lifespan;
     public int ricochets;
     public float speed = 5;
     protected bool canHitSelf;
@@ -23,26 +23,32 @@ public class Bullet : MonoBehaviour
     private TrailRenderer trailRenderer;
     public bool is_ghost;
 
+    [SerializeField] private Gradient trailColorBlue;
+    [SerializeField] private Gradient trailColorPink;
+
     private float _ricochetCooldown = 0.1f;
     private float _timeSinceRicochet = 0f;
     private Vector2 _previousRicochet;
     private Vector2 _previousRicochetIncident;
+
+    protected MeshRenderer[] meshes;
     
     //called on creation
     public void Init(Tank source, Vector2 angle)
     {
         _tank = source;
         velocity = angle.normalized * speed;
-        _lifespan = 100.0f;
+        _lifespan = 5.0f;
         ricochets = 0;
+
+        meshes = GetComponentsInChildren<MeshRenderer>();
         
         //Change the color of the trail based on player
         trailRenderer = GetComponent<TrailRenderer>();
         if (source.ownerNum == PlayerNum.Player1) {
-            //TODO
-            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,1);
+            trailRenderer.colorGradient = trailColorBlue;
         } else {
-            // trailRenderer.colorGradient.colorKeys[0].color = new Color(1,1,1,0);
+            trailRenderer.colorGradient = trailColorPink;
         }
         
         is_ghost = !source.Alive;
@@ -55,6 +61,16 @@ public class Bullet : MonoBehaviour
     protected void Ghostify()
     {
         gameObject.layer = LayerMask.NameToLayer("Ghost");
+        trailRenderer.enabled = false;
+        foreach (var mesh in meshes)
+        {
+            for (int i = 0; i < mesh.materials.Length; i++)
+            {
+                Color oldC = mesh.materials[i].color;
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.5f);
+                mesh.materials[i].color = newC;
+            }
+        }
     }
     
     // Start is called before the first frame update
