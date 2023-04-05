@@ -11,6 +11,8 @@ public enum MapName
     TestMap = 1,
     MenuMap = 2,
     Level1 = 3,
+    Level2 = 4,
+    Level3 = 5
 }
 
 public class Map : MonoBehaviour
