@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    protected virtual float CreateAnimationTime => 1.0f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class Wall : MonoBehaviour
 
     public IEnumerator OnCreate()
     {
-        float animationTime = 1.0f;
+        float animationTime = CreateAnimationTime;
         Vector3 originalPos = transform.position;
         
         transform.position += new Vector3(0, 20, 0);

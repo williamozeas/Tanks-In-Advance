@@ -682,6 +682,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143225991566636740, guid: d37dc6c93aa934f59b345bf8f60c3f77,
+        type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 821294483819032844, guid: d37dc6c93aa934f59b345bf8f60c3f77,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2795345262792937318, guid: d37dc6c93aa934f59b345bf8f60c3f77,
         type: 3}
       propertyPath: health
@@ -1002,6 +1012,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143225991566636740, guid: 3c0677c9d697f49efbab130ca602d34c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
+      value: -7
+      objectReference: {fileID: 0}
     - target: {fileID: 2795345262792937318, guid: 3c0677c9d697f49efbab130ca602d34c,
         type: 3}
       propertyPath: health

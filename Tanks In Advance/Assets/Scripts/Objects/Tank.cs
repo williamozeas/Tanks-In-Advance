@@ -19,7 +19,7 @@ public enum TankType
  */
 public class Tank : MovingObject
 {
-    [HideInInspector] public PlayerNum ownerNum;
+    public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];
     protected virtual TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
@@ -59,6 +59,7 @@ public class Tank : MovingObject
     private Collider[] colliders;
     private Turret turret;
     private Coroutine replay;
+    private TreadEmitter _treadEmitter;
 
     protected virtual void Awake()
     {
@@ -74,6 +75,7 @@ public class Tank : MovingObject
         
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
+        _treadEmitter = GetComponentInChildren<TreadEmitter>();
     }
 
     // Start will be executed when the tank spawns in
@@ -224,8 +226,10 @@ public class Tank : MovingObject
     public virtual void Ghost()
     {
         Debug.Log("Spectating!");
+        DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        _treadEmitter.OnGhost();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
         foreach (var mesh in meshes)
@@ -233,7 +237,7 @@ public class Tank : MovingObject
             for (int i = 0; i < mesh.materials.Length; i++)
             {
                 Color oldC = mesh.materials[i].color;
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.1f);
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.12f);
                 mesh.materials[i].color = newC;
             }
         }
@@ -241,23 +245,24 @@ public class Tank : MovingObject
 
     public virtual void Die()
     {
-        Debug.Log("Ded?");
         alive = false;
+        
+        DeathVfx.SetInt("IsBlue", (int)ownerNum);
+        DeathVfx.Play();
         if (replay != null)
         {
             StopCoroutine(replay);
         }
 
+        ChangeLayer(transform, LayerMask.NameToLayer("Dead"));
         foreach(var mesh in meshes)
         {
             mesh.enabled = false;
         }
-        foreach(var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-        DeathVfx.SetInt("IsBlue", (int)ownerNum);
-        DeathVfx.Play();
+        // foreach(var collider in colliders)
+        // {
+        //     collider.enabled = false;
+        // }
     }
 
     public virtual void UnDie(Round round)

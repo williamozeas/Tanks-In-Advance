@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Red Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 3546165342195858633, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: ownerNum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3546165342195858635, guid: e4dc9b159aff746a0872b02363b3f14f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -107,5 +112,15 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[7]
       value: 
       objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 8598450702477953343, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 8598450702477953343, guid: e4dc9b159aff746a0872b02363b3f14f,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4dc9b159aff746a0872b02363b3f14f, type: 3}

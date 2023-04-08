@@ -28,12 +28,12 @@ namespace UI
 
         private void OnRoundEnd()
         {
-            _tmp.text = "Round: " + GameManager.Instance.RoundNumber;
+            _tmp.text = "Round " + GameManager.Instance.RoundNumber;
         }
 
         private void OnRoundStart(Round round)
         {
-            _tmp.text = "Round: " + GameManager.Instance.RoundNumber;
+            _tmp.text = "Round " + GameManager.Instance.RoundNumber;
         }
     }
 }
