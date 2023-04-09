@@ -55,6 +55,8 @@ MonoBehaviour:
     num: 1
   - type: 2
     num: 1
+  - type: 3
+    num: 1
   _tankList: {fileID: 11400000, guid: e6b7b48c6dcaa4bb18bb32da2e6fc3c7, type: 2}
   _mapList: {fileID: 11400000, guid: 2420b3406a6f146288848a1a828df02e, type: 2}
   gameParams:

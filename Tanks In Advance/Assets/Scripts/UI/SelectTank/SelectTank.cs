@@ -24,6 +24,14 @@ public class SelectTank : MonoBehaviour
         tankManager = FindObjectOfType<TankManager>();
         elements.SetActive(false);
         setup = false;
+
+        Invoke("StartGame", 1f);
+    }
+
+    void StartGame()
+    {
+        if (GameManager.Instance.GameState == GameStates.MainMenu)
+            GameManager.Instance.GameState = GameStates.BetweenRounds;
     }
 
     public void Initialize()

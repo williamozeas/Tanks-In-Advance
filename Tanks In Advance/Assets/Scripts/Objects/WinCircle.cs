@@ -33,7 +33,7 @@ public class WinCircle : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Blue: " + numTanksP1 + " Pink: " + numTanksP2);
+        // Debug.Log("Blue: " + numTanksP1 + " Pink: " + numTanksP2);
     }
 
     private void OnTriggerEnter(Collider other)

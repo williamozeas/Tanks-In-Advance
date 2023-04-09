@@ -36,8 +36,8 @@ public class TreadEmitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.parent.position.x, transform.parent.position.y,
-            transform.parent.position.z - 0.27f);
+        transform.position = new Vector3(transform.parent.position.x, transform.parent.position.y - 0.27f,
+            transform.parent.position.z);
         _newMainModule.startRotation = Mathf.Deg2Rad * (transform.rotation.eulerAngles.y);
         // Debug.Log(newMainModule.startRotation.constant);
     }

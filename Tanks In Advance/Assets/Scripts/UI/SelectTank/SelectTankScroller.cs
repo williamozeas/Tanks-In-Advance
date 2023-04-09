@@ -8,7 +8,7 @@ public class SelectTankScroller : MonoBehaviour
 
     public List<GameObject> points;
 
-    [HideInInspector]
+    // [HideInInspector]
     public List<TankSelectBox> tankSelectBoxes;
 
     private Animator animator;
@@ -17,15 +17,12 @@ public class SelectTankScroller : MonoBehaviour
     private int selection = 0;
     private bool scrolling = false;
 
-    private void Start()
-    {
-        CENTER = points.Count / 2;
-
-        animator = GetComponent<Animator>();
-    }
-
     public void Initialize()
     {
+        CENTER = points.Count / 2;
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
         playerNum = tankSelectBoxes[0].playerNum;
 
         // duplicate buttons for scrolling
