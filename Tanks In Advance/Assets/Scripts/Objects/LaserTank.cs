@@ -11,7 +11,7 @@ public class LaserTank : Tank
     protected override void Update()
     {
         Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
-        Debug.DrawRay(turretPos.position, adjAim * 20, Color.cyan);
+        Debug.DrawRay(turretPos.position, adjAim * 50, Color.cyan);
     }
 
     public override void Shoot(ShootCommand shootCommand)
@@ -24,6 +24,8 @@ public class LaserTank : Tank
 
         shootingCooldown = cooldown;
 
-        
+        float MAX_CAST_DISTANCE = 50;
+
+
     }
 }

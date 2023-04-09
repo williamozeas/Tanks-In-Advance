@@ -42,13 +42,18 @@ public class Bullet : MonoBehaviour
         ricochets = 0;
 
         meshes = GetComponentsInChildren<MeshRenderer>();
-        
+
         //Change the color of the trail based on player
-        trailRenderer = GetComponent<TrailRenderer>();
-        if (source.ownerNum == PlayerNum.Player1) {
-            trailRenderer.colorGradient = trailColorBlue;
-        } else {
-            trailRenderer.colorGradient = trailColorPink;
+        if (TryGetComponent<TrailRenderer>(out TrailRenderer trailRenderer))
+        {
+            if (source.ownerNum == PlayerNum.Player1)
+            {
+                trailRenderer.colorGradient = trailColorBlue;
+            }
+            else
+            {
+                trailRenderer.colorGradient = trailColorPink;
+            }
         }
         
         is_ghost = !source.Alive;
