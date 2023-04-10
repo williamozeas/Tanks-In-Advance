@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 public class Mine : Bullet
 {
     private bool exploding;
+    private MeshRenderer mesh;
+    private VisualEffect vfx;
+    [SerializeField] private float explosionAnimTime = 0.5f;
+    [SerializeField] private float radius = 3f;
 
     public Mine(Tank source)
     {
@@ -18,6 +24,8 @@ public class Mine : Bullet
     protected override void Start()
     {
         _lifespan = 5f;
+        mesh = GetComponentInChildren<MeshRenderer>();
+        vfx = GetComponentInChildren<VisualEffect>();
     }
 
     // FixedUpdate called every certain amt of time
@@ -41,7 +49,7 @@ public class Mine : Bullet
 
         if (!is_ghost)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius);
 
             foreach (Collider hit in hits)
             {
@@ -76,7 +84,19 @@ public class Mine : Bullet
             }
         }
 
-        KillSelf();
+        ExplosionAnim();
+    }
+
+    private void ExplosionAnim()
+    {
+        mesh.enabled = false;
+        KillSelf(explosionAnimTime);
+        vfx.SetFloat("ExplosionTime", explosionAnimTime);
+        vfx.SetFloat("ExplosionSize", radius);
+        bool isBlue = _tank.Owner.PlayerNumber == PlayerNum.Player1;
+        vfx.SetInt("IsBlue", isBlue ? 0 : 1); //this is reversed but don't worry about it
+        vfx.SetInt("IsGhost", is_ghost ? 1 : 0);
+        vfx.Play();
     }
 
     protected void OnTriggerEnter(Collider collision)

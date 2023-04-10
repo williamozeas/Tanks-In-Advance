@@ -66,7 +66,11 @@ public class Bullet : MonoBehaviour
     protected void Ghostify()
     {
         gameObject.layer = LayerMask.NameToLayer("Ghost");
-        trailRenderer.enabled = false;
+        if (trailRenderer)
+        {
+            trailRenderer.enabled = false;
+        }
+
         foreach (var mesh in meshes)
         {
             for (int i = 0; i < mesh.materials.Length; i++)
@@ -194,12 +198,12 @@ public class Bullet : MonoBehaviour
         velocity = newVelocity;
     }
 
-    protected void KillSelf()
+    protected void KillSelf(float timeToKill = 0)
     {
         if (_tank.bulletList.Contains(gameObject))
             _tank.bulletList.Remove(gameObject);
 
         //Destroy animation
-        Destroy(gameObject);
+        Destroy(gameObject, timeToKill);
     }
 }
