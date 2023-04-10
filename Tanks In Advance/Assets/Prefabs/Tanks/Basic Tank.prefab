@@ -382,7 +382,7 @@ MonoBehaviour:
   rb: {fileID: 3891470613632009567}
   tankName: Basic Tank
   ownerNum: 0
-  speed: 2.5
+  speed: 2.9
   turretTurnSpeed: 0.5
   health: 1
   bulletPrefab: {fileID: 6374489335037315713, guid: 70e2586bb8a07c546aa3affd4a39fc90,

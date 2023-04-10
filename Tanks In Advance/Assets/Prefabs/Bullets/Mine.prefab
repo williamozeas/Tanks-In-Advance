@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 09e1e688a3dad4a2b950ab85b5f97276, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45ed27d7b02ab246bb77e76ea74b99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifespan: 0
+  _totalLifespan: 5
   ricochets: 0
   speed: 0
   power: 5
@@ -194,8 +194,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  blueMat: {fileID: 2100000, guid: 09e1e688a3dad4a2b950ab85b5f97276, type: 2}
+  pinkMat: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
   explosionAnimTime: 1
-  radius: 2.5
+  radius: 2.1
 --- !u!136 &454307948087849548
 CapsuleCollider:
   m_ObjectHideFlags: 0
