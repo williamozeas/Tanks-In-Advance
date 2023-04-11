@@ -73,95 +73,99 @@ public class Player : MonoBehaviour
                     break;
                 }
 
-                float horizontalInput = 0;
-                float verticalInput = 0;
-                // Vector2 newVelocity = Vector2.zero;
-                
-                horizontalInput = Input.GetAxis(moveString + "_Move_H");
-                verticalInput = Input.GetAxis(moveString + "_Move_V");
+                Vector2 newVelocity;
 
-                Vector2 newVelocity = new Vector2(horizontalInput, verticalInput);
-                
-                // if (Input.GetKey(inputs.Up))
-                // {
-                //     newVelocity += new Vector2(0, 1);
-                // }
-                //
-                // if (Input.GetKey(inputs.Down))
-                // {
-                //     newVelocity += new Vector2(0, -1);
-                // }
-                //
-                // if (Input.GetKey(inputs.Left))
-                // {
-                //     newVelocity += new Vector2(-1, 0);
-                // }
-                //
-                // if (Input.GetKey(inputs.Right))
-                // {
-                //     newVelocity += new Vector2(1, 0);
-                // }
-                
-                float rHorizontalInput = 0;
-                float rVerticalInput = 0;
-                // Vector2 newVelocity = Vector2.zero;
-                
-                rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
-                rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
-
-                Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
-                
-                //TEMP FOR CONTROLLER
-                // if (Input.GetKey(inputs.AimUp))
-                // {
-                //     newAim += new Vector2(0, 1);
-                // }
-                //
-                // if (Input.GetKey(inputs.AimDown))
-                // {
-                //     newAim += new Vector2(0, -1);
-                // }
-                //
-                // if (Input.GetKey(inputs.AimLeft))
-                // {
-                //     newAim += new Vector2(-1, 0);
-                // }
-                //
-                // if (Input.GetKey(inputs.AimRight))
-                // {
-                //     newAim += new Vector2(1, 0);
-                // }
-                if (newAim.magnitude > deadzone) //controller dead zone
+                if (!_currentTank.disableMovement)
                 {
-                    Vector2 newAimNorm = newAim.normalized;
-                    if (newAimNorm != _currentTank.Aim) 
+
+                    float horizontalInput = 0;
+                    float verticalInput = 0;
+                    // Vector2 newVelocity = Vector2.zero;
+
+                    horizontalInput = Input.GetAxis(moveString + "_Move_H");
+                    verticalInput = Input.GetAxis(moveString + "_Move_V");
+
+                    newVelocity = new Vector2(horizontalInput, verticalInput);
+
+                    // if (Input.GetKey(inputs.Up))
+                    // {
+                    //     newVelocity += new Vector2(0, 1);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.Down))
+                    // {
+                    //     newVelocity += new Vector2(0, -1);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.Left))
+                    // {
+                    //     newVelocity += new Vector2(-1, 0);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.Right))
+                    // {
+                    //     newVelocity += new Vector2(1, 0);
+                    // }
+
+                    float rHorizontalInput = 0;
+                    float rVerticalInput = 0;
+                    // Vector2 newVelocity = Vector2.zero;
+
+                    rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
+                    rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
+
+                    Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
+
+                    //TEMP FOR CONTROLLER
+                    // if (Input.GetKey(inputs.AimUp))
+                    // {
+                    //     newAim += new Vector2(0, 1);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.AimDown))
+                    // {
+                    //     newAim += new Vector2(0, -1);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.AimLeft))
+                    // {
+                    //     newAim += new Vector2(-1, 0);
+                    // }
+                    //
+                    // if (Input.GetKey(inputs.AimRight))
+                    // {
+                    //     newAim += new Vector2(1, 0);
+                    // }
+                    if (newAim.magnitude > deadzone) //controller dead zone
                     {
-                        Command setAimCommand =
-                            new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
-                        _currentTank.AddCommand(setAimCommand);
-                        setAimCommand.Execute();
+                        Vector2 newAimNorm = newAim.normalized;
+                        if (newAimNorm != _currentTank.Aim)
+                        {
+                            Command setAimCommand =
+                                new SetAimCommand(newAimNorm, _currentTank, GameManager.Instance.RoundTime);
+                            _currentTank.AddCommand(setAimCommand);
+                            setAimCommand.Execute();
+                        }
+                    }
+
+                    // if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
+                    // if (Input.GetButtonDown("P2_Fire")) Debug.Log("hamburger");
+
+                    // fire button pressed (shooting for now)
+                    if (Input.GetButtonDown(moveString + "_Fire"))
+                    {
+                        // Vector2 angle = _currentTank.Velocity.normalized;
+                        Vector2 angle = _currentTank.Aim;
+                        Command shootCommand =
+                                new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
+                        _currentTank.AddCommand(shootCommand);
+                        shootCommand.Execute();
                     }
                 }
-
-                // if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
-                // if (Input.GetButtonDown("P2_Fire")) Debug.Log("hamburger");
-
-                // fire button pressed (shooting for now)
-                if (Input.GetButtonDown(moveString + "_Fire"))
+                else
                 {
-                    // Vector2 angle = _currentTank.Velocity.normalized;
-                    Vector2 angle = _currentTank.Aim;
-                    Command shootCommand = 
-                            new ShootCommand(angle, _currentTank, GameManager.Instance.RoundTime);
-                    _currentTank.AddCommand(shootCommand);
-                    shootCommand.Execute();
+                    newVelocity = Vector2.zero;
                 }
-
-                // alt fire button pressed
-                // if (Input.GetKeyDown(inputs.AltFire))
-                // {
-                //     
-                // }
 
                 newVelocity = _currentTank.speed * newVelocity.normalized;
                 if (newVelocity != _currentTank.Velocity)

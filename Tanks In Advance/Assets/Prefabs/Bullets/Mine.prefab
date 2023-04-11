@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3179237442308317555}
   - component: {fileID: 1134917376701245766}
   - component: {fileID: 1489399719418933752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8341050629326768138}
   - component: {fileID: 9171443930846904482}
   - component: {fileID: 454307948087849548}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &9158256393784410120
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 8078437459186083154}
   - component: {fileID: 7783672740548586811}
   - component: {fileID: 5309175732523028987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

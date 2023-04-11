@@ -40,6 +40,9 @@ public class Tank : MovingObject
 
     public VisualEffect DeathVfx;
 
+    [HideInInspector]
+    public bool disableMovement = false;
+
     // public Material ghostMat;
     
 
