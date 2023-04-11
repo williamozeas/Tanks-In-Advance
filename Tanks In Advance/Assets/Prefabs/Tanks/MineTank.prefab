@@ -550,8 +550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3891470613632009567}
+  tankName: Mine Tank
   ownerNum: 0
-  speed: 2
+  speed: 3.5
   turretTurnSpeed: 0.5
   health: 1
   bulletPrefab: {fileID: 6374489335037315713, guid: 52a9148d0c7f56d4a83f15a712de5835,
@@ -697,7 +698,7 @@ PrefabInstance:
     - target: {fileID: 8784437669222704495, guid: 0a6fabc4413dc4fe3845087b59ca491f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.527
       objectReference: {fileID: 0}
     - target: {fileID: 8784437669222704495, guid: 0a6fabc4413dc4fe3845087b59ca491f,
         type: 3}

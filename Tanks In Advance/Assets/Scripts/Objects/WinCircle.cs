@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class WinCircle : MonoBehaviour
 {
@@ -27,13 +28,13 @@ public class WinCircle : MonoBehaviour
     void Start()
     {
         _renderer = GetComponent<Renderer>();
-        mat = _renderer.sharedMaterial;
+        mat = _renderer.material;
         _colorChangeCoroutine = StartCoroutine(ChangeColor(whiteColor, 0.01f));
     }
 
     void Update()
     {
-        Debug.Log("Blue: " + numTanksP1 + " Pink: " + numTanksP2);
+        // Debug.Log("Blue: " + numTanksP1 + " Pink: " + numTanksP2);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -109,5 +110,20 @@ public class WinCircle : MonoBehaviour
             yield return null;
         }
         mat.color = newColor;
+    }
+
+    public IEnumerator IntroAnim(float time)
+    {
+        float startFalloff = mat.GetFloat("_FalloffPower");
+        float timeElapsed = 0f;
+        while (time > timeElapsed)
+        {
+            float newFalloff = EasingFunction.EaseOutQuint(240, startFalloff, timeElapsed / time);
+            timeElapsed += Time.deltaTime;
+            Debug.Log(newFalloff);
+            mat.SetFloat("_FalloffPower", newFalloff);
+            yield return null;
+        }
+        mat.SetFloat("_FalloffPower", startFalloff);
     }
 }

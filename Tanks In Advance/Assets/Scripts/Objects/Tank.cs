@@ -10,7 +10,8 @@ public enum TankType
 {
     basic = 0,
     mine = 1,
-    shield = 2
+    shield = 2,
+    laser = 3
 }
 
 /*
@@ -19,7 +20,9 @@ public enum TankType
  */
 public class Tank : MovingObject
 {
-    public PlayerNum ownerNum;
+    public string tankName;
+
+    [HideInInspector] public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];
     protected virtual TankType type => TankType.basic; //can be overridden in parent class bc it's a property
     public TankType Type => type;
@@ -41,7 +44,7 @@ public class Tank : MovingObject
     
 
     private Vector3 _startLocation = Vector3.zero;
-    [HideInInspector] private Vector2 aim = Vector2.up;
+    protected Vector2 aim = Vector2.up;
     public Vector2 Aim => aim;
 
     private int roundsPassed = 0;

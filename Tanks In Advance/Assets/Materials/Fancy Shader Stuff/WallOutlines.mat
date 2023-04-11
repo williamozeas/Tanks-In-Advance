@@ -88,9 +88,9 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthStrength: 40
-    - _DepthThreshold: 0.12
-    - _DepthTightening: 0.64
+    - _DepthStrength: 68.91
+    - _DepthThreshold: 1.56
+    - _DepthTightening: 0.73
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -99,7 +99,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NormalsStrength: 1
+    - _NormalsStrength: 1.5
     - _NormalsThreshold: 0.01
     - _NormalsTightening: 1
     - _OcclusionStrength: 1

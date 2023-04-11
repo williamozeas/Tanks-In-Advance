@@ -46,17 +46,15 @@ public class TankManager : Singleton<TankManager>
  
     private void OnRoundStart(Round round)
     {
-        //TODO: Replace tanktype.basic + (rn % 3) with p1selectedType to regain normal function.
-
         SpawnPoint spawnPoint1 =
             GameManager.Instance.mapSpawner.CurrentMap.GetSpawnPoint(PlayerNum.Player1, round.number);
-        Tank p1Tank = SpawnNewTank(TankType.basic + ((round.number - 1) % 3), PlayerNum.Player1, spawnPoint1.transform.position, 
+        Tank p1Tank = SpawnNewTank(P1selectedType, PlayerNum.Player1, spawnPoint1.transform.position, 
             Quaternion.Euler(0, 0, 0));
         p1Tanks.Add(p1Tank);
         
         SpawnPoint spawnPoint2 =
             GameManager.Instance.mapSpawner.CurrentMap.GetSpawnPoint(PlayerNum.Player2, round.number);
-        Tank p2Tank = SpawnNewTank(TankType.basic + ((round.number - 1) % 3), PlayerNum.Player2, spawnPoint2.transform.position, 
+        Tank p2Tank = SpawnNewTank(P2selectedType, PlayerNum.Player2, spawnPoint2.transform.position, 
             Quaternion.Euler(0, 180, 0));
         p2Tanks.Add(p2Tank);
     }
@@ -73,7 +71,7 @@ public class TankManager : Singleton<TankManager>
         }
         else if (playerNum == PlayerNum.Player2)
         {
-            if (_p1AvailableTanks[type] <= 0)
+            if (_p2AvailableTanks[type] <= 0)
             {
                 Debug.LogError("Tank spawned when player should be out of that type of tank!");
             }
