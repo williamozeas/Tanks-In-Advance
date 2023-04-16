@@ -654,12 +654,12 @@ PrefabInstance:
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: name
-      value: Level 2
+      value: Level 5
       objectReference: {fileID: 0}
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: nameEnum
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9143099226611001947, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
