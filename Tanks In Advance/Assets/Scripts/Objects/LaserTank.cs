@@ -6,6 +6,8 @@ public class LaserTank : Tank
 {
     protected override TankType type => TankType.laser;
 
+    public float windupTime = 1f;
+
     public Transform turretPos;
     public LayerMask castMask;
     [SerializeField] LineRenderer laserLine;
@@ -68,7 +70,14 @@ public class LaserTank : Tank
         disableMovement = true;
 
         // windup
-        yield return new WaitForSeconds(1f);
+        float timeElapsed = 0;
+        float startWidth = laserLine.widthCurve[0].value;
+        while (timeElapsed < windupTime)
+        {
+            laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth * (1 - (timeElapsed / windupTime)));
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
 
         float MAX_CAST_DISTANCE = 50;
         int DAMAGE = 10;
@@ -108,5 +117,18 @@ public class LaserTank : Tank
 
         shootingCooldown = cooldown;
         disableMovement = false;
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        laserLine.enabled = false;
+    }
+
+    public override void Ghost()
+    {
+        base.Ghost();
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        MaterialMod.SetOpacity(0.2f, GetComponent<MeshRenderer>(), propBlock);
     }
 }
