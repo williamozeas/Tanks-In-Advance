@@ -49,7 +49,6 @@ public class LaserTank : Tank
             }
             laserLine.SetPosition(1, hitPoint);
         }
-        // Physics.queriesHitBackfaces = false;
     }
 
     public override void Shoot(ShootCommand shootCommand)
