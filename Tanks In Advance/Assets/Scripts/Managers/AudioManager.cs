@@ -35,4 +35,40 @@ public class AudioManager : Singleton<AudioManager>
     {
         FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
     }
+
+    public void Destroy()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Destroy");
+    }
+    
+    public void Bounce()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Bounce");
+    } 
+    public void Collide()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Collide");
+    }
+
+    public void Mine()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Mine");
+    }
+
+    public void Select()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Select");
+    }
+
+    public void Swipe()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Swipe");
+    }
+
+    //Engine
+    public void moveSound(float speed)
+    {
+        
+    }
+    
 }

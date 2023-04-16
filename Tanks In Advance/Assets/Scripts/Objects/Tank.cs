@@ -63,6 +63,7 @@ public class Tank : MovingObject
     private Turret turret;
     private Coroutine replay;
     private TreadEmitter _treadEmitter;
+    private FMOD.Studio.EventInstance engine;
 
     protected virtual void Awake()
     {
@@ -79,6 +80,9 @@ public class Tank : MovingObject
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
         _treadEmitter = GetComponentInChildren<TreadEmitter>();
+        engine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Game/Move");
+        engine.start();
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(engine, transform);
     }
 
     // Start will be executed when the tank spawns in
@@ -109,6 +113,8 @@ public class Tank : MovingObject
         // Debug.Log(Input.GetAxis("Horizontal"));
         //Tank can shoot when cooldown < 0.5
         shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
+        //engine
+        engine.setParameterByName("Speed", rb.velocity.magnitude / speed);
     }
     
     //Subscribe to events
@@ -252,6 +258,8 @@ public class Tank : MovingObject
         
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        AudioManager.Instance.Die();
+        engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         if (replay != null)
         {
             StopCoroutine(replay);
@@ -262,6 +270,7 @@ public class Tank : MovingObject
         {
             mesh.enabled = false;
         }
+
         // foreach(var collider in colliders)
         // {
         //     collider.enabled = false;
@@ -272,6 +281,7 @@ public class Tank : MovingObject
     {
         Debug.Log(rb.useGravity);
         alive = true;
+        engine.start();
         foreach (var mesh in meshes)
         {
             mesh.enabled = true;
@@ -323,6 +333,7 @@ public class Tank : MovingObject
         float angle = -Vector2.SignedAngle(Vector2.up, newAim);
         turret.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+
 
     // public void SetTurretTurnVelocity(float newVelocity)
     // {
