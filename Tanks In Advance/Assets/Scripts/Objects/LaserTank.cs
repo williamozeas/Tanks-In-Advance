@@ -32,8 +32,8 @@ public class LaserTank : Tank
         laserLine.SetPosition(0, turretPos.position);
         RaycastHit hit;
         RaycastHit reverseHit; //for raycasting from inside of a wall
-        if (Physics.Raycast(turretPos.position, adjAim, out hit, 1000f) &&
-            Physics.Raycast(hit.point, -adjAim, out reverseHit, 1000f))
+        if (Physics.Raycast(turretPos.position, adjAim, out hit, 1000f, castMask) &&
+            Physics.Raycast(hit.point, -adjAim, out reverseHit, 1000f, castMask))
         {
             Vector3 hitPoint;
             float diff = hit.distance - reverseHit.distance;
@@ -46,10 +46,6 @@ public class LaserTank : Tank
                 hitPoint = turretPos.position + adjAim * diff;
             }
             laserLine.SetPosition(1, hitPoint);
-            
-            Debug.DrawRay(turretPos.position, adjAim * hit.distance, Color.cyan);
-            Debug.DrawRay(hit.point, -adjAim * reverseHit.distance, Color.red);
-            Debug.Log(reverseHit.collider.gameObject.name);
         }
         // Physics.queriesHitBackfaces = false;
     }
@@ -61,8 +57,6 @@ public class LaserTank : Tank
 
         // visuals for shooting
         // ShootVfx.Play();
-        Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
-        Debug.DrawRay(turretPos.position, adjAim * 50, Color.cyan, 500f);
 
         shootingCooldown = int.MaxValue;
 
