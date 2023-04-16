@@ -215,6 +215,8 @@ public class Bullet : MonoBehaviour
         if (_tank.bulletList.Contains(gameObject))
             _tank.bulletList.Remove(gameObject);
 
+        //Destroy sound
+        AudioManager.Instance.Dissipate();
         //Destroy animation
         Destroy(gameObject, timeToKill);
     }

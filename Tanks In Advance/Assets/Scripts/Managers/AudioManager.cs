@@ -23,12 +23,17 @@ public class AudioManager : Singleton<AudioManager>
 
     public void BlockLay()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
     }
 
     public void Die()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Die");
+    }
+
+    public void Dissipate()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Dissipate");
     }
 
     public void startBattleMusic()

@@ -99,6 +99,7 @@ public class SelectTank : MonoBehaviour
 
     public void Select (PlayerNum player, TankType tank)
     {
+        AudioManager.Instance.Select();
         switch (player) {
             case PlayerNum.Player1:
                 p1Selected = true;
@@ -113,8 +114,7 @@ public class SelectTank : MonoBehaviour
                 selectTankScrollerP2.gameObject.SetActive(false);
                 p2Ready.SetActive(true);
                 break;
-        }
-
+    }
         if (p1Selected && p2Selected)
         {
             Invoke("StartRound", 1f);
