@@ -442,8 +442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1200a266c79444f1ca70a9301f935f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameEnum: 7
-  name: Level 5
+  nameEnum: 0
+  name: Empty Map
   wallsHolder: {fileID: 627041510725068743}
 --- !u!1 &9143099226280166732
 GameObject:
