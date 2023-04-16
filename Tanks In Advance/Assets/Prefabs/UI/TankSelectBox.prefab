@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 8907797799134282855}
   - component: {fileID: 2652019676458929786}
   - component: {fileID: 6549504041044909083}
+  - component: {fileID: 2341511973985646122}
   m_Layer: 5
   m_Name: TankImage
   m_TagString: Untagged
@@ -307,8 +308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225, y: 0}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchoredPosition: {x: -235, y: 0}
+  m_SizeDelta: {x: 297.6, y: 167.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2652019676458929786
 CanvasRenderer:
@@ -348,6 +349,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2341511973985646122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3689441089025166466}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0b73822dc8a2a9d43a2783fed1b76ce1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6246266003282391129
 GameObject:
   m_ObjectHideFlags: 0

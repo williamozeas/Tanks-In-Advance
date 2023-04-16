@@ -21,6 +21,7 @@ public enum TankType
 public class Tank : MovingObject
 {
     public string tankName;
+    public RuntimeAnimatorController tankUIAnimation;
 
     [HideInInspector] public PlayerNum ownerNum;
     public Player Owner => GameManager.Instance.Players[(int)ownerNum];

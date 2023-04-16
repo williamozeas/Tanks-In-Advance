@@ -22,8 +22,8 @@ public class TankManager : Singleton<TankManager>
         base.Awake();
         foreach (var tankEntry in GameManager.Instance.tankChoices)
         {
-            _p1AvailableTanks.Add(tankEntry.type, tankEntry.num);
-            _p2AvailableTanks.Add(tankEntry.type, tankEntry.num);
+            _p1AvailableTanks.Add(tankEntry.type, Mathf.CeilToInt(GameManager.Instance.maxRounds * tankEntry.percentage));
+            _p2AvailableTanks.Add(tankEntry.type, Mathf.CeilToInt(GameManager.Instance.maxRounds * tankEntry.percentage));
         }
     }
     

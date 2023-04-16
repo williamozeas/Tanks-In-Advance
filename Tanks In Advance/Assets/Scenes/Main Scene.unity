@@ -741,11 +741,6 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 1603225130937425642, guid: 8a241753c9f5040bcae59f760097cb24,
         type: 3}
-      propertyPath: maxRounds
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1603225130937425642, guid: 8a241753c9f5040bcae59f760097cb24,
-        type: 3}
       propertyPath: gameParams.time
       value: 20
       objectReference: {fileID: 0}

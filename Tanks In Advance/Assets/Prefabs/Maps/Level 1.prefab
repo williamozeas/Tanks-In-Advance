@@ -1006,13 +1006,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483828696685741232, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483828696685741232, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
       propertyPath: m_Name
       value: Team1 SpawnPoint 4
       objectReference: {fileID: 0}
     - target: {fileID: 5483828696892962671, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483828696892962671, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
       propertyPath: m_Name
       value: Team1 SpawnPoint 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483828697458652485, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5483828697458652485, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -1028,6 +1043,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Team1 SpawnPoint 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483828697661898804, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5483828697661898804, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
