@@ -46,7 +46,11 @@ public class Map : MonoBehaviour
 
     public IEnumerator AddMapAnim()
     {
-        StartCoroutine(winCircle.IntroAnim(3f));
+        if (winCircle)
+        {
+            StartCoroutine(winCircle.IntroAnim(3f));
+        }
+
         List < Wall > walls = new List<Wall>(wallsHolder.GetComponentsInChildren<Wall>());
         float interval = 2f / walls.Count;
         
