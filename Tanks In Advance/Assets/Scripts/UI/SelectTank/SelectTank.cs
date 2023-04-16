@@ -25,7 +25,7 @@ public class SelectTank : MonoBehaviour
         elements.SetActive(false);
         setup = false;
 
-        Invoke("StartGame", 1f);
+        Invoke("StartGame", 3f);
     }
 
     void StartGame()

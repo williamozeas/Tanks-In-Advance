@@ -552,7 +552,7 @@ MonoBehaviour:
   rb: {fileID: 3891470613632009567}
   tankName: Mine Tank
   ownerNum: 0
-  speed: 4
+  speed: 3.5
   turretTurnSpeed: 0.5
   health: 1
   bulletPrefab: {fileID: 6374489335037315713, guid: 52a9148d0c7f56d4a83f15a712de5835,

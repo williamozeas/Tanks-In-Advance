@@ -6,12 +6,49 @@ public class LaserTank : Tank
 {
     protected override TankType type => TankType.laser;
 
+    public float windupTime = 1f;
+
     public Transform turretPos;
+    public LayerMask castMask;
+    [SerializeField] LineRenderer laserLine;
+    [SerializeField] private Material blueMat;
+    [SerializeField] private Material pinkMat;
+
+    protected override void Start()
+    {
+        base.Start();
+        if (ownerNum == PlayerNum.Player1)
+        {
+            laserLine.sharedMaterial = blueMat;
+        } 
+        else if (ownerNum == PlayerNum.Player2)
+        {
+            laserLine.sharedMaterial = pinkMat;
+        }
+    }
 
     protected override void Update()
     {
+        base.Update();
         Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
-        Debug.DrawRay(turretPos.position, adjAim * 50, Color.cyan);
+        laserLine.SetPosition(0, turretPos.position);
+        RaycastHit hit;
+        RaycastHit reverseHit; //for raycasting from inside of a wall
+        if (Physics.Raycast(turretPos.position, adjAim, out hit, 1000f, castMask) &&
+            Physics.Raycast(hit.point, -adjAim, out reverseHit, 1000f, castMask))
+        {
+            Vector3 hitPoint;
+            float diff = hit.distance - reverseHit.distance;
+            if(diff < 0)
+            {
+                hitPoint = hit.point;
+            }
+            else
+            {
+                hitPoint = turretPos.position + adjAim * diff;
+            }
+            laserLine.SetPosition(1, hitPoint);
+        }
     }
 
     public override void Shoot(ShootCommand shootCommand)
@@ -20,12 +57,77 @@ public class LaserTank : Tank
         if (shootingCooldown > 0f) return;
 
         // visuals for shooting
-        // vfx.Play();
+        // ShootVfx.Play();
 
-        shootingCooldown = cooldown;
+        shootingCooldown = int.MaxValue;
+
+        StartCoroutine(FireLaser());
+    }
+
+    IEnumerator FireLaser()
+    {
+        disableMovement = true;
+
+        // windup
+        float timeElapsed = 0;
+        float startWidth = laserLine.widthCurve[0].value;
+        while (timeElapsed < windupTime)
+        {
+            laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth * (1 - (timeElapsed / windupTime)));
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
 
         float MAX_CAST_DISTANCE = 50;
+        int DAMAGE = 10;
 
+        Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
+        RaycastHit rayhit;
+        Physics.SphereCast(turretPos.position, 0.1f, adjAim, out rayhit, MAX_CAST_DISTANCE,
+            castMask, QueryTriggerInteraction.Collide);
 
+        if (rayhit.collider != null)
+        {
+            GameObject hit = rayhit.collider.gameObject;
+
+            Debug.Log(hit);
+
+            if (hit.transform.parent != null &&
+                hit.transform.parent.TryGetComponent<Tank>(out Tank tank) &&
+                tank.Type != TankType.shield)
+            {
+                tank.TakeDamage(DAMAGE);
+            }
+            else if (hit.TryGetComponent<BreakableWall>(out BreakableWall wall))
+            {
+                wall.TakeDamage(DAMAGE);
+            }
+            else if (hit.TryGetComponent<Bullet>(out Bullet bullet))
+            {
+                if (bullet is Mine)
+                    ((Mine)bullet).Explode();
+                else
+                    Destroy(bullet);
+            }
+        }
+
+        // cooldown
+        yield return new WaitForSeconds(0.5f);
+
+        shootingCooldown = cooldown;
+        disableMovement = false;
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        laserLine.enabled = false;
+    }
+
+    public override void Ghost()
+    {
+        base.Ghost();
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        MaterialMod.SetOpacity(0.2f, GetComponent<MeshRenderer>(), propBlock);
     }
 }

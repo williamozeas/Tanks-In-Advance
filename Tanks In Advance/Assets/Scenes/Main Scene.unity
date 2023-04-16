@@ -217,7 +217,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 40
   field of view: 60
   orthographic: 1
   orthographic size: 12
@@ -747,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 1603225130937425642, guid: 8a241753c9f5040bcae59f760097cb24,
         type: 3}
       propertyPath: gameParams.time
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1603225130937425643, guid: 8a241753c9f5040bcae59f760097cb24,
         type: 3}

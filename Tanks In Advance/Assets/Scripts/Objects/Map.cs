@@ -46,7 +46,14 @@ public class Map : MonoBehaviour
 
     public IEnumerator AddMapAnim()
     {
+        if (winCircle)
+        {
+            StartCoroutine(winCircle.IntroAnim(3f));
+        }
+
         List < Wall > walls = new List<Wall>(wallsHolder.GetComponentsInChildren<Wall>());
+        float interval = 2f / walls.Count;
+        
         walls.Sort((wall1, wall2) =>
         {
             float wall1Heuristic = -wall1.transform.position.z + wall1.transform.position.x;
@@ -70,7 +77,7 @@ public class Map : MonoBehaviour
                 canvas.enabled = true;
 
             StartCoroutine(wall.OnCreate());
-            yield return new WaitForSeconds(0.005f);
+            yield return new WaitForSeconds(interval);
         }
 
     }
