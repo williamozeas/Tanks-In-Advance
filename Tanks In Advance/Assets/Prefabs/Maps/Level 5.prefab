@@ -15,12 +15,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team1 SpawnPoint 6
+      value: Team2 SpawnPoint 6
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -232,12 +232,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team2 SpawnPoint 10
+      value: Team1 SpawnPoint 10
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -1607,12 +1607,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team1 SpawnPoint 8
+      value: Team2 SpawnPoint 8
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -2100,12 +2100,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team2 SpawnPoint 8
+      value: Team1 SpawnPoint 8
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -2795,12 +2795,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team1 SpawnPoint 7
+      value: Team2 SpawnPoint 7
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -3007,12 +3007,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team1 SpawnPoint 9
+      value: Team2 SpawnPoint 9
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -3150,12 +3150,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team1 SpawnPoint 10
+      value: Team2 SpawnPoint 10
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -3298,12 +3298,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team2 SpawnPoint 6
+      value: Team1 SpawnPoint 6
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -3727,12 +3727,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team2 SpawnPoint 7
+      value: Team1 SpawnPoint 7
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
@@ -4432,12 +4432,12 @@ PrefabInstance:
     - target: {fileID: 3672871763379030139, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_Name
-      value: Team2 SpawnPoint 9
+      value: Team1 SpawnPoint 9
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7233291482596847022, guid: 0b9356fd571dd4e5caa59227bded485c,
         type: 3}
