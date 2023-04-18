@@ -124,7 +124,6 @@ public class WinCircle : MonoBehaviour
         {
             float newFalloff = EasingFunction.EaseOutQuint(240, startFalloff, timeElapsed / time);
             timeElapsed += Time.deltaTime;
-            Debug.Log(newFalloff);
             mat.SetFloat("_FalloffPower", newFalloff);
             yield return null;
         }

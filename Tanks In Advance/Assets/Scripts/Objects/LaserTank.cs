@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LaserTank : Tank
@@ -56,8 +57,6 @@ public class LaserTank : Tank
         //The tank does nothing if shooting has not yet cooled down.
         if (shootingCooldown > 0f) return;
 
-        // visuals for shooting
-        // ShootVfx.Play();
 
         shootingCooldown = int.MaxValue;
 
@@ -82,13 +81,27 @@ public class LaserTank : Tank
         int DAMAGE = 10;
 
         Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
-        RaycastHit rayhit;
-        Physics.SphereCast(turretPos.position, 0.1f, adjAim, out rayhit, MAX_CAST_DISTANCE,
-            castMask, QueryTriggerInteraction.Collide);
-
-        if (rayhit.collider != null)
+        List<RaycastHit> rayhits = Physics.SphereCastAll(turretPos.position, 0.1f, adjAim, MAX_CAST_DISTANCE,
+            castMask, QueryTriggerInteraction.Collide).ToList();
+        
+        float distance = rayhits.Where((hit) =>
         {
-            GameObject hit = rayhit.collider.gameObject;
+            if (hit.transform.TryGetComponent<ShieldTank>(out ShieldTank tank))
+            {
+                return true;
+            }
+            if (hit.transform.TryGetComponent<Wall>(out Wall wall))
+            {
+                return wall.blocksLaser;
+            }
+            return false;
+
+        }).Min(hit => hit.distance);
+
+        foreach (RaycastHit rayhit in rayhits)
+        {
+            if (rayhit.distance > distance) continue;
+            GameObject hit = rayhit.transform.gameObject;
 
             Debug.Log(hit);
 
@@ -111,8 +124,13 @@ public class LaserTank : Tank
             }
         }
 
+        // visuals for shooting
+        ShootVfx.SetInt("PlayerNum", (int)ownerNum);
+        ShootVfx.SetFloat("Distance", distance * 0.52f);
+        ShootVfx.Play();
+
         // cooldown
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.2f);
 
         shootingCooldown = cooldown;
         disableMovement = false;

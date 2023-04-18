@@ -5,6 +5,7 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     protected virtual float CreateAnimationTime => 1.0f;
+    [HideInInspector] public virtual bool blocksLaser => true;
     
     // Start is called before the first frame update
     void Start()
