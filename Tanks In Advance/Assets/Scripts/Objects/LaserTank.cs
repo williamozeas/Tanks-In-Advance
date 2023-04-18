@@ -8,6 +8,7 @@ public class LaserTank : Tank
     protected override TankType type => TankType.laser;
 
     public float windupTime = 1f;
+    public float cooldownTime = 1.5f;
 
     public Transform turretPos;
     public LayerMask castMask;
@@ -130,10 +131,20 @@ public class LaserTank : Tank
         ShootVfx.Play();
 
         // cooldown
-        yield return new WaitForSeconds(1.2f);
+        timeElapsed = 0;
+        yield return new WaitForSeconds(cooldownTime);
+        disableMovement = false;
+        float remainingCooldown = 2f;
+        while (timeElapsed < remainingCooldown)
+        {
+            laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth * (timeElapsed / remainingCooldown));
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth);
 
         shootingCooldown = cooldown;
-        disableMovement = false;
     }
 
     public override void Die()
