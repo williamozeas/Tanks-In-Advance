@@ -24,11 +24,15 @@ public class WinCircle : MonoBehaviour
     private Renderer _renderer;
     private Material mat;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _renderer = GetComponent<Renderer>();
         mat = _renderer.material;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         _colorChangeCoroutine = StartCoroutine(ChangeColor(whiteColor, 0.01f));
     }
 
@@ -120,7 +124,6 @@ public class WinCircle : MonoBehaviour
         {
             float newFalloff = EasingFunction.EaseOutQuint(240, startFalloff, timeElapsed / time);
             timeElapsed += Time.deltaTime;
-            Debug.Log(newFalloff);
             mat.SetFloat("_FalloffPower", newFalloff);
             yield return null;
         }

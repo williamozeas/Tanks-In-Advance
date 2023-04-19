@@ -42,8 +42,13 @@ public class TreadEmitter : MonoBehaviour
         // Debug.Log(newMainModule.startRotation.constant);
     }
 
-    public void OnGhost()
+    public void StopParticles()
     {
         _particles.Stop();
+    }
+
+    public void StartParticles()
+    {
+        _particles.Play();
     }
 }

@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public enum TankType
 {
@@ -39,6 +41,9 @@ public class Tank : MovingObject
     public VisualEffect ShootVfx;
 
     public VisualEffect DeathVfx;
+
+    [HideInInspector]
+    public bool disableMovement = false;
 
     // public Material ghostMat;
     
@@ -238,7 +243,7 @@ public class Tank : MovingObject
         DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
-        _treadEmitter.OnGhost();
+        _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
         foreach (var mesh in meshes)
@@ -260,6 +265,7 @@ public class Tank : MovingObject
         DeathVfx.Play();
         AudioManager.Instance.Die();
         engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _treadEmitter.StopParticles();
         if (replay != null)
         {
             StopCoroutine(replay);
@@ -298,6 +304,7 @@ public class Tank : MovingObject
         rb.position = _startLocation;
         currentHealth = health;
         shootingCooldown = 0.0f;
+        _treadEmitter.StartParticles();
         ChangeLayer(transform, LayerMask.NameToLayer("Tanks"));
     }
 

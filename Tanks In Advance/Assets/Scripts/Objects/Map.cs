@@ -12,7 +12,9 @@ public enum MapName
     MenuMap = 2,
     Level1 = 3,
     Level2 = 4,
-    Level3 = 5
+    Level3 = 5,
+    Level4 = 6,
+    Level5 = 7
 }
 
 public class Map : MonoBehaviour
@@ -46,7 +48,11 @@ public class Map : MonoBehaviour
 
     public IEnumerator AddMapAnim()
     {
-        StartCoroutine(winCircle.IntroAnim(3f));
+        if (winCircle)
+        {
+            StartCoroutine(winCircle.IntroAnim(3f));
+        }
+
         List < Wall > walls = new List<Wall>(wallsHolder.GetComponentsInChildren<Wall>());
         float interval = 2f / walls.Count;
         
