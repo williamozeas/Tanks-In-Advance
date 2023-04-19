@@ -287,7 +287,6 @@ public class Tank : MovingObject
 
     public virtual void UnDie(Round round)
     {
-        Debug.Log(rb.useGravity);
         alive = true;
         engine.start();
         engineVolume = .5F;
