@@ -227,7 +227,7 @@ public class Tank : MovingObject
         
         foreach (Transform child in tran)
         {
-            if (child == null)
+            if (child == null || child.gameObject.layer == LayerMask.NameToLayer("Default"))
             {
                 continue;
             }

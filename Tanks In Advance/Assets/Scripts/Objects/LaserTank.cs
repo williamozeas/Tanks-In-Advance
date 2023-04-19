@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
+using UnityEngine.VFX;
 
 public class LaserTank : Tank
 {
     protected override TankType type => TankType.laser;
 
-    public float windupTime = 1f;
+    public float windupTime = 1.5f;
     public float cooldownTime = 1.5f;
-
+    
     public Transform turretPos;
     public LayerMask castMask;
+    [SerializeField] private VisualEffect chargeEffect;
     [SerializeField] LineRenderer laserLine;
     [SerializeField] private Material blueMat;
     [SerializeField] private Material pinkMat;
@@ -69,6 +72,9 @@ public class LaserTank : Tank
         disableMovement = true;
 
         // windup
+        chargeEffect.Reinit();
+        chargeEffect.SetInt("PlayerNum", (int)ownerNum);
+        chargeEffect.Play();
         float timeElapsed = 0;
         float startWidth = laserLine.widthCurve[0].value;
         while (timeElapsed < windupTime)
@@ -98,34 +104,37 @@ public class LaserTank : Tank
             return false;
 
         }).Min(hit => hit.distance);
-
-        foreach (RaycastHit rayhit in rayhits)
+        if (Alive)
         {
-            if (rayhit.distance > distance) continue;
-            GameObject hit = rayhit.transform.gameObject;
+            foreach (RaycastHit rayhit in rayhits)
+            {
+                if (rayhit.distance > distance) continue;
+                GameObject hit = rayhit.transform.gameObject;
 
-            Debug.Log(hit);
+                Debug.Log(hit);
 
-            if (hit.transform.parent != null &&
-                hit.transform.parent.TryGetComponent<Tank>(out Tank tank) &&
-                tank.Type != TankType.shield)
-            {
-                tank.TakeDamage(DAMAGE);
-            }
-            else if (hit.TryGetComponent<BreakableWall>(out BreakableWall wall))
-            {
-                wall.TakeDamage(DAMAGE);
-            }
-            else if (hit.TryGetComponent<Bullet>(out Bullet bullet))
-            {
-                if (bullet is Mine)
-                    ((Mine)bullet).Explode();
-                else
-                    Destroy(bullet);
+                if (hit.transform.parent != null &&
+                    hit.transform.parent.TryGetComponent<Tank>(out Tank tank) &&
+                    tank.Type != TankType.shield)
+                {
+                    tank.TakeDamage(DAMAGE);
+                }
+                else if (hit.TryGetComponent<BreakableWall>(out BreakableWall wall))
+                {
+                    wall.TakeDamage(DAMAGE);
+                }
+                else if (hit.TryGetComponent<Bullet>(out Bullet bullet))
+                {
+                    if (bullet is Mine)
+                        ((Mine)bullet).Explode();
+                    else
+                        Destroy(bullet);
+                }
             }
         }
 
         // visuals for shooting
+        ShootVfx.SetInt("IsAlive", Alive ? 1 : 0);
         ShootVfx.SetInt("PlayerNum", (int)ownerNum);
         ShootVfx.SetFloat("Distance", distance * 0.52f);
         ShootVfx.Play();
@@ -134,17 +143,19 @@ public class LaserTank : Tank
         timeElapsed = 0;
         yield return new WaitForSeconds(cooldownTime);
         disableMovement = false;
-        float remainingCooldown = 2f;
+        float remainingCooldown = cooldown;
+        shootingCooldown = cooldown;
+        
         while (timeElapsed < remainingCooldown)
         {
-            laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth * (timeElapsed / remainingCooldown));
+            float percent = EasingFunction.EaseInCubic(0, 1, timeElapsed / remainingCooldown);
+            laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth * (percent));
             timeElapsed += Time.deltaTime;
             yield return null;
         }
 
         laserLine.widthCurve = AnimationCurve.Constant(0, 1, startWidth);
 
-        shootingCooldown = cooldown;
     }
 
     public override void Die()
@@ -156,7 +167,7 @@ public class LaserTank : Tank
     public override void Ghost()
     {
         base.Ghost();
-        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
-        MaterialMod.SetOpacity(0.2f, GetComponent<MeshRenderer>(), propBlock);
+        // MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        // MaterialMod.SetOpacity(0.2f, GetComponent<MeshRenderer>(), propBlock);
     }
 }
