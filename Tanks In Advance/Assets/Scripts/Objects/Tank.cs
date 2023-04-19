@@ -34,7 +34,7 @@ public class Tank : MovingObject
     public int health = 1;
     public GameObject bulletPrefab;
     public int currentHealth;
-    public float cooldown = 1f;
+    public float cooldown = 0.8ff;
     [HideInInspector]
     public float shootingCooldown = 0;
     [FormerlySerializedAs("vfx")] [Header("VFX")]
@@ -174,11 +174,11 @@ public class Tank : MovingObject
         //Tank must wait to shoot again.
         if (shootingCooldown < 0.1f)
         {
-            shootingCooldown += 0.6f; //Rapid barrage after waiting
+            shootingCooldown += 0.8f * cooldown; //Rapid barrage after waiting
         }
         else
         {
-            shootingCooldown += 0.8f; //Space out following shots.
+            shootingCooldown += cooldown; //Space out following shots.
         }
         //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
 
