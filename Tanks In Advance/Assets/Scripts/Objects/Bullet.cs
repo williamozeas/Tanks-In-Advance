@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     protected Tank _tank;
     protected float _currentLifespan;
     public float _totalLifespan = 5f;
-    public int ricochets;
+    [HideInInspector] public int ricochets;
     public float speed = 5;
     protected bool canHitSelf;
     public int power = 1;
