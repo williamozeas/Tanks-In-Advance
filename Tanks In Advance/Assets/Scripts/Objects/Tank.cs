@@ -243,6 +243,8 @@ public class Tank : MovingObject
         DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        AudioManager.Instance.Die();
+        engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
