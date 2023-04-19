@@ -69,6 +69,7 @@ public class Tank : MovingObject
     private Coroutine replay;
     private TreadEmitter _treadEmitter;
     private FMOD.Studio.EventInstance engine;
+    private float engineVolume;
 
     protected virtual void Awake()
     {
@@ -85,6 +86,7 @@ public class Tank : MovingObject
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
         _treadEmitter = GetComponentInChildren<TreadEmitter>();
+        engineVolume = 1;
         engine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Game/Move");
         engine.start();
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(engine, transform);
@@ -119,7 +121,7 @@ public class Tank : MovingObject
         //Tank can shoot when cooldown < 0.5
         shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
         //engine
-        engine.setParameterByName("Speed", rb.velocity.magnitude / speed);
+        engine.setParameterByName("Speed", (rb.velocity.magnitude / speed) * engineVolume);
     }
     
     //Subscribe to events
@@ -244,7 +246,6 @@ public class Tank : MovingObject
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
         AudioManager.Instance.Die();
-        engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
@@ -289,6 +290,7 @@ public class Tank : MovingObject
         Debug.Log(rb.useGravity);
         alive = true;
         engine.start();
+        engineVolume = .5F;
         foreach (var mesh in meshes)
         {
             mesh.enabled = true;
