@@ -79,6 +79,8 @@ public class Mine : Bullet
 
         _exploding = true;
 
+        AudioManager.Instance.Mine();
+
         if (!is_ghost)
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, radius);

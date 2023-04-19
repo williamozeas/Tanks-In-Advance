@@ -270,7 +270,6 @@ public class Tank : MovingObject
         {
             mesh.enabled = false;
         }
-
         // foreach(var collider in colliders)
         // {
         //     collider.enabled = false;

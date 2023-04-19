@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{15dbfa20-2db4-433e-8b6b-c11cec18c108}">
+	<object class="AudioFile" id="{ef007ee0-48e2-41c7-9d63-d198691478f3}">
 		<property name="assetPath">
-			<value>Mine.wav</value>
+			<value>bounce.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>2.8557823129251703</value>
+			<value>0.5</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{4c43832e-f0df-4df8-95cf-1f175f6d0e7d}</destination>

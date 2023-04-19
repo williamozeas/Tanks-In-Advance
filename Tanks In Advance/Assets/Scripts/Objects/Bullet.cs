@@ -167,6 +167,11 @@ public class Bullet : MonoBehaviour
         Vector3 normal = coll.GetContact(0).normal;
         Vector2 normal2;
 
+        if(ricochets < _maxBounces) 
+        {
+        AudioManager.Instance.Bounce();
+        }
+
         //quantize weird normals
         if (quantizeNormal && (normal.x != 0 && normal.z != 0))
         {
