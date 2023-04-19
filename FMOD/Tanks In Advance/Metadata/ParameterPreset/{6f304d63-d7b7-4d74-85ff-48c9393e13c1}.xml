@@ -13,7 +13,7 @@
 	</object>
 	<object class="GameParameter" id="{b4cbe2cb-e0dd-460d-9185-b9b020444d05}">
 		<property name="initialValue">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{8c6d46f2-3ea7-4c22-be39-2051f88125cd}</destination>

@@ -272,7 +272,7 @@
 			<value>1</value>
 		</property>
 		<property name="finalValue">
-			<value>-80</value>
+			<value>-76.1481476</value>
 		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{9d7116ad-c3e0-4e9c-8dc6-d002c7c8bebe}">

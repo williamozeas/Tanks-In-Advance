@@ -69,11 +69,4 @@ public class AudioManager : Singleton<AudioManager>
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Swipe");
     }
-
-    //Engine
-    public void moveSound(float speed)
-    {
-        
-    }
-    
 }
