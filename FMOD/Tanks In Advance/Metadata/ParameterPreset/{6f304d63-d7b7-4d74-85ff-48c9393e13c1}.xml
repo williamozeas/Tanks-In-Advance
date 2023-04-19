@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{6f304d63-d7b7-4d74-85ff-48c9393e13c1}">
+		<property name="name">
+			<value>LaserControl</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cd37d154-03cb-4d7b-82e7-a48775fb098c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b4cbe2cb-e0dd-460d-9185-b9b020444d05}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b4cbe2cb-e0dd-460d-9185-b9b020444d05}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{8c6d46f2-3ea7-4c22-be39-2051f88125cd}</destination>
+		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{8c6d46f2-3ea7-4c22-be39-2051f88125cd}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>cursorPosition</value>
+		</property>
+		<property name="releaseTime">
+			<value>0</value>
+		</property>
+		<property name="finalValue">
+			<value>-100</value>
+		</property>
+	</object>
+</objects>
