@@ -120,7 +120,7 @@ public class LaserTank : Tank
 
                 if (hit.transform.parent != null &&
                     hit.transform.parent.TryGetComponent<Tank>(out Tank tank) &&
-                    tank.Type != TankType.shield)
+                    tank.Type != TankType.shield && tank != this)
                 {
                     tank.TakeDamage(DAMAGE);
                 }

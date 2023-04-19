@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     protected Tank _tank;
     protected float _currentLifespan;
     public float _totalLifespan = 5f;
-    public int ricochets;
+    [HideInInspector] public int ricochets;
     public float speed = 5;
     protected bool canHitSelf;
     public int power = 1;
@@ -107,7 +107,7 @@ public class Bullet : MonoBehaviour
     {
         if (this._currentLifespan < 0 || ricochets > _maxBounces)
         {
-            KillSelf();
+            KillSelf(0, ricochets > _maxBounces);
         }
         this._currentLifespan -= Time.deltaTime;
         _timeSinceRicochet += Time.deltaTime;
@@ -169,7 +169,7 @@ public class Bullet : MonoBehaviour
 
         if(ricochets < _maxBounces) 
         {
-        AudioManager.Instance.Bounce();
+            AudioManager.Instance.Bounce();
         }
 
         //quantize weird normals
@@ -191,7 +191,6 @@ public class Bullet : MonoBehaviour
             }
         }
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
-        Debug.Log("Ricochet! " + normalComponent);
 
         Vector2 newVelocity = incident - 2 * normalComponent;
         
@@ -215,13 +214,17 @@ public class Bullet : MonoBehaviour
         velocity = newVelocity;
     }
 
-    protected void KillSelf(float timeToKill = 0)
+    protected void KillSelf(float timeToKill = 0, bool playSound = true)
     {
         if (_tank.bulletList.Contains(gameObject))
             _tank.bulletList.Remove(gameObject);
 
         //Destroy sound
-        AudioManager.Instance.Dissipate();
+        if (playSound)
+        {
+            AudioManager.Instance.Dissipate();
+        }
+
         //Destroy animation
         Destroy(gameObject, timeToKill);
     }

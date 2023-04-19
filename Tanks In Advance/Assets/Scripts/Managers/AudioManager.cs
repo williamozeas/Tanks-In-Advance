@@ -1,19 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    // Start is called before the first frame update
+    private FMOD.Studio.EventInstance Music;
+
     void Start()
     {
-        
+        Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
+        Music.setParameterByName("Round", 0f);
+        Music.start();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+
+    private void OnRoundStart(Round round)
+    {
+        Music.setParameterByName("Round", 1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3));
+        Debug.Log("setting intensity to: " +
+                  (1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3)));
+    }
+
+    private void OnRoundEnd()
+    {
+        Music.setParameterByName("Round", 0f + Mathf.Floor((float) GameManager.Instance.RoundNumber / GameManager.Instance.maxRounds));
     }
 
     public void Shoot()
@@ -34,11 +56,6 @@ public class AudioManager : Singleton<AudioManager>
     public void Dissipate()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Dissipate");
-    }
-
-    public void startBattleMusic()
-    {
-        FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
     }
 
     public void Destroy()

@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 2761047056770327719, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 2761047056770327719, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
     - target: {fileID: 3546165342195858485, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
         type: 3}
       propertyPath: m_RootOrder
@@ -72,6 +82,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineTankRed
       objectReference: {fileID: 0}
+    - target: {fileID: 5798717526192561611, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
     - target: {fileID: 6331138417598695271, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

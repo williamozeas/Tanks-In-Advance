@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e02f3cf39b4aebb17e23e6ca3bded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifespan: 0
+  _totalLifespan: 4
   ricochets: 0
   speed: 6
   power: 1

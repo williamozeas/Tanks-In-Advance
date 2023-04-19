@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 3546165342195858485}
   - component: {fileID: 3546165342195858633}
   m_Layer: 3
-  m_Name: Basic Tank
+  m_Name: MachineGunTank
   m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,10 +385,10 @@ MonoBehaviour:
   speed: 2.9
   turretTurnSpeed: 0.5
   health: 1
-  bulletPrefab: {fileID: 6374489335037315713, guid: 70e2586bb8a07c546aa3affd4a39fc90,
+  bulletPrefab: {fileID: 2868044918603403860, guid: b1daaf549eb4f46ccb708e14fbf8beb2,
     type: 3}
   currentHealth: 0
-  cooldown: 1.2
+  cooldown: 0.6
   shootingCooldown: 0
   ShootVfx: {fileID: 3746282628575911403}
   DeathVfx: {fileID: 3245518910080686322}
