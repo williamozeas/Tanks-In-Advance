@@ -19,6 +19,8 @@ public class LaserTank : Tank
     [SerializeField] private Material blueMat;
     [SerializeField] private Material pinkMat;
 
+    private FMOD.Studio.EventInstance laserSound;
+
     protected override void Start()
     {
         base.Start();
@@ -30,6 +32,8 @@ public class LaserTank : Tank
         {
             laserLine.sharedMaterial = pinkMat;
         }
+
+        laserSound = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Game/Laser");
     }
 
     protected override void Update()
@@ -72,6 +76,7 @@ public class LaserTank : Tank
         disableMovement = true;
 
         // windup
+        laserSound.start();
         chargeEffect.Reinit();
         chargeEffect.SetInt("PlayerNum", (int)ownerNum);
         chargeEffect.Play();
@@ -138,6 +143,8 @@ public class LaserTank : Tank
         ShootVfx.SetInt("PlayerNum", (int)ownerNum);
         ShootVfx.SetFloat("Distance", distance * 0.52f);
         ShootVfx.Play();
+        
+        laserSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         // cooldown
         timeElapsed = 0;

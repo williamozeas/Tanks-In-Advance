@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4eda608d-d243-4782-b126-98f6f4c1a286}">
+		<property name="assetPath">
+			<value>Tanks music E-Intensity 5.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>64</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{4c43832e-f0df-4df8-95cf-1f175f6d0e7d}</destination>
+		</relationship>
+	</object>
+</objects>
