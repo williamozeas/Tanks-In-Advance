@@ -388,7 +388,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6374489335037315713, guid: 70e2586bb8a07c546aa3affd4a39fc90,
     type: 3}
   currentHealth: 0
-  cooldown: 0.2
+  cooldown: 0.6
   shootingCooldown: 0
   ShootVfx: {fileID: 3746282628575911403}
   DeathVfx: {fileID: 3245518910080686322}

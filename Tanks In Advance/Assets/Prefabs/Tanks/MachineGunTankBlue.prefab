@@ -67,10 +67,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGunTankBlue
       objectReference: {fileID: 0}
-    - target: {fileID: 3546165342195858633, guid: 2d6df61af562442ac972dc0cf24ca76c,
-        type: 3}
-      propertyPath: cooldown
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d6df61af562442ac972dc0cf24ca76c, type: 3}

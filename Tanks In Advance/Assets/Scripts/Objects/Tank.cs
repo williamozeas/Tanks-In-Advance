@@ -34,7 +34,7 @@ public class Tank : MovingObject
     public int health = 1;
     public GameObject bulletPrefab;
     public int currentHealth;
-    public float cooldown = 0.8ff;
+    public float cooldown = 0.8f;
     [HideInInspector]
     public float shootingCooldown = 0;
     [FormerlySerializedAs("vfx")] [Header("VFX")]
