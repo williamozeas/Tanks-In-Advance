@@ -49,6 +49,8 @@ public class BreakableWall : Wall
     }
 
     public virtual void Die(){
+        AudioManager.Instance.Destroy();
+
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
 

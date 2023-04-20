@@ -92,8 +92,6 @@ public class GameManager : Singleton<GameManager>
 
     public void SetGameState(GameStates newGameState)
     {
-        Debug.Log(_roundNumber);
-        Debug.Log("new game state: " + newGameState);
         switch (newGameState)
         {
             case(GameStates.Playing):

@@ -146,7 +146,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1143230666176999223, guid: 5e84b50b1dbd44da8ba92f79967e991a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5e84b50b1dbd44da8ba92f79967e991a, type: 3}
 --- !u!4 &3848982246623329611 stripped
 Transform:

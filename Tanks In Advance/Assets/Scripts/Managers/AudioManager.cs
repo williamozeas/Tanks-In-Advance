@@ -1,19 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    // Start is called before the first frame update
+    private FMOD.Studio.EventInstance Music;
+
     void Start()
     {
-        
+        Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
+        Music.setParameterByName("Round", 0f);
+        Music.start();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnRoundStart += OnRoundStart;
+    }
+
+    private void OnRoundStart(Round round)
+    {
+        Music.setParameterByName("Round", 1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3));
+        Debug.Log("setting intensity to: " +
+                  (1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3)));
+    }
+
+    private void OnRoundEnd()
+    {
+        Music.setParameterByName("Round", 0f + Mathf.Floor((float) GameManager.Instance.RoundNumber / GameManager.Instance.maxRounds));
     }
 
     public void Shoot()
@@ -23,7 +45,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void BlockLay()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
     }
 
     public void Die()
@@ -31,8 +53,37 @@ public class AudioManager : Singleton<AudioManager>
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Die");
     }
 
-    public void startBattleMusic()
+    public void Dissipate()
     {
-        FMODUnity.RuntimeManager.CreateInstance("event:/Music/Battle");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Dissipate");
+    }
+
+    public void Destroy()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Destroy");
+    }
+    
+    public void Bounce()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Bounce");
+    } 
+    public void Collide()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Collide");
+    }
+
+    public void Mine()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Mine");
+    }
+
+    public void Select()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Select");
+    }
+
+    public void Swipe()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Swipe");
     }
 }

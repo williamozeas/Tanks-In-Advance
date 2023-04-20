@@ -35,7 +35,7 @@ public class Tank : MovingObject
     public int health = 1;
     public GameObject bulletPrefab;
     public int currentHealth;
-    public float cooldown = 1f;
+    public float cooldown = 0.8f;
     [HideInInspector]
     public float shootingCooldown = 0;
     [FormerlySerializedAs("vfx")] [Header("VFX")]
@@ -69,6 +69,8 @@ public class Tank : MovingObject
     private Turret turret;
     private Coroutine replay;
     private TreadEmitter _treadEmitter;
+    private FMOD.Studio.EventInstance engine;
+    private float engineVolume;
 
     protected virtual void Awake()
     {
@@ -85,6 +87,10 @@ public class Tank : MovingObject
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
         _treadEmitter = GetComponentInChildren<TreadEmitter>();
+        engineVolume = 1;
+        engine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Game/Move");
+        engine.start();
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(engine, transform);
     }
 
     // Start will be executed when the tank spawns in
@@ -115,6 +121,8 @@ public class Tank : MovingObject
         // Debug.Log(Input.GetAxis("Horizontal"));
         //Tank can shoot when cooldown < 0.5
         shootingCooldown = Math.Max(0, shootingCooldown - Time.deltaTime);
+        //engine
+        engine.setParameterByName("Speed", (rb.velocity.magnitude / speed) * engineVolume);
     }
     
     //Subscribe to events
@@ -175,11 +183,11 @@ public class Tank : MovingObject
         //Tank must wait to shoot again.
         if (shootingCooldown < 0.1f)
         {
-            shootingCooldown += 0.6f; //Rapid barrage after waiting
+            shootingCooldown += 0.8f * cooldown; //Rapid barrage after waiting
         }
         else
         {
-            shootingCooldown += 0.8f; //Space out following shots.
+            shootingCooldown += cooldown; //Space out following shots.
         }
         //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
 
@@ -238,6 +246,7 @@ public class Tank : MovingObject
         DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        AudioManager.Instance.Die();
         _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
@@ -258,6 +267,8 @@ public class Tank : MovingObject
         
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
+        AudioManager.Instance.Die();
+        engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _treadEmitter.StopParticles();
         if (replay != null)
         {
@@ -277,8 +288,9 @@ public class Tank : MovingObject
 
     public virtual void UnDie(Round round)
     {
-        Debug.Log(rb.useGravity);
         alive = true;
+        engine.start();
+        engineVolume = .5F;
         foreach (var mesh in meshes)
         {
             mesh.enabled = true;
@@ -331,6 +343,7 @@ public class Tank : MovingObject
         float angle = -Vector2.SignedAngle(Vector2.up, newAim);
         turret.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+
 
     // public void SetTurretTurnVelocity(float newVelocity)
     // {

@@ -74,6 +74,7 @@ public class SelectTankScroller : MonoBehaviour
 
             if (Input.GetAxis(moveString + "_Move_V") > 0.5)
             {
+                AudioManager.Instance.Swipe();                
                 selection = (selection - 1 + tankSelectBoxes.Count) % tankSelectBoxes.Count;
                 animator.SetTrigger("ScrollDown");
                 scrolling = true;
@@ -81,6 +82,7 @@ public class SelectTankScroller : MonoBehaviour
             }
             else if (Input.GetAxis(moveString + "_Move_V") < -0.5)
             {
+                AudioManager.Instance.Swipe();
                 selection = (selection + 1 + tankSelectBoxes.Count) % tankSelectBoxes.Count;
                 animator.SetTrigger("ScrollUp");
                 scrolling = true;

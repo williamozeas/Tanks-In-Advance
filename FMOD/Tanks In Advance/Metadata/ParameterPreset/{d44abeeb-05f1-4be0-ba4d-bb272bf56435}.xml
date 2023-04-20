@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{d44abeeb-05f1-4be0-ba4d-bb272bf56435}">
+		<property name="name">
+			<value>Round</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cd37d154-03cb-4d7b-82e7-a48775fb098c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2e679c2c-cca8-4ee5-8d37-5ce28542e180}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2e679c2c-cca8-4ee5-8d37-5ce28542e180}">
+		<property name="maximum">
+			<value>4</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1</value>
+		</property>
+	</object>
+</objects>
