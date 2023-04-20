@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public enum TankType
 {
@@ -220,7 +222,7 @@ public class Tank : MovingObject
         
         foreach (Transform child in tran)
         {
-            if (child == null)
+            if (child == null || child.gameObject.layer == LayerMask.NameToLayer("Default"))
             {
                 continue;
             }
