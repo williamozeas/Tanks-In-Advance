@@ -660,7 +660,7 @@ PrefabInstance:
     - target: {fileID: 1248115707459761075, guid: 9c032ecf44eb946d29502f267134df00,
         type: 3}
       propertyPath: OnHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Main Scene
+      value: Select Scene
       objectReference: {fileID: 0}
     - target: {fileID: 1248115707459761075, guid: 9c032ecf44eb946d29502f267134df00,
         type: 3}

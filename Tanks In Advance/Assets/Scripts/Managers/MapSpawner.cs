@@ -6,7 +6,8 @@ using UnityEngine;
 public class MapSpawner : MonoBehaviour
 {
     private Map currentMap;
-
+    [SerializeField] private MapName defaultMap;
+    
     public Map CurrentMap => currentMap;
     // Awake is called before Start
     void Awake()
@@ -17,7 +18,14 @@ public class MapSpawner : MonoBehaviour
     void Start()
     {
         //DEBUG
-        SpawnMap(MapName.Level4);
+        if (DataManager.Instance() == null)
+        {
+            SpawnMap(MapName.Level4);
+        }
+        else
+        {
+            SpawnMap(DataManager.Instance().selectedMap);
+        }
     }
 
     private void OnEnable()
@@ -38,7 +46,7 @@ public class MapSpawner : MonoBehaviour
         }
     }
 
-    void SpawnMap(MapName name)
+    public void SpawnMap(MapName name)
     {
         currentMap = Instantiate(GameManager.Instance.MapList.GetMap(name)).GetComponent<Map>();
     }
