@@ -24,11 +24,11 @@ public class Wall : MonoBehaviour
         float animationTime = CreateAnimationTime;
         Vector3 originalPos = transform.position;
         
-        transform.position += new Vector3(0, 20, 0);
+        transform.position += new Vector3(0, 35, 0);
         float y = transform.position.y;
         for (float timeElapsed = 0f; timeElapsed < animationTime; timeElapsed += Time.deltaTime)
         {
-            y = EasingFunction.EaseOutCubic(originalPos.y + 20, originalPos.y, timeElapsed/animationTime);
+            y = EasingFunction.EaseOutCubic(originalPos.y + 35, originalPos.y, timeElapsed/animationTime);
             transform.position = new Vector3(originalPos.x, y, originalPos.z);
 
             //Debug.Log(y);
