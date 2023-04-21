@@ -111,6 +111,11 @@ public class Tank : MovingObject
             new SetVelocityCommand(Vector2.zero, this, -1);
         AddCommand(setVelocityCommand);
         setVelocityCommand.Execute();
+        
+        //Set aim to be downwards
+        Command setAimCommand = new SetAimCommand(new Vector2(0, -1), this, -1);
+        AddCommand(setAimCommand);
+        setAimCommand.Execute();
     }
 
     protected virtual void Update()
