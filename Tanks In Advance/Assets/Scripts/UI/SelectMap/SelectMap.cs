@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SelectMap : MonoBehaviour
@@ -15,36 +17,44 @@ public class SelectMap : MonoBehaviour
     
     public List<MapSelectBox> mapSelectBoxes;
 
-    [SerializeField] private MapSpawner mapSpawner;
+    public string nextScene;
 
     private int selection = 0;
+    private float duration = 0;
 
-    private IEnumerator DetectKeyPresses()
+    void Start()
     {
-        // wait a small bit: don't want accidental selections!
-        yield return new WaitForSeconds(0.5f);
-        // yield return new WaitUntil(() => Input.GetAxis(moveString + "_Move_V") == 0);
+        UpdateSelectionUI();
+    }
 
-        while (true) {
-            yield return new WaitForFixedUpdate();
-
-            if (Input.GetAxis("P1_Move_H") > 0.5 || Input.GetAxis("P2_Move_H") > 0.5)
-            {
-                AudioManager.Instance.Swipe();
-                selection = (selection - 1 + mapSelectBoxes.Count) % mapSelectBoxes.Count;
-                UpdateSelectionUI();
-            }
-            else if (Input.GetAxis("P1_Move_H") < -0.5 || Input.GetAxis("P2_Move_H") < -0.5)
-            {
-                AudioManager.Instance.Swipe();
-                selection = (selection + 1 + mapSelectBoxes.Count) % mapSelectBoxes.Count;
-                UpdateSelectionUI();
-            }
-            else if (Input.GetButtonDown("P1_Fire") || Input.GetButtonDown("P2_Fire"))
-            {
-                mapSpawner.SpawnMap(mapSelectBoxes[selection].name);
-                break;
-            }
+    void Update()
+    {
+        if (Input.GetButtonDown("P1_Fire") || Input.GetButtonDown("P2_Fire"))
+        {
+            DataManager.Instance().selectedMap = mapSelectBoxes[selection].name;
+            SceneManager.LoadScene(nextScene);
+            return;
+        }
+        
+        duration += Time.deltaTime;
+        if (duration < 0.3)
+        {
+            return;
+        }
+        
+        if (Input.GetAxis("P1_Move_H") > 0.5 || Input.GetAxis("P2_Move_H") > 0.5)
+        {
+            AudioManager.Instance.Swipe();
+            selection = (selection + 1 + mapSelectBoxes.Count) % mapSelectBoxes.Count;
+            UpdateSelectionUI();
+            duration = 0;
+        }
+        else if (Input.GetAxis("P1_Move_H") < -0.5 || Input.GetAxis("P2_Move_H") < -0.5)
+        {
+            AudioManager.Instance.Swipe();
+            selection = (selection - 1 + mapSelectBoxes.Count) % mapSelectBoxes.Count;
+            UpdateSelectionUI();
+            duration = 0;
         }
     }
 
