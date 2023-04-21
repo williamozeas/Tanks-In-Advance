@@ -176,7 +176,7 @@ public class Bullet : MonoBehaviour
         if (quantizeNormal && (normal.x != 0 && normal.z != 0))
         {
             //quantize to 45 degree angles
-            normal2 = new Vector2(Math.Sign(normal.x), Math.Sign(normal.z)).normalized;
+            normal2 = new Vector2(Mathf.Round(normal.x), Mathf.Round(normal.z)).normalized;
         }
         else
         {
@@ -213,6 +213,8 @@ public class Bullet : MonoBehaviour
         
         velocity = newVelocity;
     }
+    
+    
 
     protected void KillSelf(float timeToKill = 0, bool playSound = true)
     {
