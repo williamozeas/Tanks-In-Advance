@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   mapSprite: {fileID: 21300000, guid: 9eb00ad3e5b4246faad5e0b6163433f6, type: 3}
-  mapName: Level2
+  mapName: Plasma Square
   name: 4

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level5
   m_EditorClassIdentifier: 
   mapSprite: {fileID: 21300000, guid: f8dcf4bdc25f04debb7dc5224bda2c8d, type: 3}
-  mapName: Level5
+  mapName: Hidden Nexus
   name: 7

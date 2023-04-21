@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   mapSprite: {fileID: 21300000, guid: 64e948cd4b84f41928eeb01f51a0ff5d, type: 3}
-  mapName: Level3
+  mapName: The Border
   name: 5

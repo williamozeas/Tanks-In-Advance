@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   mapSprite: {fileID: 21300000, guid: c2638c60262b2412dbb89b9c3e4e7e06, type: 3}
-  mapName: Level 1
+  mapName: Claustrodrome
   name: 3
