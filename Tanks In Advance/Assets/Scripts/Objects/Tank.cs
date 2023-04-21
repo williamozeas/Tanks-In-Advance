@@ -191,6 +191,17 @@ public class Tank : MovingObject
         }
         //_tank.shootingCooldown += 0.2f * _tank.rb.velocity.magnitude; //Potential
 
+        
+        //prevent shooting inside walls
+        RaycastHit hit;
+        if (Physics.Raycast(rb.position, new Vector3(shootCommand._angle.x, 0, shootCommand._angle.y), out hit, 1.5f, LayerMask.GetMask("Walls"),
+                QueryTriggerInteraction.Ignore))
+        {
+            Debug.Log("Destroyed bullet in wall");
+            AudioManager.Instance.Dissipate();
+            // bulletBullet.Ricochet(hit.normal);
+            return;
+        }
 
         GameObject bullet = Instantiate(
             bulletPrefab,
@@ -200,6 +211,7 @@ public class Tank : MovingObject
 
         Bullet bulletBullet = bullet.GetComponent<Bullet>();
         bulletBullet.Init(this, shootCommand._angle);
+        
 
         bulletList.Add(bullet);
     }

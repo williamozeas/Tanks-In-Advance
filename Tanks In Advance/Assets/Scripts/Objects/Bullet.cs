@@ -39,10 +39,13 @@ public class Bullet : MonoBehaviour
     public virtual void Init(Tank source, Vector2 angle)
     {
         _tank = source;
+        canHitSelf = false;
         velocity = angle.normalized * speed;
         _currentLifespan = _totalLifespan;
         ricochets = 0;
 
+        Physics.IgnoreCollision(GetComponent<Collider>(), source.rb.GetComponent<BoxCollider>());
+        
         meshes = GetComponentsInChildren<MeshRenderer>();
         _propBlock = new MaterialPropertyBlock();
 
@@ -148,7 +151,7 @@ public class Bullet : MonoBehaviour
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {
-            Ricochet(collision);
+            Ricochet(collision.GetContact(0).normal);
         }
         else
         {
@@ -157,14 +160,14 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected void Ricochet(Collision coll, bool quantizeNormal = true)
+    public void Ricochet(Vector3 normal, bool quantizeNormal = true)
     {
 
         canHitSelf = true;
+        Physics.IgnoreCollision(GetComponent<Collider>(), _tank.rb.GetComponent<BoxCollider>(), false);
         float tolerance = 0.01f;
         
         Vector2 incident = velocity;
-        Vector3 normal = coll.GetContact(0).normal;
         Vector2 normal2;
 
         if(ricochets < _maxBounces) 
