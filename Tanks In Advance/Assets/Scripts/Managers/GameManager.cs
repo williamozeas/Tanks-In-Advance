@@ -47,6 +47,8 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public Player[] Players = new Player[2];
 
+    [HideInInspector] public bool inputLocked = false;
+
     [HideInInspector] public MapSpawner mapSpawner;
 
     //Events
@@ -92,6 +94,7 @@ public class GameManager : Singleton<GameManager>
 
     public void SetGameState(GameStates newGameState)
     {
+        inputLocked = false;
         switch (newGameState)
         {
             case(GameStates.Playing):

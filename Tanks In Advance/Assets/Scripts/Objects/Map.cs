@@ -48,6 +48,7 @@ public class Map : MonoBehaviour
 
     public IEnumerator AddMapAnim()
     {
+        GameManager.Instance.inputLocked = true;
         if (winCircle)
         {
             StartCoroutine(winCircle.IntroAnim(3f));
@@ -81,6 +82,8 @@ public class Map : MonoBehaviour
             StartCoroutine(wall.OnCreate());
             yield return new WaitForSeconds(interval);
         }
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance.inputLocked = false;
 
     }
 

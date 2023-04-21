@@ -63,6 +63,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Debug.Log(GameManager.Instance.RoundTime);
+        if (GameManager.Instance.inputLocked)
+        {
+            return;
+        }
         switch (GameManager.Instance.GameState)
         {
             case(GameStates.MainMenu):
