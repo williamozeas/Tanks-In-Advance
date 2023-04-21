@@ -21,6 +21,7 @@ public class TankSelectBox : MonoBehaviour
 
         Tank tank = GameManager.Instance.TankList.GetTank(playerNum, type).GetComponent<Tank>();
         tankName.text = tank.tankName;
+        GetComponentInChildren<Animator>().runtimeAnimatorController = tank.tankUIAnimation;
 
         if (q > 100)
             tankCount.text = "\u221E";

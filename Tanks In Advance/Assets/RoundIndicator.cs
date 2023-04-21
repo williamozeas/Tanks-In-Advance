@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RoundIndicator : MonoBehaviour
 {
-    [SerializeField] private int index;
+    [SerializeField] public int index;
     [SerializeField] private Sprite fullSprite; 
     [SerializeField] private Sprite emptySprite;
 

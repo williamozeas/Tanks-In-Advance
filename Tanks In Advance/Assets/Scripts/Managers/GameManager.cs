@@ -27,10 +27,11 @@ public class GameManager : Singleton<GameManager>
     [Header("Parameters")] 
     public int maxRounds = 5;
 
-    [Serializable] public struct NumOfTanks
+    [Serializable]
+    public struct NumOfTanks
     {
         public TankType type;
-        public int num;
+        public float percentage;
     }
     public List<NumOfTanks> tankChoices = new List<NumOfTanks>();
 

@@ -53,10 +53,9 @@ public class SelectTankScroller : MonoBehaviour
                 tsb.transform.SetParent(points[pointIndex].transform);
                 tsb.transform.position = points[pointIndex].transform.position;
                 tsb.transform.localScale = Vector3.one;
-                tsb.gameObject.SetActive(true);
             }
             else
-                tsb.gameObject.SetActive(false);
+                tsb.transform.position = Vector3.right * 10000;
         }
 
         scrolling = false;
