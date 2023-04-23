@@ -31,6 +31,7 @@ public class SelectMap : MonoBehaviour
     {
         if (Input.GetButtonDown("P1_Fire") || Input.GetButtonDown("P2_Fire"))
         {
+            AudioManager.Instance.Select();
             DataManager.Instance().selectedMap = mapSelectBoxes[selection].name;
             SceneManager.LoadScene(nextScene);
             return;
