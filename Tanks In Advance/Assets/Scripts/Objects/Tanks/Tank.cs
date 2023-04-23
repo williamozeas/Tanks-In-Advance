@@ -144,7 +144,6 @@ public class Tank : MovingObject
         GameManager.OnRoundStart -= OnRoundStart;
         GameManager.OnRoundEnd -= OnRoundEnd;
         GameManager.OnGameEnd -= OnGameEnd;
-        
     }
 
     private void OnGameEnd(PlayerNum obj)
@@ -315,10 +314,6 @@ public class Tank : MovingObject
         }
         
         TankManager.Instance.OnTankDeath();
-        // foreach(var collider in colliders)
-        // {
-        //     collider.enabled = false;
-        // }
     }
 
     public virtual void UnDie(Round round)
