@@ -29,8 +29,6 @@ public class AudioManager : Singleton<AudioManager>
     private void OnRoundStart(Round round)
     {
         Music.setParameterByName("Round", 1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3));
-        Debug.Log("setting intensity to: " +
-                  (1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3)));
     }
 
     private void OnRoundEnd()

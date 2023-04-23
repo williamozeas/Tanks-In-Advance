@@ -39,10 +39,13 @@ public class Bullet : MonoBehaviour
     public virtual void Init(Tank source, Vector2 angle)
     {
         _tank = source;
+        canHitSelf = false;
         velocity = angle.normalized * speed;
         _currentLifespan = _totalLifespan;
         ricochets = 0;
 
+        Physics.IgnoreCollision(GetComponent<Collider>(), source.rb.GetComponent<BoxCollider>());
+        
         meshes = GetComponentsInChildren<MeshRenderer>();
         _propBlock = new MaterialPropertyBlock();
 
@@ -72,6 +75,7 @@ public class Bullet : MonoBehaviour
 
     protected virtual void Ghostify()
     {
+        _totalLifespan = _totalLifespan / 2;
         gameObject.layer = LayerMask.NameToLayer("Ghost");
         if (trailRenderer)
         {
@@ -88,10 +92,17 @@ public class Bullet : MonoBehaviour
             for (int i = 0; i < mesh.sharedMaterials.Length; i++)
             {
                 Color oldC = mesh.sharedMaterials[i].GetColor("_Color");
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.4f);
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f);
                 MaterialMod.SetColor(newC, mesh, _propBlock, i);
             }
         }
+
+        GhostEffectCR();
+    }
+
+    protected virtual void GhostEffectCR()
+    {
+        StartCoroutine(FadeOut());
     }
     
     // Start is called before the first frame update
@@ -148,7 +159,7 @@ public class Bullet : MonoBehaviour
         }
         else if (hit.TryGetComponent<Wall>(out wall))
         {
-            Ricochet(collision);
+            Ricochet(collision.GetContact(0).normal);
         }
         else
         {
@@ -157,50 +168,26 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected void Ricochet(Collision coll, bool quantizeNormal = true)
+    public void Ricochet(Vector3 normal, bool quantizeNormal = true)
     {
 
         canHitSelf = true;
+        Physics.IgnoreCollision(GetComponent<Collider>(), _tank.rb.GetComponent<BoxCollider>(), false);
+        float tolerance = 0.01f;
         
         Vector2 incident = velocity;
-        Vector3 normal = coll.GetContact(0).normal;
-
-        Vector3 newVelocity = CalculateRicochet(incident, normal, quantizeNormal);
+        Vector2 normal2;
 
         if(ricochets < _maxBounces) 
         {
             AudioManager.Instance.Bounce(gameObject);
         }
-        
-        if (_timeSinceRicochet > _ricochetCooldown)
-        {
-            ricochets++;
-            _timeSinceRicochet = _ricochetCooldown;
-            _previousRicochet = newVelocity;
-            _previousRicochetIncident = incident;
-        }
-        else
-        {
-            if(Vector2.Dot(newVelocity, _previousRicochetIncident) > Vector2.Dot(_previousRicochet, _previousRicochetIncident))
-            {
-                Debug.Log("Ricochet changed to " + _previousRicochet);
-                newVelocity = _previousRicochet;
-            }
-        }
-        
-        velocity = newVelocity;
-    }
-
-    public static Vector3 CalculateRicochet(Vector2 incident, Vector3 normal, bool quantizeNormal = true)
-    {
-        float tolerance = 0.01f;
-        Vector2 normal2;
 
         //quantize weird normals
         if (quantizeNormal && (normal.x != 0 && normal.z != 0))
         {
             //quantize to 45 degree angles
-            normal2 = new Vector2(Math.Sign(normal.x), Math.Sign(normal.z)).normalized;
+            normal2 = new Vector2(Mathf.Round(normal.x), Mathf.Round(normal.z)).normalized;
         }
         else
         {
@@ -217,8 +204,28 @@ public class Bullet : MonoBehaviour
         Vector2 normalComponent = Vector2.Dot(normal2, incident) * normal2;
 
         Vector2 newVelocity = incident - 2 * normalComponent;
-        return newVelocity;
+        
+        if (_timeSinceRicochet > _ricochetCooldown)
+        {
+            ricochets++;
+            _timeSinceRicochet = _ricochetCooldown;
+            _previousRicochet = newVelocity;
+            _previousRicochetIncident = incident;
+        }
+        else
+        {
+            if(Vector2.Dot(newVelocity, _previousRicochetIncident) > Vector2.Dot(_previousRicochet, _previousRicochetIncident))
+            {
+                
+                Debug.Log("Ricochet changed to " + _previousRicochet);
+                newVelocity = _previousRicochet;
+            }
+        }
+        
+        velocity = newVelocity;
     }
+    
+    
 
     protected void KillSelf(float timeToKill = 0, bool playSound = true)
     {
@@ -233,5 +240,22 @@ public class Bullet : MonoBehaviour
 
         //Destroy animation
         Destroy(gameObject, timeToKill);
+    }
+
+    protected IEnumerator FadeOut()
+    {
+        Color oldC = meshes[0].sharedMaterial.GetColor("_Color");
+        Color startC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f);
+
+        float timeElapsed = 0;
+        while (timeElapsed < _totalLifespan)
+        {
+            float percent = EasingFunction.EaseOutQuad(1, 0, timeElapsed / _totalLifespan);
+            Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f * percent);
+            MaterialMod.SetColor(newC, meshes[0], _propBlock);
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 }

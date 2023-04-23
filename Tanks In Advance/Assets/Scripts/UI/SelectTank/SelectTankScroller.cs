@@ -70,7 +70,7 @@ public class SelectTankScroller : MonoBehaviour
         yield return new WaitUntil(() => Input.GetAxis(moveString + "_Move_V") == 0);
 
         while (true) {
-            yield return new WaitForFixedUpdate();
+            yield return null;
 
             if (Input.GetAxis(moveString + "_Move_V") > 0.5)
             {
