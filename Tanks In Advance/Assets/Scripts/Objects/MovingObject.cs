@@ -118,15 +118,14 @@ public abstract class MovingObject : MonoBehaviour
         
         // If the rotation is more than 100 degrees, the turn is too large and it doesn't look good
         // I will not play any animation if it does happen
-        if (Mathf.Abs(start - end) > 100)
-        {
-            rotation = end;
-            rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0,1,0));
-            rotationCoroutine = null;
-            yield break;
-        }
-
-            
+        // if (Mathf.Abs(start - end) > 100)
+        // {
+        //     rotation = end;
+        //     rb.rotation = Quaternion.AngleAxis(rotation, new Vector3(0, -1, 0));
+        //     rotationCoroutine = null;
+        //     yield break;
+        // }
+        
         // Rotation starts
         float timeElapsed = 0;
         while (timeElapsed < duration)
