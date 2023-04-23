@@ -120,6 +120,12 @@ public class Map : MonoBehaviour
 
     public PlayerNum GetWinner()
     {
+        PlayerNum surviving = TankManager.Instance.CheckForVictory();
+        if (surviving != PlayerNum.Neither)
+        {
+            return surviving;
+        }
+        
         if (winCircle.numTanksP1 > winCircle.numTanksP2)
         {
             return PlayerNum.Player1;
