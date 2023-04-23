@@ -183,7 +183,10 @@ public class Tank : MovingObject
 
         AudioManager.Instance.Shoot();
         //visuals for shooting
-        ShootVfx.Play();
+        if (alive || type != TankType.basic)
+        {
+            ShootVfx.Play();
+        }
 
         //Tank must wait to shoot again.
         if (shootingCooldown < 0.1f)
@@ -210,7 +213,7 @@ public class Tank : MovingObject
 
         GameObject bullet = Instantiate(
             bulletPrefab,
-            rb.position + new Vector3(shootCommand._angle.x, 0, shootCommand._angle.y) * 1f,
+            rb.position + new Vector3(shootCommand._angle.x, 0.5f, shootCommand._angle.y) * 1f,
             Quaternion.Euler(shootCommand._angle.x, 0, shootCommand._angle.y)
         );
 
@@ -276,6 +279,8 @@ public class Tank : MovingObject
                 mesh.materials[i].color = newC;
             }
         }
+        
+        TankManager.Instance.OnTankDeath();
     }
 
     public virtual void Die()
@@ -297,6 +302,8 @@ public class Tank : MovingObject
         {
             mesh.enabled = false;
         }
+        
+        TankManager.Instance.OnTankDeath();
         // foreach(var collider in colliders)
         // {
         //     collider.enabled = false;

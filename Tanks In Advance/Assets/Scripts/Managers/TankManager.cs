@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TankManager : Singleton<TankManager>
@@ -82,5 +83,39 @@ public class TankManager : Singleton<TankManager>
         Tank newTank = Instantiate(tankPrefab, position, rotation, transform).GetComponent<Tank>();
         newTank.AssignToTeam(playerNum);
         return newTank;
+    }
+
+    public void OnTankDeath()
+    {
+        PlayerNum winner = CheckForVictory();
+        if (winner != PlayerNum.Neither)
+        {
+            GameManager.Instance.GameState = GameStates.EndGame;
+        }
+    }
+
+    public PlayerNum CheckForVictory()
+    {
+        if (GameManager.Instance.RoundNumber < GameManager.Instance.maxRounds)
+        {
+            return PlayerNum.Neither;
+        }
+
+        int p1TanksAlive = p1Tanks.FindAll(tank => tank.Alive).Count;
+        int p2TanksAlive = p2Tanks.FindAll(tank => tank.Alive).Count;
+        if (p1TanksAlive == p2TanksAlive)
+        {
+            return PlayerNum.Neither;
+        }
+        if (p1TanksAlive <= 0)
+        {
+            return PlayerNum.Player2;
+        }
+        if (p2TanksAlive <= 0)
+        {
+            return PlayerNum.Player1;
+        }
+
+        return PlayerNum.Neither;
     }
 }
