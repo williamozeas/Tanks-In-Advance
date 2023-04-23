@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3546165342195858485}
-  - component: {fileID: 3546165342195858633}
+  - component: {fileID: 3868156266122585274}
   m_Layer: 3
   m_Name: MachineGunTank
   m_TagString: Tank
@@ -367,7 +367,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3546165342195858633
+--- !u!114 &3868156266122585274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,11 +376,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3546165342195858486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05972fbd394774b728167a5abd40b389, type: 3}
+  m_Script: {fileID: 11500000, guid: d057dd11103279d408f1b95807905ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3891470613632009567}
-  tankName: Basic Tank
+  tankName: Machine Gun Tank
   tankUIAnimation: {fileID: 0}
   ownerNum: 0
   speed: 2.9
