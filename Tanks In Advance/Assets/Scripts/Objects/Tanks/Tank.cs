@@ -358,7 +358,10 @@ public class Tank : MovingObject
     {
         aim = newAim;
         float angle = -Vector2.SignedAngle(Vector2.up, newAim);
-        turret.transform.rotation = Quaternion.Euler(0, angle, 0);
+        if (turret)
+        {
+            turret.transform.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 
 
