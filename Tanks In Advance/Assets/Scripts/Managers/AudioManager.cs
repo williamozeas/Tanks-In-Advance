@@ -38,9 +38,9 @@ public class AudioManager : Singleton<AudioManager>
         Music.setParameterByName("Round", 0f + Mathf.Floor((float) GameManager.Instance.RoundNumber / GameManager.Instance.maxRounds));
     }
 
-    public void Shoot()
+    public void Shoot(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Shoot");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Shoot", self);
     }
 
     public void BlockLay()
@@ -48,33 +48,33 @@ public class AudioManager : Singleton<AudioManager>
         //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
     }
 
-    public void Die()
+    public void Die(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Die");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Die", self);
     }
 
-    public void Dissipate()
+    public void Dissipate(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Dissipate");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Dissipate", self);
     }
 
-    public void Destroy()
+    public void Destroy(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Destroy");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Destroy", self);
     }
     
-    public void Bounce()
+    public void Bounce(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Bounce");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Bounce", self);
     } 
-    public void Collide()
+    public void Collide(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Collide");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Collide", self);
     }
 
-    public void Mine()
+    public void Mine(GameObject self)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/Mine");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Mine", self);
     }
 
     public void Select()

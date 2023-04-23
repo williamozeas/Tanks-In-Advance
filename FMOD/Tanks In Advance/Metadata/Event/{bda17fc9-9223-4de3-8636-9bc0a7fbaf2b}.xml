@@ -5,7 +5,7 @@
 			<value>Destroy</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -97,6 +97,7 @@
 		<relationship name="effects">
 			<destination>{f2b6f71e-f87f-4e5a-aadb-dd728c04f31b}</destination>
 			<destination>{0c06b40b-0d6d-48b8-a8e8-c1a0a13c9d12}</destination>
+			<destination>{81c110f2-a6b2-4eb8-bb32-a64f42454089}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{4698d225-ecdc-4453-a108-8153d0940644}" />
@@ -114,6 +115,11 @@
 		<relationship name="modulators">
 			<destination>{1847b129-f2d0-468b-acf5-203261189a82}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{81c110f2-a6b2-4eb8-bb32-a64f42454089}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
 	</object>
 	<object class="RandomizerModulator" id="{1847b129-f2d0-468b-acf5-203261189a82}">
 		<property name="nameOfPropertyBeingModulated">

@@ -5,7 +5,7 @@
 			<value>Laser</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -279,6 +279,7 @@
 		<relationship name="effects">
 			<destination>{15b8b132-62b6-4e34-8fed-217606819b29}</destination>
 			<destination>{b8285068-602b-4ae6-8715-043eff7fc1a0}</destination>
+			<destination>{df6dd4a3-a25f-4860-a249-b45fa796dcca}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{eba3fccc-bfd7-4403-8ccb-99aa7514c47f}" />
@@ -363,6 +364,11 @@
 		<relationship name="modulators">
 			<destination>{7c512839-fa71-4f31-a8a4-75c85eb7882d}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{df6dd4a3-a25f-4860-a249-b45fa796dcca}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
 	</object>
 	<object class="AutomationPoint" id="{5363b609-88af-4412-8aa5-e40e0b36d510}">
 		<property name="position">

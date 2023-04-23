@@ -5,7 +5,7 @@
 			<value>Bounce</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -97,6 +97,7 @@
 		<relationship name="effects">
 			<destination>{ebaef17d-3fa6-45ff-bfd6-8cd9b91b17d1}</destination>
 			<destination>{bdfbc936-0aed-4d4a-bc3b-08dddfcfcd71}</destination>
+			<destination>{f680f1ed-601b-444b-975a-949c29a42065}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9d1ce5c5-eff2-4117-9a04-54d1fce1f5e8}" />
@@ -114,6 +115,11 @@
 		<relationship name="modulators">
 			<destination>{93bdd088-eaeb-4fe9-bc7d-4b035a4921c1}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{f680f1ed-601b-444b-975a-949c29a42065}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
 	</object>
 	<object class="RandomizerModulator" id="{93bdd088-eaeb-4fe9-bc7d-4b035a4921c1}">
 		<property name="nameOfPropertyBeingModulated">

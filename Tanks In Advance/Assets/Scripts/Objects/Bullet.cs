@@ -169,7 +169,7 @@ public class Bullet : MonoBehaviour
 
         if(ricochets < _maxBounces) 
         {
-            AudioManager.Instance.Bounce();
+            AudioManager.Instance.Bounce(gameObject);
         }
         
         if (_timeSinceRicochet > _ricochetCooldown)
@@ -228,7 +228,7 @@ public class Bullet : MonoBehaviour
         //Destroy sound
         if (playSound)
         {
-            AudioManager.Instance.Dissipate();
+            AudioManager.Instance.Dissipate(gameObject);
         }
 
         //Destroy animation

@@ -79,7 +79,7 @@ public class Mine : Bullet
 
         _exploding = true;
 
-        AudioManager.Instance.Mine();
+        AudioManager.Instance.Mine(gameObject);
 
         if (!is_ghost)
         {

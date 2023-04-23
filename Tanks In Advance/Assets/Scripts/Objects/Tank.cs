@@ -176,7 +176,7 @@ public class Tank : MovingObject
         //The tank does nothing if shooting has not yet cooled down.
         if (shootingCooldown > 0.5f) return;
 
-        AudioManager.Instance.Shoot();
+        AudioManager.Instance.Shoot(gameObject);
         //visuals for shooting
         ShootVfx.Play();
 
@@ -246,7 +246,7 @@ public class Tank : MovingObject
         DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
-        AudioManager.Instance.Die();
+        AudioManager.Instance.Die(gameObject);
         _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
@@ -267,7 +267,7 @@ public class Tank : MovingObject
         
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
-        AudioManager.Instance.Die();
+        AudioManager.Instance.Die(gameObject);
         engine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _treadEmitter.StopParticles();
         if (replay != null)
