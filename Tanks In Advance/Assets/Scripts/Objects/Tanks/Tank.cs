@@ -13,7 +13,8 @@ public enum TankType
     basic = 0,
     mine = 1,
     shield = 2,
-    laser = 3
+    laser = 3,
+    machineGun = 4
 }
 
 /*
