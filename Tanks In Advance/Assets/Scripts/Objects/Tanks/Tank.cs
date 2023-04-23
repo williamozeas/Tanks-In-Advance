@@ -135,12 +135,22 @@ public class Tank : MovingObject
     {
         GameManager.OnRoundStart += OnRoundStart;
         GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnGameEnd += OnGameEnd;
     }
 
     private void OnDisable()
     {
         GameManager.OnRoundStart -= OnRoundStart;
         GameManager.OnRoundEnd -= OnRoundEnd;
+        GameManager.OnGameEnd -= OnGameEnd;
+        
+    }
+
+    private void OnGameEnd(PlayerNum obj)
+    {
+        Command setVelocityCommand =
+            new SetVelocityCommand(Vector2.zero, this, 0);
+        setVelocityCommand.Execute();
     }
 
     public virtual void OnRoundStart(Round round)
