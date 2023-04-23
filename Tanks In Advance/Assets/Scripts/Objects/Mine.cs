@@ -58,7 +58,7 @@ public class Mine : Bullet
     
     protected override void GhostEffectCR()
     {
-        //Do nothing
+        // Do nothing
     }
 
     // FixedUpdate called every certain amt of time
