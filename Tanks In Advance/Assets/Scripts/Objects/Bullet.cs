@@ -97,6 +97,11 @@ public class Bullet : MonoBehaviour
             }
         }
 
+        GhostEffectCR();
+    }
+
+    protected virtual void GhostEffectCR()
+    {
         StartCoroutine(FadeOut());
     }
     
