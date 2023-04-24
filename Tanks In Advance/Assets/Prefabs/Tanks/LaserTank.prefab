@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 4344463197528787134}
   - component: {fileID: 4380907785362829816}
   - component: {fileID: 2160203355545488760}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Laser2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 6350393353518542900}
   - component: {fileID: 8477432611812626153}
   - component: {fileID: 6566124320674331840}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: LaserCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

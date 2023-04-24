@@ -5,7 +5,7 @@ using UnityEngine;
 public class BreakableWall : Wall
 {
     public int health;
-    public const int MaxHealth = 2;
+    public int MaxHealth = 1;
     public override bool blocksLaser => false;
 
     // Start is called before the first frame update

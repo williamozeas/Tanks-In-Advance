@@ -117,6 +117,7 @@ public class Player : MonoBehaviour
 
                     rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
                     rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
+                    Debug.Log(rVerticalInput);
 
                     Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
 
