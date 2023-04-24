@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683f586356a3d4a339451dd8ea6c0fe3, type: 3}
   m_Name: Level5
   m_EditorClassIdentifier: 
-  mapSprite: {fileID: 21300000, guid: f8dcf4bdc25f04debb7dc5224bda2c8d, type: 3}
+  mapSprite: {fileID: 21300000, guid: 091796370e94047b99a06fc42ab9700f, type: 3}
   mapName: Hidden Nexus
   name: 7

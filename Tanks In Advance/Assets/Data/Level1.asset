@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683f586356a3d4a339451dd8ea6c0fe3, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  mapSprite: {fileID: 21300000, guid: c2638c60262b2412dbb89b9c3e4e7e06, type: 3}
+  mapSprite: {fileID: 21300000, guid: 3bb636c03e4254474a58b327849595dd, type: 3}
   mapName: Claustrodrome
   name: 3
