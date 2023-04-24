@@ -21,8 +21,11 @@ public class Map : MonoBehaviour
 {
     public MapName nameEnum = MapName.TestMap;
     public string name = "Test Map";
+
+    [SerializeField] [ColorUsage(true, true)] private Color outlineColor = Color.black;
     
     public GameObject wallsHolder;
+    [SerializeField] private Material outlineMat;
     private WinCircle winCircle;
     
     private List<SpawnPoint> team1SpawnPoints;
@@ -40,7 +43,12 @@ public class Map : MonoBehaviour
         SpawnPointHolder spawnPointHolder = GetComponentInChildren<SpawnPointHolder>();
         team1SpawnPoints = spawnPointHolder.P1SpawnPoints;
         team2SpawnPoints = spawnPointHolder.P2SpawnPoints;
+        
         //Set Lighting, Animation, etc
+        if (outlineColor != Color.black)
+        {
+            outlineMat.color = outlineColor;
+        }
         
         //Animation
         StartCoroutine(AddMapAnim());
@@ -120,6 +128,12 @@ public class Map : MonoBehaviour
 
     public PlayerNum GetWinner()
     {
+        PlayerNum surviving = TankManager.Instance.CheckForVictory();
+        if (surviving != PlayerNum.Neither)
+        {
+            return surviving;
+        }
+        
         if (winCircle.numTanksP1 > winCircle.numTanksP2)
         {
             return PlayerNum.Player1;

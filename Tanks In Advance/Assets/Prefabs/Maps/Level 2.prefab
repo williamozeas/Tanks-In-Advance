@@ -644,12 +644,27 @@ PrefabInstance:
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: name
-      value: Level 2
+      value: Plasma Square
       objectReference: {fileID: 0}
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: nameEnum
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 1.6055588
       objectReference: {fileID: 0}
     - target: {fileID: 9143099226611001947, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}

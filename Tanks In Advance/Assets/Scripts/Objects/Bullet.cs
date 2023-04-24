@@ -75,6 +75,7 @@ public class Bullet : MonoBehaviour
 
     protected virtual void Ghostify()
     {
+        _totalLifespan = _totalLifespan / 2;
         gameObject.layer = LayerMask.NameToLayer("Ghost");
         if (trailRenderer)
         {
@@ -91,10 +92,17 @@ public class Bullet : MonoBehaviour
             for (int i = 0; i < mesh.sharedMaterials.Length; i++)
             {
                 Color oldC = mesh.sharedMaterials[i].GetColor("_Color");
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.4f);
+                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f);
                 MaterialMod.SetColor(newC, mesh, _propBlock, i);
             }
         }
+
+        GhostEffectCR();
+    }
+
+    protected virtual void GhostEffectCR()
+    {
+        StartCoroutine(FadeOut());
     }
     
     // Start is called before the first frame update
@@ -232,5 +240,22 @@ public class Bullet : MonoBehaviour
 
         //Destroy animation
         Destroy(gameObject, timeToKill);
+    }
+
+    protected IEnumerator FadeOut()
+    {
+        Color oldC = meshes[0].sharedMaterial.GetColor("_Color");
+        Color startC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f);
+
+        float timeElapsed = 0;
+        while (timeElapsed < _totalLifespan)
+        {
+            float percent = EasingFunction.EaseOutQuad(1, 0, timeElapsed / _totalLifespan);
+            Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.15f * percent);
+            MaterialMod.SetColor(newC, meshes[0], _propBlock);
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 }
