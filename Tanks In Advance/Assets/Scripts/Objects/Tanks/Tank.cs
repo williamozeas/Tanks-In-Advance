@@ -197,7 +197,7 @@ public class Tank : MovingObject
 
         AudioManager.Instance.Shoot();
         //visuals for shooting
-        if (alive || type != TankType.basic)
+        if (alive || type != TankType.basic || type != TankType.machineGun)
         {
             ShootVfx.Play();
         }
