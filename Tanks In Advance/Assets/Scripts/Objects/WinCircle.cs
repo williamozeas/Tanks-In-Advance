@@ -20,7 +20,7 @@ public class WinCircle : MonoBehaviour
     [ColorUsage(true, true)] public Color whiteColor;
 
     private Coroutine _colorChangeCoroutine;
-    private CircleColor _currentColor;
+    private CircleColor _currentColor = CircleColor.White;
     private Renderer _renderer;
     private Material mat;
 

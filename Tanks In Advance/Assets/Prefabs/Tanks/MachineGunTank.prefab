@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3891470613632009567}
-  tankName: Machine Gun Tank
+  tankName: Gatling Tank
   tankUIAnimation: {fileID: 0}
   ownerNum: 0
   speed: 2.9
