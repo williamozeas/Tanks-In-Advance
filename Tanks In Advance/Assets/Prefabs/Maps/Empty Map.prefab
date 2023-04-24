@@ -401,7 +401,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameEnum: 0
   name: Empty Map
+  outlineColor: {r: 4, g: 4, b: 4, a: 1}
   wallsHolder: {fileID: 627041510725068743}
+  outlineMat: {fileID: 2100000, guid: 3dc24a608c7d24c18b0970e37d952fad, type: 2}
 --- !u!1 &9143099226280166732
 GameObject:
   m_ObjectHideFlags: 0

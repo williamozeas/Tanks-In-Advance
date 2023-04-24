@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -11,11 +12,15 @@ public class PlayerIndicator : MonoBehaviour
 
     [SerializeField] [ColorUsageAttribute(true,true)] private Color blue;
     [SerializeField] [ColorUsageAttribute(true,true)] private Color red;
+
+    private Vector3 _startPos;
+    private float _time = 0;
     
     // Start is called before the first frame update
     void Start()
     {
         _chevron = GetComponent<Image>();
+        _startPos = transform.localPosition;
         if (!_tank || !_tank.Owner)
         {
             return;
@@ -28,6 +33,12 @@ public class PlayerIndicator : MonoBehaviour
         {
             _chevron.color = red;
         }
+    }
+
+    private void Update()
+    {
+        _time += Time.deltaTime;
+        transform.localPosition = new Vector3(_startPos.x, _startPos.y + Mathf.Sin(_time * 2 * Mathf.PI), _startPos.z);
     }
 
     public void SetTank(Tank newTank)
