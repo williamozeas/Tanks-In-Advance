@@ -13,7 +13,8 @@ public enum TankType
     basic = 0,
     mine = 1,
     shield = 2,
-    laser = 3
+    laser = 3,
+    machineGun = 4
 }
 
 /*
@@ -71,6 +72,7 @@ public class Tank : MovingObject
     private TreadEmitter _treadEmitter;
     private FMOD.Studio.EventInstance engine;
     private float engineVolume;
+    private PlayerIndicator _indicator;
 
     protected virtual void Awake()
     {
@@ -87,6 +89,8 @@ public class Tank : MovingObject
         colliders = GetComponentsInChildren<Collider>();
         turret = GetComponentInChildren<Turret>();
         _treadEmitter = GetComponentInChildren<TreadEmitter>();
+        _indicator = GetComponentInChildren<PlayerIndicator>();
+        _indicator.SetTank(this);
         engineVolume = 1;
         engine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Game/Move");
         engine.start();
@@ -135,12 +139,21 @@ public class Tank : MovingObject
     {
         GameManager.OnRoundStart += OnRoundStart;
         GameManager.OnRoundEnd += OnRoundEnd;
+        GameManager.OnGameEnd += OnGameEnd;
     }
 
     private void OnDisable()
     {
         GameManager.OnRoundStart -= OnRoundStart;
         GameManager.OnRoundEnd -= OnRoundEnd;
+        GameManager.OnGameEnd -= OnGameEnd;
+    }
+
+    private void OnGameEnd(PlayerNum obj)
+    {
+        Command setVelocityCommand =
+            new SetVelocityCommand(Vector2.zero, this, 0);
+        setVelocityCommand.Execute();
     }
 
     public virtual void OnRoundStart(Round round)
@@ -152,6 +165,7 @@ public class Tank : MovingObject
             UnDie(round);
             replay = StartCoroutine(Replay());
         }
+        _indicator.SetState(Owner.IsCurrentTank(this));
     }
     
     public virtual void OnRoundEnd()
@@ -183,7 +197,7 @@ public class Tank : MovingObject
 
         AudioManager.Instance.Shoot();
         //visuals for shooting
-        if (alive || type != TankType.basic)
+        if (alive || type != TankType.basic || type != TankType.machineGun)
         {
             ShootVfx.Play();
         }
@@ -304,10 +318,6 @@ public class Tank : MovingObject
         }
         
         TankManager.Instance.OnTankDeath();
-        // foreach(var collider in colliders)
-        // {
-        //     collider.enabled = false;
-        // }
     }
 
     public virtual void UnDie(Round round)

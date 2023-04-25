@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91cac57b8413f4b63a321726b27ce360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMap: 0
 --- !u!4 &813731938
 Transform:
   m_ObjectHideFlags: 0
@@ -1002,6 +1003,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298684370419048158, guid: d4659e371098146399eee07713de2f89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4659e371098146399eee07713de2f89, type: 3}

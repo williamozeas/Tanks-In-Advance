@@ -55,6 +55,11 @@ public class Mine : Bullet
         startColor = MaterialMod.ChangeHDRColorIntensity(startColor, -2f);
         // MaterialMod.SetEmissiveColor(newColor, _mesh, _propBlock);
     }
+    
+    protected override void GhostEffectCR()
+    {
+        // Do nothing
+    }
 
     // FixedUpdate called every certain amt of time
     protected override void Update()
