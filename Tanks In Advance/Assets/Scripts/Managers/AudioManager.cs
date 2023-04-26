@@ -41,9 +41,9 @@ public class AudioManager : Singleton<AudioManager>
         FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Game/Shoot", self);
     }
 
-    public void BlockLay()
+    public void BlockLay() 
     {
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Game/BlockSet");
     }
 
     public void Die(GameObject self)

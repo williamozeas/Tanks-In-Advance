@@ -220,7 +220,7 @@ public class Tank : MovingObject
                 QueryTriggerInteraction.Ignore))
         {
             Debug.Log("Destroyed bullet in wall");
-            AudioManager.Instance.Dissipate();
+            AudioManager.Instance.Dissipate(gameObject);
             // bulletBullet.Ricochet(hit.normal);
             return;
         }
