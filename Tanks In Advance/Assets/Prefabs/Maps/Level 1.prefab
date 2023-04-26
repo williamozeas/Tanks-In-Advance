@@ -1142,12 +1142,27 @@ PrefabInstance:
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: name
-      value: Level 1
+      value: Claustrodrome
       objectReference: {fileID: 0}
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: nameEnum
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 2.6082377
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.05462278
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143099226611001947, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}

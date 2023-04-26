@@ -9076,6 +9076,21 @@ PrefabInstance:
       propertyPath: name
       value: Menu Map
       objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0796a5a4513948b8a05f1d2717ad805, type: 3}
 --- !u!4 &106108841180838122 stripped

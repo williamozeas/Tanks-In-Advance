@@ -750,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 1556238327212558960, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1556238327212558960, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -845,7 +845,7 @@ PrefabInstance:
     - target: {fileID: 1910370711123497104, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1910370711123497104, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -875,7 +875,7 @@ PrefabInstance:
     - target: {fileID: 1910370711476082148, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1910370711476082148, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -895,7 +895,7 @@ PrefabInstance:
     - target: {fileID: 1910370711771055515, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1910370711771055515, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -1050,7 +1050,7 @@ PrefabInstance:
     - target: {fileID: 4524827646202116479, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4524827646202116479, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -1210,7 +1210,7 @@ PrefabInstance:
     - target: {fileID: 6508268547137165019, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6508268547137165019, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
@@ -1355,12 +1355,27 @@ PrefabInstance:
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: name
-      value: Level 4
+      value: Neon Ambush
       objectReference: {fileID: 0}
     - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}
       propertyPath: nameEnum
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0.02609944
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 1.0569259
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143099225986913583, guid: a0796a5a4513948b8a05f1d2717ad805,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143099226611001947, guid: a0796a5a4513948b8a05f1d2717ad805,
         type: 3}

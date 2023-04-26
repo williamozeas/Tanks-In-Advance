@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683f586356a3d4a339451dd8ea6c0fe3, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
-  mapSprite: {fileID: 21300000, guid: 2a202febf39bd468e978cee1465e726f, type: 3}
+  mapSprite: {fileID: 21300000, guid: 89f00e1e187984a3ca1182fc9b5b885f, type: 3}
   mapName: Neon Ambush
   name: 6
