@@ -18,12 +18,14 @@ public class AudioManager : Singleton<AudioManager>
     {
         GameManager.OnRoundEnd += OnRoundEnd;
         GameManager.OnRoundStart += OnRoundStart;
+        GameManager.OnGameEnd += OnGameEnd;
     }
     
     private void OnDisable()
     {
         GameManager.OnRoundEnd += OnRoundEnd;
         GameManager.OnRoundStart += OnRoundStart;
+        GameManager.OnGameEnd -= OnGameEnd;
     }
 
     private void OnRoundStart(Round round)
@@ -34,6 +36,11 @@ public class AudioManager : Singleton<AudioManager>
     private void OnRoundEnd()
     {
         Music.setParameterByName("Round", 0f + Mathf.Floor((float) GameManager.Instance.RoundNumber / GameManager.Instance.maxRounds));
+    }
+
+    private void OnGameEnd(PlayerNum winner)
+    {
+        Music.setParameterByName("Round", 0f);
     }
 
     public void Shoot()
