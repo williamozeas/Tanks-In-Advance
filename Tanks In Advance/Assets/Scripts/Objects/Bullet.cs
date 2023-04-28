@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public enum BulletType
 {
@@ -34,6 +35,7 @@ public class Bullet : MonoBehaviour
 
     protected MeshRenderer[] meshes;
     private MaterialPropertyBlock _propBlock;
+    [SerializeField] private GameObject deathFXPrefab;
     
     //called on creation
     public virtual void Init(Tank source, Vector2 angle)
@@ -118,7 +120,7 @@ public class Bullet : MonoBehaviour
     {
         if (this._currentLifespan < 0 || ricochets > _maxBounces)
         {
-            KillSelf(0, ricochets > _maxBounces);
+            KillSelf(0f, ricochets > _maxBounces);
         }
         this._currentLifespan -= Time.deltaTime;
         _timeSinceRicochet += Time.deltaTime;
@@ -227,11 +229,14 @@ public class Bullet : MonoBehaviour
     
     
 
-    protected void KillSelf(float timeToKill = 0, bool playSound = true)
+    protected void KillSelf(float timeToKill = 0f, bool playSound = true)
     {
         if (_tank.bulletList.Contains(gameObject))
             _tank.bulletList.Remove(gameObject);
-
+        // foreach (var behaviour in GetComponents<Behaviour>())
+        // {
+        //     behaviour.enabled = false;
+        // }
         //Destroy sound
         if (playSound)
         {
@@ -239,6 +244,11 @@ public class Bullet : MonoBehaviour
         }
 
         //Destroy animation
+        if (deathFXPrefab)
+        {
+            Debug.Log("test");
+            Destroy(Instantiate(deathFXPrefab, transform.position, Quaternion.identity, null), 1f);
+        }
         Destroy(gameObject, timeToKill);
     }
 

@@ -113,6 +113,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  deathFXPrefab: {fileID: 2152432457462813608, guid: 31856ee531a6347938afa262fdbf2c74,
+    type: 3}
 --- !u!33 &1470071193607585402
 MeshFilter:
   m_ObjectHideFlags: 0
