@@ -12,8 +12,8 @@ public class SelectRound : MonoBehaviour
     public TextMeshProUGUI next1_txt;
     public TextMeshProUGUI next2_txt;
 
-    public GameObject covering;
-    public GameObject selectedTxt;
+    // public GameObject covering;
+    // public GameObject selectedTxt;
 
     [SerializeField] private SelectSceneManager selectSceneManager;
 
@@ -140,22 +140,22 @@ public class SelectRound : MonoBehaviour
             next2_txt.text = "";
         }
 
-        if (active)
-        {
-            covering.SetActive(false);
-        }
-        else
-        {
-            covering.SetActive(true);
-        }
-
-        if (selected)
-        {
-            selectedTxt.SetActive(true);
-        }
-        else
-        {
-            selectedTxt.SetActive(false);
-        }
+        // if (active)
+        // {
+        //     covering.SetActive(false);
+        // }
+        // else
+        // {
+        //     covering.SetActive(true);
+        // }
+        //
+        // if (selected)
+        // {
+        //     selectedTxt.SetActive(true);
+        // }
+        // else
+        // {
+        //     selectedTxt.SetActive(false);
+        // }
     }
 }

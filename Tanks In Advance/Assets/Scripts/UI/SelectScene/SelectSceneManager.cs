@@ -16,6 +16,7 @@ public class SelectSceneManager : MonoBehaviour
     [SerializeField] private SelectMap selectMap;
     [SerializeField] private SelectRound selectRound;
     [SerializeField] private GameObject confirmSelection;
+    [SerializeField] private List<GameObject> hideOnSelected;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,10 @@ public class SelectSceneManager : MonoBehaviour
                     break;
                 case SelectState.ROUND_SELECTED:
                     selectRound.Activate();
+                    foreach (GameObject gameObject in hideOnSelected)
+                    {
+                        gameObject.SetActive(true);
+                    }
                     selectState = SelectState.MAP_SELECTED;
                     break;
             }
@@ -63,6 +68,10 @@ public class SelectSceneManager : MonoBehaviour
     public void OnRoundSelected()
     {
         selectState = SelectState.ROUND_SELECTED;
+        foreach (GameObject gameObject in hideOnSelected)
+        {
+            gameObject.SetActive(false);
+        }
         confirmSelection.SetActive(true);
     }
 
