@@ -24,6 +24,7 @@ public class Wall : MonoBehaviour
         float animationTime = CreateAnimationTime;
         Vector3 originalPos = transform.position;
         
+        AudioManager.Instance.BlockLay();
         transform.position += new Vector3(0, 35, 0);
         float y = transform.position.y;
         for (float timeElapsed = 0f; timeElapsed < animationTime; timeElapsed += Time.deltaTime)
@@ -34,7 +35,6 @@ public class Wall : MonoBehaviour
             //Debug.Log(y);
             yield return null;
         }
-        AudioManager.Instance.BlockLay();
         transform.position = originalPos;
     }
 }

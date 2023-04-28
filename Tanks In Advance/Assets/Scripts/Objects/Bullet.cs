@@ -182,7 +182,7 @@ public class Bullet : MonoBehaviour
 
         if(ricochets < _maxBounces) 
         {
-            AudioManager.Instance.Bounce();
+            AudioManager.Instance.Bounce(gameObject);
         }
 
         //quantize weird normals
@@ -240,7 +240,7 @@ public class Bullet : MonoBehaviour
         //Destroy sound
         if (playSound)
         {
-            AudioManager.Instance.Dissipate();
+            AudioManager.Instance.Dissipate(gameObject);
         }
 
         //Destroy animation

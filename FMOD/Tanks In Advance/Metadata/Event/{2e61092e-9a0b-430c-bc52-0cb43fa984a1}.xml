@@ -5,7 +5,7 @@
 			<value>Dissipate</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -56,7 +56,7 @@
 			<destination>{b7fd2cc5-19f6-4e13-9a39-8baec3f803f6}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{259605fd-17c7-4106-b6db-5f5a54b6a2df}</destination>
+			<destination>{36bc7454-a7f4-48c0-b15d-520d6fe80b3c}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{0495971f-7fd4-4eea-b5bb-9f0862fc560f}" />
@@ -97,6 +97,7 @@
 		<relationship name="effects">
 			<destination>{3ff4b160-92e5-478f-bfb9-10f97e67d9ff}</destination>
 			<destination>{6b5b34fc-47f1-41e6-9224-ad052f33cd50}</destination>
+			<destination>{f2e4ecb4-44dd-47ae-a474-7f3f546d7815}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{40a67f8b-cef7-44ec-b622-6105ed8df9b7}" />
@@ -114,6 +115,11 @@
 		<relationship name="modulators">
 			<destination>{148ff869-ed3d-4b30-be4a-f92a83e5a31a}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{f2e4ecb4-44dd-47ae-a474-7f3f546d7815}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
 	</object>
 	<object class="RandomizerModulator" id="{148ff869-ed3d-4b30-be4a-f92a83e5a31a}">
 		<property name="nameOfPropertyBeingModulated">

@@ -5,7 +5,7 @@
 			<value>Move</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -63,7 +63,7 @@
 			<destination>{df665c5a-8d81-474d-8d79-25d5a2c987cb}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{259605fd-17c7-4106-b6db-5f5a54b6a2df}</destination>
+			<destination>{36bc7454-a7f4-48c0-b15d-520d6fe80b3c}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{067487f0-2bd3-4328-ba29-62eb0f4342ec}" />
@@ -196,6 +196,7 @@
 		<relationship name="effects">
 			<destination>{37bf9c47-4c2d-4c41-a97d-23fa0afe224e}</destination>
 			<destination>{1bc8bd1b-e63d-47e8-a7fc-d6db76e49f25}</destination>
+			<destination>{805682e1-b5cc-431f-911c-d126e075c4d6}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5ec83bad-0ae8-480f-9746-c03ef8386da7}" />
@@ -256,6 +257,11 @@
 		<relationship name="modulators">
 			<destination>{db82b0c9-a91c-4dbd-ab94-d16a82e24821}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{805682e1-b5cc-431f-911c-d126e075c4d6}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
 	</object>
 	<object class="AutomationPoint" id="{127e158c-539a-4328-ad66-d3ff97d610ad}">
 		<property name="position">
