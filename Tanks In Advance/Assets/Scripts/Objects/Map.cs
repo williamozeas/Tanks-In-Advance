@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public enum MapName
@@ -30,6 +31,8 @@ public class Map : MonoBehaviour
     
     private List<SpawnPoint> team1SpawnPoints;
     private List<SpawnPoint> team2SpawnPoints;
+
+    public UnityEvent OnFinishIntroAnim;
 
     private void Awake()
     {
@@ -90,6 +93,9 @@ public class Map : MonoBehaviour
             StartCoroutine(wall.OnCreate());
             yield return new WaitForSeconds(interval);
         }
+
+        yield return new WaitForSeconds(0.5f);
+        OnFinishIntroAnim?.Invoke();
         yield return new WaitForSeconds(1f);
         GameManager.Instance.inputLocked = false;
 
