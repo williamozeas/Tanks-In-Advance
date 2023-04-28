@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+    - target: {fileID: 1174759550271708138, guid: f4b6f2f0749c1dc4291f74ae2a702d06,
+        type: 3}
+      propertyPath: tankUIAnimation
+      value: 
+      objectReference: {fileID: 9100000, guid: 6ae74fc0fd218be4d95989327a140e6a, type: 2}
     - target: {fileID: 2409475580893519279, guid: f4b6f2f0749c1dc4291f74ae2a702d06,
         type: 3}
       propertyPath: m_Layer

@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineTankRed
       objectReference: {fileID: 0}
+    - target: {fileID: 5773351716214017420, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
+        type: 3}
+      propertyPath: tankUIAnimation
+      value: 
+      objectReference: {fileID: 9100000, guid: 8ded01a593f4db34aac7b6e273f08c04, type: 2}
     - target: {fileID: 5798717526192561611, guid: e7b9093950f8c8949bd2bf2b3cadd2e6,
         type: 3}
       propertyPath: m_Materials.Array.data[2]

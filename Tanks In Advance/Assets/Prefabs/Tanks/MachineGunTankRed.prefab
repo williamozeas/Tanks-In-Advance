@@ -82,5 +82,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGunTankRed
       objectReference: {fileID: 0}
+    - target: {fileID: 3868156266122585274, guid: 2d6df61af562442ac972dc0cf24ca76c,
+        type: 3}
+      propertyPath: tankUIAnimation
+      value: 
+      objectReference: {fileID: 9100000, guid: 6c937b75c2f2e2b4da827f8b6ee0808a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d6df61af562442ac972dc0cf24ca76c, type: 3}

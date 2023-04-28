@@ -20,7 +20,7 @@ public class MapSpawner : MonoBehaviour
         //DEBUG
         if (DataManager.Instance() == null)
         {
-            SpawnMap(MapName.Level4);
+            SpawnMap(MapName.Level5);
         }
         else
         {

@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4422409901572363767, guid: 4cac06b7cc0bf8b4faf363b116f4159f,
+        type: 3}
+      propertyPath: tankUIAnimation
+      value: 
+      objectReference: {fileID: 9100000, guid: 018d78081ea2ad74092e58d9ac34599f, type: 2}
     - target: {fileID: 688605008361345367, guid: 4cac06b7cc0bf8b4faf363b116f4159f,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
