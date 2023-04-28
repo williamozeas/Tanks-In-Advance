@@ -24,8 +24,8 @@ public class GameManager : Singleton<GameManager>
         set { SetGameState(value); }
     }
 
-    [Header("Parameters")] 
-    public int maxRounds = 5;
+    // [Header("Parameters")] 
+    public int maxRounds;
 
     [Serializable]
     public struct NumOfTanks
@@ -72,12 +72,21 @@ public class GameManager : Singleton<GameManager>
         Players = new Player[2];
         _tankList.Init();
         _mapList.Init();
+        
+        if (DataManager.Instance() != null)
+        {
+            maxRounds = DataManager.Instance().roundCnt;
+        }
+        else
+        {
+            maxRounds = 5;
+        }
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void Update()
