@@ -98,7 +98,7 @@ public class LaserTank : Tank
         
         float distance = rayhits.Where((hit) =>
         {
-            if (hit.transform.TryGetComponent<ShieldTank>(out ShieldTank tank))
+            if (hit.transform.parent.TryGetComponent<ShieldTank>(out ShieldTank tank))
             {
                 return true;
             }
@@ -121,6 +121,11 @@ public class LaserTank : Tank
                 if (hit.transform.parent != null &&
                     hit.transform.parent.TryGetComponent<Tank>(out Tank tank) &&
                     tank.Type != TankType.shield && tank != this)
+                {
+                    tank.TakeDamage(DAMAGE);
+                } else if (hit.transform.parent != null &&
+                           hit.transform.parent.TryGetComponent<Tank>(out tank) 
+                           && tank != this)
                 {
                     tank.TakeDamage(DAMAGE);
                 }
