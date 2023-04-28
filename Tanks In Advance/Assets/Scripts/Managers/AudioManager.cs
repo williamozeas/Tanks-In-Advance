@@ -23,8 +23,8 @@ public class AudioManager : Singleton<AudioManager>
     
     private void OnDisable()
     {
-        GameManager.OnRoundEnd += OnRoundEnd;
-        GameManager.OnRoundStart += OnRoundStart;
+        GameManager.OnRoundEnd -= OnRoundEnd;
+        GameManager.OnRoundStart -= OnRoundStart;
         GameManager.OnGameEnd -= OnGameEnd;
     }
 
