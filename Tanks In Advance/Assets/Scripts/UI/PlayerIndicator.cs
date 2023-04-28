@@ -39,6 +39,21 @@ public class PlayerIndicator : MonoBehaviour
     {
         _time += Time.deltaTime;
         transform.localPosition = new Vector3(_startPos.x, _startPos.y + Mathf.Sin(_time * Mathf.PI) * 0.5f + 0.5f, _startPos.z);
+        if (!_tank.Alive)
+        {
+            _chevron.color = Color.white;
+        }
+        else
+        {
+            if (_tank.Owner.PlayerNumber == PlayerNum.Player1)
+            {
+                _chevron.color = blue;
+            }
+            else
+            {
+                _chevron.color = red;
+            }
+        }
     }
 
     public void SetTank(Tank newTank)
