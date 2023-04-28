@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
 
 public enum GameStates
@@ -106,6 +107,12 @@ public class GameManager : Singleton<GameManager>
         inputLocked = false;
         switch (newGameState)
         {
+            case GameStates.MainMenu:
+            {
+                _roundNumber = 0;
+                _roundTime = 0;
+                break;
+            }
             case(GameStates.Playing):
             {
                 _roundTime = 0;
@@ -131,9 +138,27 @@ public class GameManager : Singleton<GameManager>
             case (GameStates.EndGame):
             {
                 OnGameEnd?.Invoke(mapSpawner.CurrentMap.GetWinner());
+                StartCoroutine(GameEndCheckForRestart());
                 break;
             }
         }
         _gameState = newGameState;
+    }
+
+    private IEnumerator GameEndCheckForRestart()
+    {
+        yield return new WaitForSeconds(2f);
+
+        while (true)
+        {
+            if (Input.GetButtonDown("P1_Fire") || Input.GetButtonDown("P2_Fire"))
+            {
+                break;
+            }
+            yield return null;
+        }
+
+        GameState = GameStates.MainMenu;
+        SceneManager.LoadScene("Select Scene");
     }
 }
