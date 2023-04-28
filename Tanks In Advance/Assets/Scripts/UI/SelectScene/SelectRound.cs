@@ -91,6 +91,7 @@ public class SelectRound : MonoBehaviour
     public void Select()
     {
         selectSceneManager.OnRoundSelected();
+        GameManager.Instance.maxRounds = selection;
         active = false;
         selected = true;
         UpdateSelectionUI();

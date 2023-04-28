@@ -65,4 +65,8 @@ public class BreakableWall : Wall
         health = MaxHealth;
     }
 
+    public virtual void Randomize()
+    {
+        //
+    }
 }

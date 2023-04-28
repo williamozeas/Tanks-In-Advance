@@ -10,7 +10,7 @@ public class Wall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Randomize();
     }
 
     // Update is called once per frame
@@ -36,5 +36,18 @@ public class Wall : MonoBehaviour
             yield return null;
         }
         transform.position = originalPos;
+    }
+
+    public virtual void Randomize()
+    {
+        // int rand = Random.Range(1, 10);
+        // if (rand > 6)
+        // {
+        //     float heightMod = Random.Range(-0.3f, 1.3f);
+        //     transform.position = new Vector3(transform.position.x, transform.position.y + heightMod / 2,
+        //         transform.position.z);
+        //     transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y + heightMod,
+        //         transform.localScale.z);
+        // }
     }
 }
