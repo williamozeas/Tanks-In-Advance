@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{fa25ba06-a508-4a8a-81db-decf03b01b29}">
+		<property name="assetPath">
+			<value>Blue Wins.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.0899999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{4c43832e-f0df-4df8-95cf-1f175f6d0e7d}</destination>
+		</relationship>
+	</object>
+</objects>
