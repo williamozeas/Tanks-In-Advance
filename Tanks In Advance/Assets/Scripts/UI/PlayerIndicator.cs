@@ -38,7 +38,7 @@ public class PlayerIndicator : MonoBehaviour
     private void Update()
     {
         _time += Time.deltaTime;
-        transform.localPosition = new Vector3(_startPos.x, _startPos.y + Mathf.Sin(_time * Mathf.PI) * 0.5f, _startPos.z);
+        transform.localPosition = new Vector3(_startPos.x, _startPos.y + Mathf.Sin(_time * Mathf.PI) * 0.5f + 0.5f, _startPos.z);
     }
 
     public void SetTank(Tank newTank)

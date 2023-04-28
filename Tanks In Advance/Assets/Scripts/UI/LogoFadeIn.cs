@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class LogoFadeIn : MonoBehaviour
 {
-    private Image logo;
+    private Graphic logo;
+
+    [SerializeField] private float _time = 4f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class LogoFadeIn : MonoBehaviour
 
     public void PlayAnim()
     {
-        StartCoroutine(FadeIn(4f));
+        StartCoroutine(FadeIn(_time));
     }
 
     public IEnumerator FadeIn(float time)

@@ -795,6 +795,7 @@ GameObject:
   - component: {fileID: 1423140992}
   - component: {fileID: 1423140994}
   - component: {fileID: 1423140993}
+  - component: {fileID: 1423140995}
   m_Layer: 5
   m_Name: ControlsPrompt
   m_TagString: Untagged
@@ -920,6 +921,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423140991}
   m_CullTransparentMesh: 1
+--- !u!114 &1423140995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423140991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43e0003a64fc4ac4a6916aac95d66fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _time: 2
 --- !u!114 &1509067371 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2795345262792937318, guid: d37dc6c93aa934f59b345bf8f60c3f77,
@@ -1054,6 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf08ca1380d1e4a19aeeaa2b31bb0471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _time: 4
 --- !u!1 &1757895926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,11 +1438,16 @@ PrefabInstance:
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
         type: 3}
       propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
         type: 3}
       propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
@@ -1437,7 +1457,17 @@ PrefabInstance:
       objectReference: {fileID: 1675174824}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
         type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1423140995}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
       propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
@@ -1447,12 +1477,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
         type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
       propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LogoFadeIn, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
         type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TMPFadeIn, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
       propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336914056820303144, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
+        type: 3}
+      propertyPath: OnFinishIntroAnim.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4336914056820303145, guid: 89bbdaba87ede4b7cbb4340ea30bd496,
