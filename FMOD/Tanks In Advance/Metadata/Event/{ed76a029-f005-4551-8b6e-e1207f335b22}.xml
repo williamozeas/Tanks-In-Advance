@@ -5,7 +5,7 @@
 			<value>Collide</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{8cdf3ec0-2cc0-4d82-b5c2-d0bde7be900f}</destination>
@@ -56,7 +56,7 @@
 			<destination>{b9035ef6-d2d9-4f50-ba70-f20ab7b8166e}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{36bc7454-a7f4-48c0-b15d-520d6fe80b3c}</destination>
+			<destination>{259605fd-17c7-4106-b6db-5f5a54b6a2df}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{5e690388-8f53-453d-8368-8edcbe31b04d}" />
@@ -97,6 +97,7 @@
 		<relationship name="effects">
 			<destination>{01a6abb9-91d8-46c3-b75b-c9c5b4cbc140}</destination>
 			<destination>{dec10e66-3893-4f6f-917d-376aec99234b}</destination>
+			<destination>{254777de-3165-43bf-94ac-a5cc55014cbc}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{988fe570-2969-4ed6-8878-c9b40bc2723c}" />
@@ -117,6 +118,20 @@
 		<relationship name="modulators">
 			<destination>{c2d360f5-8da9-41a1-887c-f4b7cb993de3}</destination>
 		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{254777de-3165-43bf-94ac-a5cc55014cbc}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>0.900000036</value>
+		</property>
+		<property name="minimumExtent">
+			<value>70</value>
+		</property>
 	</object>
 	<object class="RandomizerModulator" id="{c2d360f5-8da9-41a1-887c-f4b7cb993de3}">
 		<property name="nameOfPropertyBeingModulated">

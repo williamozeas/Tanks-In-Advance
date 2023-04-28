@@ -118,7 +118,7 @@ public class SelectTank : MonoBehaviour
         if (p1Selected && p2Selected)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Announcer/Start");
-            Invoke("StartRound", 1.5f);
+            Invoke("StartRound", 2.2f);
         }
     }
 

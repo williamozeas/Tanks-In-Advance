@@ -32,24 +32,31 @@ public class AudioManager : Singleton<AudioManager>
     private void OnRoundStart(Round round)
     {
         Music.setParameterByName("Round", 1f + Mathf.Floor((float)round.number / GameManager.Instance.maxRounds * 3));
-        EventInstance inst =  FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Announcer/Round");
-        inst.setParameterByName("RoundNum", round.number);
-        inst.start();
-        inst.release();
     }
 
     private void OnRoundEnd()
     {
         Music.setParameterByName("Round", 0f + Mathf.Floor((float) GameManager.Instance.RoundNumber / GameManager.Instance.maxRounds));
+        if (GameManager.Instance.RoundNumber < GameManager.Instance.maxRounds)
+        {
+            EventInstance inst = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Announcer/Round");
+
+            inst.setParameterByName("RoundNum", GameManager.Instance.RoundNumber);
+            inst.start();
+            inst.release();
+        }
     }
 
     private void OnGameEnd(PlayerNum winner)
     {
         Music.setParameterByName("Round", 0f);
-        EventInstance inst =  FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Announcer/Winner");
-        inst.setParameterByName("WinnerNum", (int)winner);
-        inst.start();
-        inst.release();
+        if (winner != PlayerNum.Neither)
+        {
+            EventInstance inst = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Announcer/Winner");
+            inst.setParameterByName("WinnerNum", (int)winner);
+            inst.start();
+            inst.release();
+        }
     }
 
     public void Shoot(GameObject self)
