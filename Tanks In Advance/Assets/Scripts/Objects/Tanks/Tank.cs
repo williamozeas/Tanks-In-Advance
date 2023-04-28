@@ -240,7 +240,6 @@ public class Tank : MovingObject
 
     public void TakeDamage(int damage)
     {
-        // Debug.Log("TakeDamage called on: " + type);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
