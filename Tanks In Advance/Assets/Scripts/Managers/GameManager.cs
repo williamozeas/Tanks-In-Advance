@@ -159,6 +159,6 @@ public class GameManager : Singleton<GameManager>
         }
 
         GameState = GameStates.MainMenu;
-        SceneManager.LoadScene("Select Scene");
+        SceneManager.LoadScene("Main Menu");
     }
 }
