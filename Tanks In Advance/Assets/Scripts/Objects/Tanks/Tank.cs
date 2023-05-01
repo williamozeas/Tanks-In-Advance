@@ -381,9 +381,9 @@ public class Tank : MovingObject
     }
 
 
-    // public void SetTurretTurnVelocity(float newVelocity)
-    // {
-    //     _turretTurnVelocity = newVelocity;
-    //     // turretRB.rotation.
-    // }
+    protected virtual void OnDestroy()
+    {
+        engine.release();
+        engine.stop(STOP_MODE.ALLOWFADEOUT);
+    }
 }
