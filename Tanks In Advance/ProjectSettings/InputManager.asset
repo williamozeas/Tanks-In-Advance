@@ -141,9 +141,9 @@ InputManager:
     positiveButton: d
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 0
-    dead: 0.19
-    sensitivity: 1
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
@@ -169,13 +169,13 @@ InputManager:
     m_Name: P1_Move_V
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: w
+    negativeButton: w
+    positiveButton: s
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 0
-    dead: 0.19
-    sensitivity: 1
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
     snap: 0
     invert: 1
     type: 0

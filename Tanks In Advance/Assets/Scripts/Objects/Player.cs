@@ -91,56 +91,15 @@ public class Player : MonoBehaviour
 
                     newVelocity = new Vector2(horizontalInput, verticalInput);
 
-                    // if (Input.GetKey(inputs.Up))
-                    // {
-                    //     newVelocity += new Vector2(0, 1);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.Down))
-                    // {
-                    //     newVelocity += new Vector2(0, -1);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.Left))
-                    // {
-                    //     newVelocity += new Vector2(-1, 0);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.Right))
-                    // {
-                    //     newVelocity += new Vector2(1, 0);
-                    // }
-
                     float rHorizontalInput = 0;
                     float rVerticalInput = 0;
                     // Vector2 newVelocity = Vector2.zero;
 
                     rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
                     rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
-                    Debug.Log(rVerticalInput);
 
                     Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
 
-                    //TEMP FOR CONTROLLER
-                    // if (Input.GetKey(inputs.AimUp))
-                    // {
-                    //     newAim += new Vector2(0, 1);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.AimDown))
-                    // {
-                    //     newAim += new Vector2(0, -1);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.AimLeft))
-                    // {
-                    //     newAim += new Vector2(-1, 0);
-                    // }
-                    //
-                    // if (Input.GetKey(inputs.AimRight))
-                    // {
-                    //     newAim += new Vector2(1, 0);
-                    // }
                     if (newAim.magnitude > deadzone) //controller dead zone
                     {
                         Vector2 newAimNorm = newAim.normalized;
@@ -152,9 +111,6 @@ public class Player : MonoBehaviour
                             setAimCommand.Execute();
                         }
                     }
-
-                    // if (Input.GetButtonDown("P1_Fire")) Debug.Log("PIZZA WOOO");
-                    // if (Input.GetButtonDown("P2_Fire")) Debug.Log("hamburger");
 
                     // fire button pressed (shooting for now)
                     if (Input.GetButtonDown(moveString + "_Fire"))
