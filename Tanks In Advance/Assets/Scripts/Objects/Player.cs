@@ -97,12 +97,17 @@ public class Player : MonoBehaviour
 
                     rHorizontalInput = Input.GetAxis(moveString + "_Aim_H");
                     rVerticalInput = Input.GetAxis(moveString + "_Aim_V");
+                    
+                    float horizontalInputRaw = Input.GetAxisRaw(moveString + "_Aim_H");
+                    float verticalInputRaw = Input.GetAxisRaw(moveString + "_Aim_V");
+                    Vector2 newRawAim = new Vector2(horizontalInputRaw, verticalInputRaw);
 
                     Vector2 newAim = new Vector2(rHorizontalInput, rVerticalInput);
 
-                    if (newAim.magnitude > deadzone) //controller dead zone
+                    if (newRawAim.magnitude > deadzone) //controller dead zone
                     {
                         Vector2 newAimNorm = newAim.normalized;
+                        Debug.Log(newAimNorm);
                         if (newAimNorm != _currentTank.Aim)
                         {
                             Command setAimCommand =
