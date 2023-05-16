@@ -60,6 +60,12 @@ public class LaserTank : Tank
         }
     }
 
+    public override void UnDie(Round round)
+    {
+        base.UnDie(round);
+        laserLine.enabled = true;
+    }
+
     public override void Shoot(ShootCommand shootCommand)
     {
         //The tank does nothing if shooting has not yet cooled down.
@@ -179,6 +185,7 @@ public class LaserTank : Tank
     public override void Ghost()
     {
         base.Ghost();
+        laserLine.enabled = false;
         // MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
         // MaterialMod.SetOpacity(0.2f, GetComponent<MeshRenderer>(), propBlock);
     }
