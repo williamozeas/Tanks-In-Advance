@@ -8,16 +8,20 @@ public class BreakableWall : Wall
     public int MaxHealth = 1;
     public override bool blocksLaser => false;
 
+    private Vector3 startPos;
+
     // Start is called before the first frame update
     void Start()
     {
         health = MaxHealth;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // float offset = Mathf.Sin(Time.time);
+        // transform.position = startPos + new Vector3(offset, 0, 0);
     }
 
     private void OnEnable() {

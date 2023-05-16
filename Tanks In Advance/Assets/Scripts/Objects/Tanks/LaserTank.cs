@@ -99,12 +99,12 @@ public class LaserTank : Tank
         int DAMAGE = 10;
 
         Vector3 adjAim = new Vector3(aim.x, 0, aim.y);
-        List<RaycastHit> rayhits = Physics.SphereCastAll(turretPos.position, 1f, adjAim, MAX_CAST_DISTANCE,
+        List<RaycastHit> rayhits = Physics.SphereCastAll(turretPos.position, 0.4f, adjAim, MAX_CAST_DISTANCE,
             castMask, QueryTriggerInteraction.Collide).ToList();
         
         float distance = rayhits.Where((hit) =>
         {
-            if (hit.transform.parent.TryGetComponent<ShieldTank>(out ShieldTank tank))
+            if (hit.transform != null && hit.transform.parent != null  && hit.transform.parent.TryGetComponent<ShieldTank>(out ShieldTank tank))
             {
                 return true;
             }
