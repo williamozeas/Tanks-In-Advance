@@ -18,6 +18,10 @@ public class TankManager : Singleton<TankManager>
     public TankType P1selectedType = TankType.basic;
     public TankType P2selectedType = TankType.basic;
 
+    public Material RedMat;
+    public Material BlueMat;
+    public Material WhiteMat;
+
     public override void Awake()
     {
         base.Awake();

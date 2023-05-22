@@ -107,7 +107,6 @@ public class Player : MonoBehaviour
                     if (newRawAim.magnitude > deadzone) //controller dead zone
                     {
                         Vector2 newAimNorm = newAim.normalized;
-                        Debug.Log(newAimNorm);
                         if (newAimNorm != _currentTank.Aim)
                         {
                             Command setAimCommand =

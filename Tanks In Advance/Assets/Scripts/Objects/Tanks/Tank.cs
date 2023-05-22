@@ -47,7 +47,7 @@ public class Tank : MovingObject
     [HideInInspector]
     public bool disableMovement = false;
 
-    // public Material ghostMat;
+    [ColorUsage(true, true)] public Color ogColor;
     
 
     private Vector3 _startLocation = Vector3.zero;
@@ -109,7 +109,7 @@ public class Tank : MovingObject
         currentlyControlled = true;
         alive = true;
         currentHealth = health;
-            
+
         //ensure command list is not empty
         Command setVelocityCommand =
             new SetVelocityCommand(Vector2.zero, this, -1);
@@ -275,7 +275,7 @@ public class Tank : MovingObject
 
     public virtual void Ghost()
     {
-        Debug.Log("Spectating!");
+        
         DeathVfx.Stop();
         DeathVfx.SetInt("IsBlue", (int)ownerNum);
         DeathVfx.Play();
@@ -283,13 +283,25 @@ public class Tank : MovingObject
         _treadEmitter.StopParticles();
         alive = false;
         ChangeLayer(transform, LayerMask.NameToLayer("Ghost"));
+        
         foreach (var mesh in meshes)
         {
-            for (int i = 0; i < mesh.materials.Length; i++)
+            for (int i = 0; i < mesh.sharedMaterials.Length; i++)
             {
-                Color oldC = mesh.materials[i].color;
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.12f);
-                mesh.materials[i].color = newC;
+                MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+                // Color oldC = mesh.sharedMaterials[i].color;
+                // Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.12f);
+                // mesh.materials[i].color = newC;
+                if (mesh.sharedMaterials[i].name.Substring(0, 3) == "Red"
+                    || mesh.sharedMaterials[i].name.Substring(0, 3) == "Blu")
+                {
+                    // Debug.Log(mesh.sharedMaterials[i].GetColor(MaterialMod.PropEmissive));
+                    Color emissive = TankManager.Instance.WhiteMat.GetColor(MaterialMod.PropEmissive);
+                    Color color = TankManager.Instance.WhiteMat.GetColor(MaterialMod.PropColor);
+                    MaterialMod.SetEmissiveColor(emissive, mesh, propertyBlock, i);
+                    MaterialMod.SetColor(color, mesh, propertyBlock, i);
+                }
+                MaterialMod.SetOpacity(0.12f, mesh, propertyBlock, i);
             }
         }
         
@@ -324,14 +336,28 @@ public class Tank : MovingObject
         alive = true;
         engine.start();
         engineVolume = .5F;
+        
         foreach (var mesh in meshes)
         {
-            mesh.enabled = true;
-            for (int i = 0; i < mesh.materials.Length; i++)
+            for (int i = 0; i < mesh.sharedMaterials.Length; i++)
             {
-                Color oldC = mesh.materials[i].color;
-                Color newC = new Color(oldC.r, oldC.g, oldC.b, 1);
-                mesh.materials[i].color = newC;
+                // Color oldC = mesh.materials[i].color;
+                // Color newC = new Color(oldC.r, oldC.g, oldC.b, oldC.a * 0.12f);
+                // mesh.materials[i].color = newC;
+                MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+                MaterialMod.SetOpacity(1f, mesh, propertyBlock, i);
+                if (mesh.sharedMaterials[i].name.Substring(0, 3) == "Red"
+                    || mesh.sharedMaterials[i].name.Substring(0, 3) == "Blu"
+                    )
+                {
+                    Color emissive = mesh.sharedMaterials[i].GetColor(MaterialMod.PropEmissive);
+                    Color color = mesh.sharedMaterials[i].GetColor(MaterialMod.PropColor);
+                    Debug.Log(color);
+                    MaterialMod.SetEmissiveColor(emissive, mesh, propertyBlock, i);
+                    MaterialMod.SetColor(color, mesh, propertyBlock, i);
+                }
+
+                mesh.enabled = true;
             }
         }
         foreach(var collider in colliders)

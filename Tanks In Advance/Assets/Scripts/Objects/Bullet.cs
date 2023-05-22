@@ -245,7 +245,6 @@ public class Bullet : MonoBehaviour
         //Destroy animation
         if (deathFXPrefab)
         {
-            Debug.Log("test");
             Destroy(Instantiate(deathFXPrefab, transform.position, Quaternion.identity, null), 1f);
         }
         Destroy(gameObject, timeToKill);

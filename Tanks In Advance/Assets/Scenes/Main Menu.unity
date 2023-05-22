@@ -174,6 +174,9 @@ MonoBehaviour:
     type: 3}
   P1selectedType: 0
   P2selectedType: 0
+  RedMat: {fileID: 2100000, guid: af02e887f04404508aa9f615be9e0e9c, type: 2}
+  BlueMat: {fileID: 2100000, guid: 09e1e688a3dad4a2b950ab85b5f97276, type: 2}
+  WhiteMat: {fileID: 2100000, guid: f02a8f75761084a28bd3b89c67905d5a, type: 2}
 --- !u!1 &329351277
 GameObject:
   m_ObjectHideFlags: 0

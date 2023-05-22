@@ -7,20 +7,32 @@ public static class MaterialMod
     
     //cached property indices
     public static readonly int PropColor = Shader.PropertyToID("_BaseColor");
+    public static readonly int PropColor2 = Shader.PropertyToID("_Color");
     public static readonly int PropEmissive = Shader.PropertyToID("_EmissionColor");
 
-    public static void SetOpacity(float opacity, MeshRenderer renderer, MaterialPropertyBlock propertyBlock)
+    public static void SetOpacity(float opacity, MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int matIndex = 0)
     {
-        SetOpacity(opacity, renderer, propertyBlock, PropColor);
+        SetOpacity(opacity, renderer, propertyBlock, PropColor, matIndex);
     }
     
-    public static void SetOpacity(float opacity, MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int propColor)
+    public static void SetOpacity(float opacity, MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int propColor, int matIndex = 0)
     {
-        renderer.GetPropertyBlock(propertyBlock);
-        Color originalColor = propertyBlock.GetColor(propColor);
-        Color newColor = new Color(originalColor.r, originalColor.g, originalColor.b, opacity);
-        propertyBlock.SetColor(propColor, newColor);
-        renderer.SetPropertyBlock(propertyBlock);
+        if (matIndex == 0)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+            Color originalColor = renderer.sharedMaterial.GetColor(propColor);
+            Color newColor = new Color(originalColor.r, originalColor.g, originalColor.b, opacity);
+            propertyBlock.SetColor(propColor, newColor);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+        else
+        {
+            renderer.GetPropertyBlock(propertyBlock, matIndex);
+            Color originalColor = renderer.sharedMaterials[matIndex].GetColor(propColor);
+            Color newColor = new Color(originalColor.r, originalColor.g, originalColor.b, opacity);
+            propertyBlock.SetColor(propColor, newColor);
+            renderer.SetPropertyBlock(propertyBlock, matIndex);
+        }
     }
 
     public static void SetColor(Color newColor, MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int matIndex = 0)
@@ -33,11 +45,21 @@ public static class MaterialMod
         SetColorProperty(newColor, renderer, propertyBlock, PropEmissive, matIndex);
     }
     
+    //Hacky, should just remove matIndex?
     public static void SetColorProperty(Color newColor, MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int prop, int matIndex = 0)
     {
-        renderer.GetPropertyBlock(propertyBlock, matIndex);
-        propertyBlock.SetColor(prop, newColor);
-        renderer.SetPropertyBlock(propertyBlock, matIndex);
+        if (matIndex == 0)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetVector(prop, newColor);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+        else
+        {
+            renderer.GetPropertyBlock(propertyBlock, matIndex);
+            propertyBlock.SetVector(prop, newColor);
+            renderer.SetPropertyBlock(propertyBlock, matIndex);
+        }
     }
 
     public static Color GetColor(MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int matIndex = 0)
@@ -50,17 +72,24 @@ public static class MaterialMod
         return GetColorProperty(renderer, propertyBlock, PropEmissive, matIndex);
     }
 
-    public static Color GetColorProperty(MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int propEmissive, int matIndex = 0)
+    public static Color GetColorProperty(MeshRenderer renderer, MaterialPropertyBlock propertyBlock, int prop, int matIndex = 0)
     {
-        renderer.GetPropertyBlock(propertyBlock, matIndex);
-        return propertyBlock.GetColor(propEmissive);
+        if (matIndex == 0)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+        }
+        else
+        {
+            renderer.GetPropertyBlock(propertyBlock, matIndex);
+        }
+        return propertyBlock.GetVector(prop);
     }
 
     public static IEnumerator LerpColor(Color end, float time, MeshRenderer renderer,
         MaterialPropertyBlock propertyBlock, int Prop, int matIndex = 0)
     {
         float timeElapsed = 0f;
-        renderer.GetPropertyBlock(propertyBlock, matIndex);
+            renderer.GetPropertyBlock(propertyBlock);
         Color startColor = propertyBlock.GetColor(Prop);
         while (timeElapsed < time)
         {
@@ -78,7 +107,7 @@ public static class MaterialMod
     
     private static byte k_MaxByteForOverexposedColor = 191; //internal Unity const 
     
-    //directly from //based on https://answers.unity.com/questions/1652854/how-to-get-set-hdr-color-intensity.html
+    //directly from https://answers.unity.com/questions/1652854/how-to-get-set-hdr-color-intensity.html
     public static Color ChangeHDRColorIntensity(Color subjectColor, float intensityChange)
     {
         // Get color intensity
