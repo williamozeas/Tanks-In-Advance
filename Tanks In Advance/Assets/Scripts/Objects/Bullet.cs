@@ -243,7 +243,7 @@ public class Bullet : MonoBehaviour
         }
 
         //Destroy animation
-        if (deathFXPrefab)
+        if (deathFXPrefab && _tank.Alive)
         {
             Destroy(Instantiate(deathFXPrefab, transform.position, Quaternion.identity, null), 1f);
         }
